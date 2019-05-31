@@ -1,0 +1,9 @@
+language: node_js
+
+deploy:
+  provider: gae
+  keyfile: "client-secret.json"
+  project: "gtm-templates-com"
+before_install:
+- openssl aes-256-cbc -K $encrypted_c43d0a9d19c9_key -iv $encrypted_c43d0a9d19c9_iv
+  -in client-secret.json.enc -out client-secret.json -d

@@ -1,0 +1,82 @@
+extends layout
+ 
+block content
+ 
+  nav.navbar.navbar-expand-md.navbar-dark.bg-dark.mb-4
+    a.navbar-brand(href='#') GTM Templates
+    button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarCollapse' aria-controls='navbarCollapse' aria-expanded='false' aria-label='Toggle navigation')
+      span.navbar-toggler-icon
+    #navbarCollapse.collapse.navbar-collapse
+      ul.navbar-nav.mr-auto
+        li.nav-item.active
+          a.nav-link(href='/')
+            | Home 
+            span.sr-only (current)
+        li.nav-item
+          a.nav-link(href='categories') Categories
+        li.nav-item
+          a.nav-link(href='about') About
+        li.nav-item
+          a.nav-link(href='contact') Contact
+      form.form-inline.mt-2.mt-md-0
+        input.form-control.mr-sm-2(type='text' placeholder='Search' aria-label='Search')
+        button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
+  main.container(role='main')
+
+    .container
+    
+    .row
+      .col-lg-3
+        h1.my-4 More
+        .list-group
+          a.list-group-item.active(href='#') Featured
+          a.list-group-item(href='#') Analytics
+          a.list-group-item(href='#') A/B Test
+          a.list-group-item(href='#') Pixels
+      // /.col-lg-3
+      .col-lg-9
+        .card.mt-4
+          img.card-img-top.img-fluid(src='http://placehold.it/900x400' alt='')
+          .card-body
+            h3.card-title Yandex Metrica
+            h6 Author: Simo Ahava
+            span.text-warning &starf; &starf; &starf; &starf; &star;
+            |             4.0 stars
+            hr
+            ul#myTab.nav.nav-tabs(role='tablist')
+              li.nav-item
+                a#home-tab.nav-link.active(data-toggle='tab' href='#description' role='tab' aria-controls='description' aria-selected='true') Description
+              li.nav-item
+                a#manual-tab.nav-link(data-toggle='tab' href='#manual' role='tab' aria-controls='manual' aria-selected='false') Manual
+              li.nav-item
+                a#permissions-tab.nav-link(data-toggle='tab' href='#permissions' role='tab' aria-controls='permissions' aria-selected='false') Permissions
+              li.nav-item
+                a#reviews-tab.nav-link(data-toggle='tab' href='#reviews' role='tab' aria-controls='reviews' aria-selected='false') Reviews
+            #myTabContent.tab-content
+              #description.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='description-tab') 
+                p.card-text
+                      | Add Yandex Metrica Tracking
+                      br  
+              #manual.tab-pane.fade(role='tabpanel' aria-labelledby='manual-tab') 
+                p.card-text
+                      | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!
+                      br                
+              #permissions.tab-pane.fade(role='tabpanel' aria-labelledby='permissions-tab') 
+                p.card-text
+                      | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!
+                      br                
+              #reviews.tab-pane.fade(role='tabpanel' aria-labelledby='reviews-tab')
+                p.card-text
+                      | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!
+                      br                
+                
+
+
+
+    hr
+ 
+  footer
+  .container
+    div(align='center')
+      | Maintained by 
+      a(href='http://www.simoahava.com' target='_blank') Simo Ahava

@@ -1,0 +1,118 @@
+extends layout
+ 
+block content
+ 
+  nav.navbar.navbar-expand-md.navbar-dark.bg-dark.mb-4
+    a.navbar-brand(href='#') GTM Templates
+    button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarCollapse' aria-controls='navbarCollapse' aria-expanded='false' aria-label='Toggle navigation')
+      span.navbar-toggler-icon
+    #navbarCollapse.collapse.navbar-collapse
+      ul.navbar-nav.mr-auto
+        li.nav-item.active
+          a.nav-link(href='/')
+            | Home 
+            span.sr-only (current)
+        li.nav-item
+          a.nav-link(href='categories') Categories
+        li.nav-item
+          a.nav-link(href='about') About
+        li.nav-item
+          a.nav-link(href='contact') Contact
+      form.form-inline.mt-2.mt-md-0
+        input.form-control.mr-sm-2(type='text' placeholder='Search' aria-label='Search')
+        button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
+  main.container(role='main')
+    .jumbotron
+      h1 Featured Custom Template
+      p.lead
+        | This is the current Featured Custom Template
+      a.btn.btn-lg.btn-primary(href='#' role='button') More Details &raquo;
+    .container
+    
+    .row
+      .col-lg-4.col-md-6.mb-4
+        .card.h-100(data-bar="eec-impression")&attributes({'data-id': '1','data-name': '1','data-category': 'pixel'})
+          a(href='#')
+            img.card-img-top(src='http://placehold.it/700x400' alt='')
+          .card-body
+            h4.card-title
+              a(href='template/1/facebook-pixel') Facebook Pîxel
+            span.autor Author: 
+            a(href='#') Simo Ahava    
+            br
+            small Added: 2019-05-30
+            p.card-text
+              | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
+          .card-footer
+            small.text-muted &starf; &starf; &starf; &starf; &star; ( XXX views, YYY Downloads )
+      .col-lg-4.col-md-6.mb-4
+        .card.h-100
+          a(href='#')
+            img.card-img-top(src='http://placehold.it/700x400' alt='')
+          .card-body
+            h4.card-title
+              a(href='template/2/yandex-metrica') Yandex Metrica
+            h6 Author: Simo Ahava
+            small Added: 2019-05-30
+            p.card-text
+              | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.
+          .card-footer
+            small.text-muted &starf; &starf; &starf; &starf; &star; ( XXX views, YYY Downloads )
+      .col-lg-4.col-md-6.mb-4
+        .card.h-100
+          a(href='#')
+            img.card-img-top(src='http://placehold.it/700x400' alt='')
+          .card-body
+            h4.card-title
+              a(href='template/3/conductrics') Conductrics
+            h6 Author: Simo Ahava
+            small Added: 2019-05-30
+            p.card-text
+              | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.
+          .card-footer
+            small.text-muted &starf; &starf; &starf; &starf; &star; ( XXX views, YYY Downloads )
+      .col-lg-4.col-md-6.mb-4
+        .card.h-100
+          a(href='#')
+            img.card-img-top(src='http://placehold.it/700x400' alt='')
+          .card-body
+            h4.card-title
+              a(href='#') Item Four
+            h5 $24.99
+            p.card-text
+              | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
+          .card-footer
+            small.text-muted &starf; &starf; &starf; &starf; &star;
+      .col-lg-4.col-md-6.mb-4
+        .card.h-100
+          a(href='#')
+            img.card-img-top(src='http://placehold.it/700x400' alt='')
+          .card-body
+            h4.card-title
+              a(href='#') Item Five
+            h5 $24.99
+            p.card-text
+              | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.
+          .card-footer
+            small.text-muted &starf; &starf; &starf; &starf; &star;
+      .col-lg-4.col-md-6.mb-4
+        .card.h-100
+          a(href='#')
+            img.card-img-top(src='http://placehold.it/700x400' alt='')
+          .card-body
+            h4.card-title
+              a(href='#') Item Six
+            h5 $24.99
+            p.card-text
+              | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
+          .card-footer
+            small.text-muted &starf; &starf; &starf; &starf; &star;
+    // /.row
+
+    hr
+ 
+  footer
+  .container
+    div(align='center')
+      | Maintained by 
+      a(href='http://www.simoahava.com' target='_blank') Simo Ahava

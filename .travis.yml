@@ -1,5 +1,7 @@
 language: node_js
-
+script:
+  - npm run lint
+  - npm test
 deploy:
   provider: gae
   keyfile: "client-secret.json"

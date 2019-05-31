@@ -16,15 +16,10 @@ router.get('/category', function(req, res, next) {
 });
 
 router.get('/template/:id/:name', function(req, res, next) {
-    var fs = require('fs');
-    var template_json;
-    fs.readFile('public/templates/yandex_metrica.tpl', 'utf8', function(err, contents) {
         if(err) throw err;
         var id = req.params.id,
             name = req.params.name;    
-        res.render('template', { title: name + ' Custom Template'});        
-    }); 
-
+        res.render('template', { title: name + ' Custom Template'});    
 });
 
 router.get('/search', function(req, res, next) {

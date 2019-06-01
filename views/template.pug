@@ -65,31 +65,6 @@ block content
                 span.carousel-control-next-icon(aria-hidden='true')
                 span.sr-only Next             
             hr       
-            ul.nav.nav-tabs(role='tablist')
-              li.nav-item
-                a.nav-link.active(data-toggle='tab', href='#home') Home
-              li.nav-item
-                a.nav-link(data-toggle='tab', href='#menu1') Menu 1
-              li.nav-item
-                a.nav-link(data-toggle='tab', href='#menu2') Menu 2
-            .tab-content
-              #home.container.tab-pane.active
-                br
-                h3 HOME
-                p
-                  | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              #menu1.container.tab-pane.fade
-                br
-                h3 Menu 1
-                p
-                  | Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-              #menu2.container.tab-pane.fade
-                br
-                h3 Menu 2
-                p
-                  | Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
-
-            
             ul#myTab.nav.nav-tabs(role='tablist')
               li.nav-item
                 a#details-tab.nav-link.active(data-toggle='tab' href='#details' role='tab' aria-controls='details' aria-selected='true') Details
@@ -110,10 +85,10 @@ block content
                           td #{template.name}
                         tr
                           td Description
-                          td En un lugar de la mancha                          
+                          td #{template.description}                        
                         tr
                           td Tag Type
-                          td Tag/Variable                        
+                          td #{template.type}                        
                         tr
                           td Date Added
                           td #{template.added_date}
@@ -121,14 +96,14 @@ block content
                           td Date Updated
                           td #{template.updated_date}  
                         tr
-                          td Template Type
-                          td WEB  
+                          td Template Platform
+                          td #{template.platform}  
                         tr
                           td Github URL
-                          td https://github.com/sahava
+                          td #{template.git_url}
                         tr
                           td Template URL
-                          td https://www.simoahava.com/custom-template
+                          td #{template.url}
                       br  
          
               #permissions.tab-pane.fade(role='tabpanel' aria-labelledby='permissions-tab') 

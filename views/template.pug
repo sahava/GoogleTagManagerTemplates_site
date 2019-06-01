@@ -27,7 +27,7 @@ block content
     
     .row
       .col-lg-3
-        h1.my-4 More
+        h1.my-4 
         .list-group
           a.list-group-item.active(href='#') Featured
           a.list-group-item(href='#') Analytics
@@ -36,31 +36,76 @@ block content
       // /.col-lg-3
       .col-lg-9
         .card.mt-4
-          img.card-img-top.img-fluid(src='http://placehold.it/900x400' alt='')
+ 
+        
           .card-body
-            h3.card-title Yandex Metrica
-            h6 Author: Simo Ahava
-            span.text-warning &starf; &starf; &starf; &starf; &star;
-            |             4.0 stars
-            hr
+            .media
+              .media-body
+                h3.mt-0.mb-1 #{template.name} &starf; &starf; &starf; &starf; &star;
+                h6 Author: #{template.author}
+                h6 Views: #{template.views}
+                h6 Downloads: #{template.downloads}
+              img.ml-3(src=template.logo, alt=template.name+' Logo',width= '100px')   
+            #carouselExampleIndicators.carousel.slide(data-ride='carousel')
+              ol.carousel-indicators
+                li.active(data-target='#carouselExampleIndicators', data-slide-to='0')
+                li(data-target='#carouselExampleIndicators', data-slide-to='1')
+                li(data-target='#carouselExampleIndicators', data-slide-to='2')
+              .carousel-inner
+                .carousel-item.active
+                  img.d-block.w-100(src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16b0e49b7e5%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16b0e49b7e5%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285.921875%22%20y%3D%22217.7%22%3EFirst%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E', alt='First slide')
+                .carousel-item
+                  img.d-block.w-100(src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16b0e49b7e5%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16b0e49b7e5%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285.921875%22%20y%3D%22217.7%22%3EFirst%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E', alt='Second slide')
+                .carousel-item
+                  img.d-block.w-100(src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16b0e49b7e5%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16b0e49b7e5%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285.921875%22%20y%3D%22217.7%22%3EFirst%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E', alt='Third slide')
+              a.carousel-control-prev(href='#carouselExampleIndicators', role='button', data-slide='prev')
+                span.carousel-control-prev-icon(aria-hidden='true')
+                span.sr-only Previous
+              a.carousel-control-next(href='#carouselExampleIndicators', role='button', data-slide='next')
+                span.carousel-control-next-icon(aria-hidden='true')
+                span.sr-only Next             
+            hr       
             ul#myTab.nav.nav-tabs(role='tablist')
               li.nav-item
-                a#home-tab.nav-link.active(data-toggle='tab' href='#description' role='tab' aria-controls='description' aria-selected='true') Description
-              li.nav-item
-                a#manual-tab.nav-link(data-toggle='tab' href='#manual' role='tab' aria-controls='manual' aria-selected='false') Manual
+                a#details-tab.nav-link.active(data-toggle='tab' href='#details' role='tab' aria-controls='details' aria-selected='true') Details
               li.nav-item
                 a#permissions-tab.nav-link(data-toggle='tab' href='#permissions' role='tab' aria-controls='permissions' aria-selected='false') Permissions
               li.nav-item
                 a#reviews-tab.nav-link(data-toggle='tab' href='#reviews' role='tab' aria-controls='reviews' aria-selected='false') Reviews
+              li.nav-item
+                a#changelog-tab.nav-link(data-toggle='tab' href='#changelog' role='tab' aria-controls='changelog' aria-selected='false') Changelog                
             #myTabContent.tab-content
-              #description.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='description-tab') 
-                p.card-text
-                      | Add Yandex Metrica Tracking
+              #details.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='details-tab') 
+                p.card-text                
+                    p Here is goes the tag desciption
+                    table.table
+                      tbody
+                        tr
+                          td Name
+                          td #{template.name}
+                        tr
+                          td Description
+                          td #{template.description}                        
+                        tr
+                          td Tag Type
+                          td #{template.type}                        
+                        tr
+                          td Date Added
+                          td #{template.added_date}
+                        tr
+                          td Date Updated
+                          td #{template.updated_date}  
+                        tr
+                          td Template Platform
+                          td #{template.platform}  
+                        tr
+                          td Github URL
+                          td #{template.git_url}
+                        tr
+                          td Template URL
+                          td #{template.url}
                       br  
-              #manual.tab-pane.fade(role='tabpanel' aria-labelledby='manual-tab') 
-                p.card-text
-                      | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!
-                      br                
+         
               #permissions.tab-pane.fade(role='tabpanel' aria-labelledby='permissions-tab') 
                 p.card-text
                       | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!
@@ -69,7 +114,10 @@ block content
                 p.card-text
                       | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!
                       br                
-                
+              #changelog.tab-pane.fade(role='tabpanel' aria-labelledby='changelog-tab') 
+                p.card-text
+                      | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!
+                      br                   
 
 
 

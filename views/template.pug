@@ -1,42 +1,33 @@
 extends layout
- 
-block content
- 
-  nav.navbar.navbar-expand-md.navbar-dark.bg-dark.mb-4
-    a.navbar-brand(href='#') GTM Templates
-    button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarCollapse' aria-controls='navbarCollapse' aria-expanded='false' aria-label='Toggle navigation')
-      span.navbar-toggler-icon
-    #navbarCollapse.collapse.navbar-collapse
-      ul.navbar-nav.mr-auto
-        li.nav-item.active
-          a.nav-link(href='/')
-            | Home 
-            span.sr-only (current)
-        li.nav-item
-          a.nav-link(href='categories') Categories
-        li.nav-item
-          a.nav-link(href='about') About
-        li.nav-item
-          a.nav-link(href='contact') Contact
-      form.form-inline.mt-2.mt-md-0
-        input.form-control.mr-sm-2(type='text' placeholder='Search' aria-label='Search')
-        button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
-  main.container(role='main')
 
+        
+block content
+
+   main.container(role='main')
     .container
-    
+    // Modal
+    #exampleModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            h5#exampleModalLabel.modal-title Modal title
+            button.close(type='button' data-dismiss='modal' aria-label='Close')
+              span(aria-hidden='true') &times;
+          .modal-body
+            | ...
+          .modal-footer
+            button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+            button.btn.btn-primary(type='button') Save changes
     .row
       .col-lg-3
         h1.my-4 
         .list-group
-          a.list-group-item.active(href='#') Featured
           a.list-group-item(href='#') Analytics
           a.list-group-item(href='#') A/B Test
           a.list-group-item(href='#') Pixels
       // /.col-lg-3
       .col-lg-9
         .card.mt-4
- 
         
           .card-body
             .media
@@ -71,7 +62,8 @@ block content
               li.nav-item
                 a#permissions-tab.nav-link(data-toggle='tab' href='#permissions' role='tab' aria-controls='permissions' aria-selected='false') Permissions
               li.nav-item
-                a#reviews-tab.nav-link(data-toggle='tab' href='#reviews' role='tab' aria-controls='reviews' aria-selected='false') Reviews
+                a#reviews-tab.nav-link(data-toggle='tab' href='#reviews' role='tab' aria-controls='reviews' aria-selected='false') Reviews 
+                    span.badge.badge-warning 5
               li.nav-item
                 a#changelog-tab.nav-link(data-toggle='tab' href='#changelog' role='tab' aria-controls='changelog' aria-selected='false') Changelog                
             #myTabContent.tab-content
@@ -84,10 +76,13 @@ block content
                           td Name
                           td #{template.name}
                         tr
+                          td Category
+                          td #{template.category}                          
+                        tr
                           td Description
                           td #{template.description}                        
                         tr
-                          td Tag Type
+                          td Template Type
                           td #{template.type}                        
                         tr
                           td Date Added
@@ -96,35 +91,34 @@ block content
                           td Date Updated
                           td #{template.updated_date}  
                         tr
-                          td Template Platform
-                          td #{template.platform}  
+                          td Template Contexts
+                          td #{template.contexts}  
                         tr
-                          td Github URL
+                          td GIT URL
                           td #{template.git_url}
                         tr
                           td Template URL
                           td #{template.url}
-                      br  
-         
+                        tr
+                          td Vendor URL
+                          td #{template.url}                          
+                        tr
+                          td.text-center 
+                            button.btn.btn-primary(id="install-template" type='button' data-toggle='modal' data-target='#exampleModal')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category})
+                                | Auto-Install
+
+                          td.text-center 
+                            a.btn.btn-primary.btn.btn-warning(id="download-template" href='#' role='button')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category}) Download                                                                                   
+                      br           
               #permissions.tab-pane.fade(role='tabpanel' aria-labelledby='permissions-tab') 
                 p.card-text
-                      | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!
+                      | PERMISSIONS TAB
                       br                
               #reviews.tab-pane.fade(role='tabpanel' aria-labelledby='reviews-tab')
                 p.card-text
-                      | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!
+                      | REVIEWS TAB
                       br                
               #changelog.tab-pane.fade(role='tabpanel' aria-labelledby='changelog-tab') 
                 p.card-text
-                      | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!
+                      | CHANGELOG TAB
                       br                   
-
-
-
-    hr
- 
-  footer
-  .container
-    div(align='center')
-      | Maintained by 
-      a(href='http://www.simoahava.com' target='_blank') Simo Ahava

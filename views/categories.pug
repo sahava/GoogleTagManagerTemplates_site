@@ -1,0 +1,21 @@
+extends layout
+ 
+block content
+  main.container(role='main')
+    .jumbotron
+      h1 Categories
+      p.lead
+        | Choose a category
+    .container    
+    .row      
+    ul.list-group
+      li.list-group-item
+        a(href='#') Analytics&nbsp;
+        span.badge.badge-info 4 Templates
+      li.list-group-item
+        a(href='#') A/B Test&nbsp;
+        span.badge.badge-info  8 Templates      
+      li.list-group-item
+        a(href='#') Marketing Pixels&nbsp;
+        span.badge.badge-info  58 Templates      
+    

@@ -9,13 +9,8 @@ block content
     .container    
     .row      
     ul.list-group
-      li.list-group-item
-        a(href='#') Analytics&nbsp;
-        span.badge.badge-info 4 Templates
-      li.list-group-item
-        a(href='#') A/B Test&nbsp;
-        span.badge.badge-info  8 Templates      
-      li.list-group-item
-        a(href='#') Marketing Pixels&nbsp;
-        span.badge.badge-info  58 Templates      
+      each category, index in categories
+          li.list-group-item
+            a(href='/categories/'+category.id+'/'+category.slug) #{category.name} 
+            span.badge.badge-info 4 Templates  
     

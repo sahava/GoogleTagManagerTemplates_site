@@ -1,8 +1,7 @@
 // Helper to Parse GTM TPL Files
 // David Vallejo @thyng
 
-const parseTemplate = (tpl,output_format) => {
-    var request = require('request');    
+const parseTemplate = (tpl) => {
         const data = tpl.split(/___(.+)___/).slice(1); 
         const tpl_structure = {
             info: JSON.parse(data[1]),

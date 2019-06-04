@@ -1,8 +1,9 @@
 extends layout
 
-        
+     
 block content
 
+   script(src='https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?autoload=true&skin=sunburst&lang=css', defer='')   
    main.container(role='main')
     .container
     // Modal
@@ -112,7 +113,23 @@ block content
                       br           
               #permissions.tab-pane.fade(role='tabpanel' aria-labelledby='permissions-tab') 
                 p.card-text
-                      | PERMISSIONS TAB
+                #accordion
+                  .card
+                    #headingOne.card-header
+                      h5.mb-0
+                        button.btn.btn-link(data-toggle='collapse', data-target='#collapseOne', aria-expanded='true', aria-controls='collapseOne')
+                          | Collapsible Group Item #1
+                    #collapseOne.collapse.show(aria-labelledby='headingOne', data-parent='#accordion')
+                      .card-body
+                        | DETAILS
+                  .card
+                    #headingLast.card-header
+                      h5.mb-0
+                        button.btn.btn-link.collapsed(data-toggle='collapse', data-target='#collapseLast', aria-expanded='false', aria-controls='collapseLast')
+                          | Source
+                    #collapseLast.collapse(aria-labelledby='headingLast', data-parent='#accordion')
+                      .card-body
+                        pre.prettyprint #{template.permissions}                                      
                       br                
               #reviews.tab-pane.fade(role='tabpanel' aria-labelledby='reviews-tab')
                 p.card-text

@@ -2,16 +2,15 @@ doctype html
 html
   head
     script.
-        window.dataLayer = window.dataLayer || [];  
+        window.dataLayer = window.dataLayer || [];
         window.dataLayer.push(!{JSON.stringify(dataLayer)});
     meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
     meta(charset='utf-8')
     title= title
-    link(rel='stylesheet',type="text/css" , href='/css/bootstrap.min.css')    
+    link(rel='stylesheet',type="text/css" , href='/css/bootstrap.min.css')
   body
-    include header.pug 
+    include header.pug
     block content
-    include footer.pug 
+    include footer.pug
     script(src='/js/jquery.min.js')
-    script(src='/js/popper.js')
     script(src='/js/bootstrap.min.js')

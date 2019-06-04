@@ -28,7 +28,7 @@ router.get('/:id/:name', async (req, res, next) => {
       template.displayName = parsed_tpl.info.displayName;
       template.description = parsed_tpl.info.description;
       template.type = parsed_tpl.info.type;
-      template.permissions = JSON.stringify(parsed_tpl.permissions,null);
+      template.permissions = parsed_tpl.permissions;
     }
     
       

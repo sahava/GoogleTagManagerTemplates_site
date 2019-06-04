@@ -2,7 +2,9 @@ extends layout
 
      
 block content
-
+   // Needs Refactor, not sure where should I keep this, maybe using some i18 library ?
+   - var permissions_translation = {access_globals: "Accesses Global Variables",inject_script: "Injects Scripts",logging: "Logs to Console",set_cookies: "Sets a cookie value"};
+   
    script(src='https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?autoload=true&skin=sunburst&lang=css', defer='')   
    main.container(role='main')
     .container
@@ -109,28 +111,20 @@ block content
                                 | Auto-Install
 
                           td.text-center 
-                            a.btn.btn-primary.btn.btn-warning(id="download-template" href='#' role='button')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category}) Download                                                                                   
+                            a.btn.btn-primary.btn.btn-warning(id="download-template" href='#' role='button')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category}) Download                                                                                 
                       br           
               #permissions.tab-pane.fade(role='tabpanel' aria-labelledby='permissions-tab') 
                 p.card-text
                 #accordion
-                  .card
-                    #headingOne.card-header
+                each permission, index in template.permissions
+                  .card                  
+                    .card-header(id='heading-' + index)
                       h5.mb-0
-                        button.btn.btn-link(data-toggle='collapse', data-target='#collapseOne', aria-expanded='true', aria-controls='collapseOne')
-                          | Collapsible Group Item #1
-                    #collapseOne.collapse.show(aria-labelledby='headingOne', data-parent='#accordion')
+                        button.btn.btn-link(data-toggle='collapse', data-target='#collapse-'+ index, aria-expanded='true', aria-controls='collapse-'+index)
+                         | #{permissions_translation[permission.instance.key.publicId]}
+                    .collapse(aria-labelledby='heading-'+index, data-parent='#accordion' id='collapse-'+index)
                       .card-body
-                        | DETAILS
-                  .card
-                    #headingLast.card-header
-                      h5.mb-0
-                        button.btn.btn-link.collapsed(data-toggle='collapse', data-target='#collapseLast', aria-expanded='false', aria-controls='collapseLast')
-                          | Source
-                    #collapseLast.collapse(aria-labelledby='headingLast', data-parent='#accordion')
-                      .card-body
-                        pre.prettyprint #{template.permissions}                                      
-                      br                
+                        pre.prettyprint #{JSON.stringify(permission.instance.param)}          
               #reviews.tab-pane.fade(role='tabpanel' aria-labelledby='reviews-tab')
                 p.card-text
                       | REVIEWS TAB

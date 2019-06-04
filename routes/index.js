@@ -13,11 +13,29 @@ router.get('/', (req, res) => {
               }
              let dataLayer = {
                  page: { type: 'home page',title: 'Home - GTM Templates' }
-             };                 
-             res.render('index', { title: dataLayer.page.title, dataLayer: dataLayer, 'templates' : rows});            
+             };  
+                 console.log(rows);
+             res.render('index', { title: dataLayer.page.title, dataLayer: dataLayer, 'templates' : rows});   
+                 
             });    
 });   
 
+/* GET home page new */
+router.get('/new', (req, res) => {
+           const sqlite3 = require('sqlite3').verbose();
+           let db = new sqlite3.Database('./db/templates.db', () => {
+           //     console.error('Can\'t open database',err);
+           });  
+             db.all(`SELECT * FROM templates`, [], (err, rows) => {
+              if (err) {
+                throw err;
+              }
+             let dataLayer = {
+                 page: { type: 'home page',title: 'Home - GTM Templates' }
+             };                 
+             res.render('index_new', { title: dataLayer.page.title, dataLayer: dataLayer, 'templates' : rows});            
+            });    
+}); 
 router.get('/about', (req, res) => {
     let dataLayer = {
         page: { type: 'about page', title: 'About - GTM Templates' }
@@ -38,7 +56,6 @@ router.get('/categories', (req, res) => {
     };       
     res.render('categories', { title: dataLayer.page.title, dataLayer: dataLayer  });
 });    
-
            
 router.get('/template/:id/:name', (req, res) => {
             const id = req.params.id,
@@ -80,7 +97,7 @@ router.get('/template/:id/:name', (req, res) => {
               let dataLayer = {
                   page: { type: 'custom template page', title: name + ' Custom Template' },
                   template: {
-                      info: template.info,
+                      info: JSON.parse(template.info),
                       // parameters: JSON.parse(template.parameters),
                       // permissions: JSON.parse(template.permissions),
                       // code: JSON.parse(template.code),
@@ -89,9 +106,7 @@ router.get('/template/:id/:name', (req, res) => {
                   } 
               };                        
               res.render('template', { title: dataLayer.page.title, dataLayer: dataLayer, 'template' : rows[0]});     
-            }); 
-    
-        
+            });             
 });
 
 router.get('/search', (req, res) => {

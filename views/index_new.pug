@@ -1,0 +1,44 @@
+extends layout
+ 
+block content
+  main.container(role='main')
+    .jumbotron
+      h1 Featured Custom Template
+      p.lead
+        | This is the current Featured Custom Template, it's grabbed from Related Products Feed
+      a.btn.btn-lg.btn-primary(href='#' role='button') More Details &raquo;
+    .container    
+    .row      
+      each template, index in templates
+          if index < 3
+              .col-lg-4.col-md-6.mb-4
+                .card.h-100(data-ga-action="impression")&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category})
+                  .card-body
+                    img.rounded.float-right(src='https://media1.tenor.com/images/e86ad38ec43f8d28a608259275fe9b31/tenor.gif', alt='', width="75px")                    
+                    h4.card-title                    
+                      a(href='template/'+template.id+'/'+template.slug+'')= template.name
+                    span.autor Author: 
+                    a(href='#')= template.author 
+                    br
+                    small Added:#{template.added_date}
+                    p.card-text
+                      | #{template.description}
+                  .card-footer
+                    small.text-muted &starf; &starf; &starf; &starf; &star; ( #{template.views} views, #{template.downloads} Downloads )                   
+              
+          else              
+              .col-lg-12.col-md-6.mb-4
+                .card.h-100(data-ga-action="impression")&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category})
+                  .card-body
+                    img.rounded.float-right(src='https://cdn3.iconfinder.com/data/icons/restaurant-91/512/rest_noodle-128.png', alt='')                    
+                    h4.card-title
+                      a(href='template/'+template.id+'/'+template.slug+'')= template.name
+                    span.autor Author: 
+                    a(href='#')= template.author 
+                    br
+                    small Added:#{template.added_date}
+                    p.card-text
+                      | #{template.description}
+                  .card-footer
+                    small.text-muted &starf; &starf; &starf; &starf; &star; ( #{template.views} views, #{template.downloads} Downloads )            
+

@@ -8,7 +8,7 @@ router.get('/', async (req, res, next) => {
   try {
 
     // Fetch templates
-    const rows = await model.list();
+    const {rows, hasMore} = await model.list(9, 0);
 
     // Render dataLayer and page
     const dataLayer = {

@@ -2,7 +2,7 @@ const express = require('express');
 const model = require('../models/template-db');
 const createError = require('http-errors');
 const router = express.Router();
-const {categories} = require('../helpers/datastore-schema');
+//const {categories} = require('../helpers/datastore-schema');
 const categories_details = {
     'analytics': {
         name: 'Analytics',
@@ -89,6 +89,7 @@ router.get('/:category/', async (req, res, next) => {
       count: result.length
     });
   } catch(err) {
+    createError(404);
     next(err);
   }
 });

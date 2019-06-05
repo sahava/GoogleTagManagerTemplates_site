@@ -1,5 +1,6 @@
 const categories = ["analytics", "abtests", "pixels"];
 
+
 const templateSchema = {
   name: 'string',
   author: 'string',

@@ -44,8 +44,8 @@ router.get('/:category/', async (req, res, next) => {
     const result = await model.listByCategory(category);
     // If no such item exists
     if (result.length === 0) {
-      //next(createError(404));
-      //return;
+        //next(createError(404));
+        //return;
         // Compile categories object
         const templates = result;
         // Render dataLayer and page

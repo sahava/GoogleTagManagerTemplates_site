@@ -1,6 +1,4 @@
-const categories = [
-  'Analytics'
-];
+const categories = ["analytics", "abtests", "pixels"];
 
 const templateSchema = {
   name: 'string',

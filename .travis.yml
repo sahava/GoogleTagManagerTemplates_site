@@ -1,9 +1,9 @@
 language: node_js
 node_js:
-  - "lts/*"
+- lts/*
 script:
-  - npm run lint
-  - npm test
+- npm run lint
+- npm test
 deploy:
   provider: gae
   keyfile: client-secret.json
@@ -12,4 +12,4 @@ deploy:
   skip_cleanup: true
 before_install:
 - openssl aes-256-cbc -K $encrypted_c43d0a9d19c9_key -iv $encrypted_c43d0a9d19c9_iv
-  -in client-secret.json.enc -out client-secret.json -d
+  -in client-secrets.json.enc -out client-secrets.json -d

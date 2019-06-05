@@ -14,9 +14,9 @@ const categories_details = {
         slug: 'abtest',
         count: 1
     },
-    'pixel': {
+    'pixels': {
         name: 'Marketing Pixel',
-        slug: 'pixel',
+        slug: 'pixels',
         count: 1
     }
 }; 

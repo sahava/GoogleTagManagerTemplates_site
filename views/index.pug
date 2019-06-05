@@ -14,7 +14,7 @@ block content
               .col-lg-4.col-md-6.mb-4
                 .card.h-100(data-ga-action="impression")&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category})
                   .card-body
-                    img.rounded.float-right(src='https://media1.tenor.com/images/e86ad38ec43f8d28a608259275fe9b31/tenor.gif', alt='', width="75px")
+                    img.rounded.float-right(src=''+template.logo, alt='', width="75px")
                     h4.card-title
                       a(href='template/'+template.id+'/'+template.slug+'')= template.name
                     span.autor Author:&nbsp;
@@ -30,7 +30,7 @@ block content
               .col-lg-12.col-md-6.mb-4
                 .card.h-100(data-ga-action="impression")&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category})
                   .card-body
-                    img.rounded.float-right(src='https://cdn3.iconfinder.com/data/icons/restaurant-91/512/rest_noodle-128.png', alt='')
+                    img.rounded.float-right(src=''+template.logo, alt='')
                     h4.card-title
                       a(href='template/'+template.id+'/'+template.slug+'')= template.name
                     span.autor Author:

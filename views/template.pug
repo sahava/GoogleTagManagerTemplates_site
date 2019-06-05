@@ -1,8 +1,11 @@
 extends layout
 
-        
+     
 block content
-
+   // Needs Refactor, not sure where should I keep this, maybe using some i18 library ?
+   - var permissions_translation = {access_globals: "Accesses Global Variables",inject_script: "Injects Scripts",logging: "Logs to Console",set_cookies: "Sets a cookie value"};
+   
+   script(src='https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?autoload=true&skin=sunburst&lang=css', defer='')   
    main.container(role='main')
     .container
     // Modal
@@ -108,12 +111,20 @@ block content
                                 | Auto-Install
 
                           td.text-center 
-                            a.btn.btn-primary.btn.btn-warning(id="download-template" href='#' role='button')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category}) Download                                                                                   
+                            a.btn.btn-primary.btn.btn-warning(id="download-template" href='#' role='button')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category}) Download                                                                                 
                       br           
               #permissions.tab-pane.fade(role='tabpanel' aria-labelledby='permissions-tab') 
                 p.card-text
-                      | PERMISSIONS TAB
-                      br                
+                #accordion
+                each permission, index in template.permissions
+                  .card                  
+                    .card-header(id='heading-' + index)
+                      h5.mb-0
+                        button.btn.btn-link(data-toggle='collapse', data-target='#collapse-'+ index, aria-expanded='true', aria-controls='collapse-'+index)
+                         | #{permissions_translation[permission.instance.key.publicId]}
+                    .collapse(aria-labelledby='heading-'+index, data-parent='#accordion' id='collapse-'+index)
+                      .card-body
+                        pre.prettyprint #{JSON.stringify(permission.instance.param)}          
               #reviews.tab-pane.fade(role='tabpanel' aria-labelledby='reviews-tab')
                 p.card-text
                       | REVIEWS TAB

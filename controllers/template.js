@@ -2,7 +2,8 @@ const express = require('express');
 const model = require('../models/template-db');
 const createError = require('http-errors');
 const router = express.Router();
-
+const gtmTplParser = require('../helpers/gtm-custom-template-parser');
+                       
 router.get('/:id/:name', async (req, res, next) => {
   try {
     const id = req.params.id,
@@ -19,16 +20,18 @@ router.get('/:id/:name', async (req, res, next) => {
 
     // Compile template object
     const template = result[0];
-    let data = template.json.split(/___(.+)___/).slice(1);
-    template.info = data[1] || {};
-    template.parameters = data[3];
-    template.permissions = data[5];
-    template.code = data[7];
-    template.notes = data[9] || '';
-    if (data[1]) {
-      template.logo = JSON.parse(data[1]).brand.thumbnail;
-      template.contexts = JSON.parse(data[1]).containerContexts.join(', ');
+    const parsed_tpl = gtmTplParser.parseTemplate(template.json,"json");
+     
+    if (parsed_tpl) {
+      template.logo = parsed_tpl.info.brand.thumbnail;
+      template.contexts = parsed_tpl.info.containerContexts.join(', ');
+      template.displayName = parsed_tpl.info.displayName;
+      template.description = parsed_tpl.info.description;
+      template.type = parsed_tpl.info.type;
+      template.permissions = parsed_tpl.permissions;
     }
+    
+      
     template.views += 1;
 
     // Increment template views
@@ -36,24 +39,20 @@ router.get('/:id/:name', async (req, res, next) => {
 
     // Render dataLayer and page
     const dataLayer = {
+      event: 'datalayer-initialized',
       page: {
         type: 'custom template page',
         title: name + ' Custom Template'
       },
-      template: {
-        info: template.info,
-        // parameters: JSON.parse(template.parameters),
-        // permissions: JSON.parse(template.permissions),
-        // code: JSON.parse(template.code),
-        notes: template.notes.trim(),
-        logo: template.logo
-      }
-    };
+      template: parsed_tpl
+    };  
+ 
     res.render('template', {
-      title: dataLayer.page.title,
-      dataLayer: dataLayer,
-      template
+        title: dataLayer.page.title,
+        dataLayer: dataLayer,
+        template
     });
+ 
   } catch(err) {
     next(err);
   }

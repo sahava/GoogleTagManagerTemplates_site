@@ -24,13 +24,6 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.get('/categories', (req, res) => {
-    let dataLayer = {
-        page: { type: 'categories listing page',title: 'Categories - GTM Templates'  }
-    };
-    res.render('categories', { title: dataLayer.page.title, dataLayer: dataLayer  });
-});
-
 router.get('/search', (req, res) => {
     let dataLayer = {
         page: { type: 'search results page', title: 'Search - GTM Templates' }

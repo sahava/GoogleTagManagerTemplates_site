@@ -7,6 +7,7 @@ const logger = require('morgan');
 const indexRouter = require('./controllers/index');
 const usersRouter = require('./controllers/users');
 const templateRouter = require('./controllers/template');
+const categoriesRouter = require('./controllers/categories');
 
 const app = express();
 
@@ -28,6 +29,8 @@ app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/template', templateRouter);
+app.use('/categories', categoriesRouter);
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => next(createError(404)));

@@ -30,7 +30,7 @@ router.get('/', async (req, res, next) => {
     */
     rows.forEach(function(e){
           const parsed_tpl = gtmTplParser.parseTemplate(rows[0].json, "json");
-          e.logo = parsed_tpl.info.brand.thumbnail
+          e.logo = parsed_tpl.info.brand.thumbnail;
     });  
     //console.log(parsed_tpl);      
     res.render('index', {

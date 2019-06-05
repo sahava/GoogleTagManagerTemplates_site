@@ -2,6 +2,8 @@ const express = require('express');
 const model = require('../models/template-db');
 const createError = require('http-errors');
 const router = express.Router();
+const gtmTplParser = require('../helpers/gtm-custom-template-parser');
+
 //const {categories} = require('../helpers/datastore-schema');
 const categories_details = {
     'analytics': {
@@ -60,6 +62,11 @@ router.get('/:category/', async (req, res, next) => {
           },
           templates: templates
         };
+        templates.forEach(function(e){
+              const parsed_tpl = gtmTplParser.parseTemplate(templates[0].json, "json");
+              e.logo = parsed_tpl.info.brand.thumbnail;
+        }); 
+
         res.render('category', {
           title: dataLayer.page.title,
           dataLayer: dataLayer,
@@ -70,6 +77,11 @@ router.get('/:category/', async (req, res, next) => {
     }
     // Compile categories object
     const templates = result;
+    templates.forEach(function(e){
+          const parsed_tpl = gtmTplParser.parseTemplate(e.json, "json");
+          e.logo = parsed_tpl.info.brand.thumbnail;
+          delete(e.json);
+    });       
     // Render dataLayer and page
     const dataLayer = {
       event: 'datalayer-initialized',        

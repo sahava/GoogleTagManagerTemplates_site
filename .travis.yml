@@ -5,7 +5,7 @@ script:
 - npm run lint
 deploy:
   provider: gae
-  keyfile: client-secret.json
+  keyfile: client-secrets.json
   project: gtm-templates-com
   default: true
   skip_cleanup: true

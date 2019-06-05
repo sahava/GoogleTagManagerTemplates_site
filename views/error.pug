@@ -4,5 +4,5 @@ block content
   main.container(role='main')
     .jumbotron
       h1 Error
-      h2= (error.status ? error.status + ': ' : '') + error.message
-      pre #{error.stack}
+      h2= (error.status ? error.status + ': ' : '') + message
+      pre #{stack}

@@ -1,11 +1,11 @@
 extends layout
 
-     
+
 block content
    // Needs Refactor, not sure where should I keep this, maybe using some i18 library ?
    - var permissions_translation = {access_globals: "Accesses Global Variables",inject_script: "Injects Scripts",logging: "Logs to Console",set_cookies: "Sets a cookie value"};
-   
-   script(src='https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?autoload=true&skin=sunburst&lang=css', defer='')   
+
+   script(src='https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?autoload=true&skin=sunburst&lang=css', defer='')
    main.container(role='main')
     .container
     // Modal
@@ -23,7 +23,7 @@ block content
             button.btn.btn-primary(type='button') Save changes
     .row
       .col-lg-3
-        h1.my-4 
+        h1.my-4
         .list-group
           a.list-group-item(href='#') Analytics
           a.list-group-item(href='#') A/B Test
@@ -31,7 +31,7 @@ block content
       // /.col-lg-3
       .col-lg-9
         .card.mt-4
-        
+
           .card-body
             .media
               .media-body
@@ -39,7 +39,7 @@ block content
                 h6 Author: #{template.author}
                 h6 Views: #{template.views}
                 h6 Downloads: #{template.downloads}
-              img.ml-3(src=template.logo, alt=template.name+' Logo',width= '100px')   
+              img.ml-3(src=template.logo, alt=template.name+' Logo',width= '100px')
             #carouselExampleIndicators.carousel.slide(data-ride='carousel')
               ol.carousel-indicators
                 li.active(data-target='#carouselExampleIndicators', data-slide-to='0')
@@ -57,21 +57,21 @@ block content
                 span.sr-only Previous
               a.carousel-control-next(href='#carouselExampleIndicators', role='button', data-slide='next')
                 span.carousel-control-next-icon(aria-hidden='true')
-                span.sr-only Next             
-            hr       
+                span.sr-only Next
+            hr
             ul#myTab.nav.nav-tabs(role='tablist')
               li.nav-item
                 a#details-tab.nav-link.active(data-toggle='tab' href='#details' role='tab' aria-controls='details' aria-selected='true') Details
               li.nav-item
                 a#permissions-tab.nav-link(data-toggle='tab' href='#permissions' role='tab' aria-controls='permissions' aria-selected='false') Permissions
               li.nav-item
-                a#reviews-tab.nav-link(data-toggle='tab' href='#reviews' role='tab' aria-controls='reviews' aria-selected='false') Reviews 
+                a#reviews-tab.nav-link(data-toggle='tab' href='#reviews' role='tab' aria-controls='reviews' aria-selected='false') Reviews
                     span.badge.badge-warning 5
               li.nav-item
-                a#changelog-tab.nav-link(data-toggle='tab' href='#changelog' role='tab' aria-controls='changelog' aria-selected='false') Changelog                
+                a#changelog-tab.nav-link(data-toggle='tab' href='#changelog' role='tab' aria-controls='changelog' aria-selected='false') Changelog
             #myTabContent.tab-content
-              #details.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='details-tab') 
-                p.card-text                
+              #details.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='details-tab')
+                p.card-text
                     p Here is goes the tag desciption
                     table.table
                       tbody
@@ -80,56 +80,47 @@ block content
                           td #{template.name}
                         tr
                           td Category
-                          td #{template.category}                          
+                          td #{template.category}
                         tr
                           td Description
-                          td #{template.description}                        
+                          td #{template.description}
                         tr
                           td Template Type
-                          td #{template.type}                        
+                          td #{template.type}
                         tr
                           td Date Added
                           td #{template.added_date}
                         tr
                           td Date Updated
-                          td #{template.updated_date}  
+                          td #{template.updated_date}
                         tr
                           td Template Contexts
-                          td #{template.contexts}  
+                          td #{template.contexts}
                         tr
-                          td GIT URL
-                          td #{template.git_url}
-                        tr
-                          td Template URL
-                          td #{template.url}
-                        tr
-                          td Vendor URL
-                          td #{template.url}                          
-                        tr
-                          td.text-center 
+                          td.text-center
                             button.btn.btn-primary(id="install-template" type='button' data-toggle='modal' data-target='#exampleModal')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category})
                                 | Auto-Install
 
-                          td.text-center 
-                            a.btn.btn-primary.btn.btn-warning(id="download-template" href='#' role='button')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category}) Download                                                                                 
-                      br           
-              #permissions.tab-pane.fade(role='tabpanel' aria-labelledby='permissions-tab') 
+                          td.text-center
+                            a.btn.btn-primary.btn.btn-warning(id="download-template" href='#' role='button')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category}) Download
+                      br
+              #permissions.tab-pane.fade(role='tabpanel' aria-labelledby='permissions-tab')
                 p.card-text
                 #accordion
                 each permission, index in template.permissions
-                  .card                  
+                  .card
                     .card-header(id='heading-' + index)
                       h5.mb-0
                         button.btn.btn-link(data-toggle='collapse', data-target='#collapse-'+ index, aria-expanded='true', aria-controls='collapse-'+index)
                          | #{permissions_translation[permission.instance.key.publicId]}
                     .collapse(aria-labelledby='heading-'+index, data-parent='#accordion' id='collapse-'+index)
                       .card-body
-                        pre.prettyprint #{JSON.stringify(permission.instance.param)}          
+                        pre.prettyprint #{JSON.stringify(permission.instance.param)}
               #reviews.tab-pane.fade(role='tabpanel' aria-labelledby='reviews-tab')
                 p.card-text
                       | REVIEWS TAB
-                      br                
-              #changelog.tab-pane.fade(role='tabpanel' aria-labelledby='changelog-tab') 
+                      br
+              #changelog.tab-pane.fade(role='tabpanel' aria-labelledby='changelog-tab')
                 p.card-text
                       | CHANGELOG TAB
-                      br                   
+                      br

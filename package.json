@@ -10,6 +10,7 @@
     "lint": "eslint \"./**/*.js\""
   },
   "dependencies": {
+    "@google-cloud/datastore": "^4.0.0",
     "@google-cloud/nodejs-repo-tools": "^3.3.0",
     "bootstrap": "^4.3.1",
     "cookie-parser": "~1.4.4",
@@ -19,8 +20,7 @@
     "jquery": "^3.4.1",
     "morgan": "~1.9.1",
     "popper.js": "^1.15.0",
-    "pug": "^2.0.3",
-    "sqlite": "^3.0.3"
+    "pug": "^2.0.3"
   },
   "devDependencies": {
     "eslint": "^5.16.0",

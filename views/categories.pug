@@ -1,16 +1,15 @@
 extends layout
- 
+
 block content
   main.container(role='main')
     .jumbotron
       h1 Categories
       p.lead
         | Choose a category
-    .container    
-    .row      
+    .container
+    .row
     ul.list-group
       each category, index in categories
           li.list-group-item
-            a(href='/categories/'+category.id+'/'+category.slug) #{category.name} 
-            span.badge.badge-info 4 Templates  
-    
+            a(href='/categories/'+category+'/') #{category}&nbsp;
+            span.badge.badge-info 4 Templates

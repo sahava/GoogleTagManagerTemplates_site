@@ -25,7 +25,7 @@ describe('Test /search controller', () => {
 describe('Test /template controller', () => {
 
   test('It should respond 200 status to GET request for valid template', async () => {
-    const response = await request(app).get('/template/1/yandex-metrica');
+    const response = await request(app).get('/template/5641906755207168/yandex-metrica');
     expect(response.statusCode).toBe(200);
   });
 

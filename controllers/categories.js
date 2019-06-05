@@ -71,6 +71,7 @@ router.get('/:category/', async (req, res, next) => {
     // Render dataLayer and page
     const dataLayer = {
       page: {
+        event: 'datalayer-initialized',
         type: 'templates listing page',
         title: 'Category: ' + categories_details[category].name +' - GTM Templates',
         category: category,

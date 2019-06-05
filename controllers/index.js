@@ -13,6 +13,7 @@ router.get('/', async (req, res, next) => {
 
     // Render dataLayer and page
     const dataLayer = {
+      event: 'datalayer-initialized',
       page: {type: 'home page', title: 'Home - GTM Templates'}
     };
     res.render('index', {
@@ -27,6 +28,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/search', (req, res) => {
     let dataLayer = {
+        event: 'datalayer-initialized',
         page: { type: 'search results page', title: 'Search - GTM Templates' }
     };
     res.render('search', { title: dataLayer.page.title, dataLayer: dataLayer })

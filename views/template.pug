@@ -27,7 +27,7 @@ block content
         .list-group
           each category, index in categories_list      
               -var activeClass = (category.slug===template.category) ? "active" : ""
-              a.list-group-item(href='#' class=''+activeClass) #{category.name}
+              a.list-group-item(href='/categories/'+category.slug class=''+activeClass) #{category.name}
       // /.col-lg-3
       .col-lg-9
         .card.mt-4

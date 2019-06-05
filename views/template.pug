@@ -25,9 +25,9 @@ block content
       .col-lg-3
         h1.my-4
         .list-group
-          a.list-group-item(href='#') Analytics
-          a.list-group-item(href='#') A/B Test
-          a.list-group-item(href='#') Pixels
+          each category, index in categories_list      
+              -var activeClass = (category.slug===template.category) ? "active" : ""
+              a.list-group-item(href='#' class=''+activeClass) #{category.name}
       // /.col-lg-3
       .col-lg-9
         .card.mt-4

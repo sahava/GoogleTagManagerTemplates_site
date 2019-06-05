@@ -15,7 +15,7 @@ const categories_details = {
         count: 1
     },
     'pixel': {
-        name: 'Markting Pixel',
+        name: 'Marketing Pixel',
         slug: 'pixel',
         count: 1
     }
@@ -44,8 +44,27 @@ router.get('/:category/', async (req, res, next) => {
     const result = await model.listByCategory(category);
     // If no such item exists
     if (result.length === 0) {
-      next(createError(404));
-      return;
+      //next(createError(404));
+      //return;
+        // Compile categories object
+        const templates = result;
+        // Render dataLayer and page
+        const dataLayer = {
+          page: {
+            type: 'templates listing page',
+            title: 'Category: ' + categories_details[category].name +' - GTM Templates',
+            category: category,
+            count: 0
+          },
+          templates: templates
+        };
+        res.render('category', {
+          title: dataLayer.page.title,
+          dataLayer: dataLayer,
+          templates: templates,
+          category: categories_details[category].name,
+          count: 0
+        });        
     }
     // Compile categories object
     const templates = result;
@@ -54,7 +73,8 @@ router.get('/:category/', async (req, res, next) => {
       page: {
         type: 'templates listing page',
         title: 'Category: ' + categories_details[category].name +' - GTM Templates',
-        category: category
+        category: category,
+        count: result.length
       },
       templates: templates
     };
@@ -62,7 +82,8 @@ router.get('/:category/', async (req, res, next) => {
       title: dataLayer.page.title,
       dataLayer: dataLayer,
       templates: templates,
-      category: categories_details[category]
+      category: categories_details[category].name,
+      count: result.length
     });
   } catch(err) {
     next(err);

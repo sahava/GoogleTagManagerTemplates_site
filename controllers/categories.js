@@ -23,7 +23,8 @@ const categories_details = {
 router.get('/', async (req, res) => {
        
   const dataLayer = {
-    page: {
+    event: 'datalayer-initialized',
+    page: {      
       type: 'categories listing page',
       title: 'Categories - GTMs Templates'
     },
@@ -50,6 +51,7 @@ router.get('/:category/', async (req, res, next) => {
         const templates = result;
         // Render dataLayer and page
         const dataLayer = {
+          event: 'datalayer-initialized',          
           page: {
             type: 'templates listing page',
             title: 'Category: ' + categories_details[category].name +' - GTM Templates',
@@ -70,8 +72,8 @@ router.get('/:category/', async (req, res, next) => {
     const templates = result;
     // Render dataLayer and page
     const dataLayer = {
+      event: 'datalayer-initialized',        
       page: {
-        event: 'datalayer-initialized',
         type: 'templates listing page',
         title: 'Category: ' + categories_details[category].name +' - GTM Templates',
         category: category,

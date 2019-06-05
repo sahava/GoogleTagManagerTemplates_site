@@ -3,7 +3,6 @@ node_js:
 - lts/*
 script:
 - npm run lint
-- npm test
 deploy:
   provider: gae
   keyfile: client-secret.json
@@ -13,4 +12,3 @@ deploy:
 before_install:
 - openssl aes-256-cbc -K $encrypted_c43d0a9d19c9_key -iv $encrypted_c43d0a9d19c9_iv
   -in client-secret.json.enc -out client-secret.json -d
-- gcloud auth activate-service-account --key-file client-secret.json

@@ -95,8 +95,8 @@ block content
                           td #{template.contexts}
                         tr
                           td(colspan=2).text-center
-                            a.btn.btn-primary.btn.btn-warning(id="download-template" href='#' role='button')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category})
-                                strong Download
+                            a.btn.btn-primary.btn.btn-warning(id="download-template" href=downloadUrl role='button')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category})
+                              strong Download
               #permissions.tab-pane.fade(role='tabpanel' aria-labelledby='permissions-tab')
                 p.card-text
                 #accordion
@@ -111,9 +111,9 @@ block content
                         pre.prettyprint #{JSON.stringify(permission.instance.param)}
               #reviews.tab-pane.fade(role='tabpanel' aria-labelledby='reviews-tab')
                 p.card-text
-                      | REVIEWS TAB
-                      br
+                  | REVIEWS TAB
+                  br
               #changelog.tab-pane.fade(role='tabpanel' aria-labelledby='changelog-tab')
                 p.card-text
-                      | CHANGELOG TAB
-                      br
+                  | CHANGELOG TAB
+                  br

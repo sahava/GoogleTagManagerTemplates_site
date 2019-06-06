@@ -3,105 +3,64 @@ const model = require('../models/template-db');
 const createError = require('http-errors');
 const router = express.Router();
 const gtmTplParser = require('../helpers/gtm-custom-template-parser');
+const enums = require('../helpers/enum');
 
-//const {categories} = require('../helpers/datastore-schema');
-const categories_details = {
-    'analytics': {
-        name: 'Analytics',
-        slug: 'analytics',
-        count: 1
-    },
-    'abtest': {
-        name: 'A/B Tests',
-        slug: 'abtest',
-        count: 1
-    },
-    'pixels': {
-        name: 'Marketing Pixel',
-        slug: 'pixels',
-        count: 1
-    }
-}; 
-router.get('/', async (req, res) => {
-       
+router.get('/', (req, res) => {
+
   const dataLayer = {
     event: 'datalayer-initialized',
-    page: {      
+    page: {
       type: 'categories listing page',
       title: 'Categories - GTMs Templates'
     },
-    categories: categories_details
+    categories: enums.categories
   };
 
   res.render('categories', {
     title: dataLayer.page.title,
     dataLayer: dataLayer,
-    categories: categories_details
+    categories: enums.categories
   });
 });
 
 router.get('/:category/', async (req, res, next) => {
   try {
-    const category = req.params.category;
-    // Grab All Templates
-    const result = await model.listByCategory(category);
-    // If no such item exists
-    if (result.length === 0) {
-        //next(createError(404));
-        //return;
-        // Compile categories object
-        const templates = result;
-        // Render dataLayer and page
-        const dataLayer = {
-          event: 'datalayer-initialized',          
-          page: {
-            type: 'templates listing page',
-            title: 'Category: ' + categories_details[category].name +' - GTM Templates',
-            category: category,
-            count: 0
-          },
-          templates: templates
-        };
-        templates.forEach(function(e){
-              const parsed_tpl = gtmTplParser.parseTemplate(templates[0].json, "json");
-              e.logo = parsed_tpl.info.brand.thumbnail;
-        }); 
+    const categorySlug = req.params.category;
 
-        res.render('category', {
-          title: dataLayer.page.title,
-          dataLayer: dataLayer,
-          templates: templates,
-          category: categories_details[category].name,
-          count: 0
-        });        
+    // If invalid category
+    if (!enums.categories[categorySlug]) {
+      next(createError(404, 'Category doesn\'t exist!'));
+      return;
     }
-    // Compile categories object
-    const templates = result;
-    templates.forEach(function(e){
-          const parsed_tpl = gtmTplParser.parseTemplate(e.json, "json");
-          e.logo = parsed_tpl.info.brand.thumbnail;
-          delete(e.json);
-    });       
+
+    // Grab templates by category
+    const templates = await model.listByCategory(categorySlug);
+
+    // Parse logo from template JSON
+    templates.forEach(template => {
+      const parsed_tpl = gtmTplParser.parseTemplate(template.json, "json");
+      template.logo = parsed_tpl.info.brand.thumbnail;
+    });
+
     // Render dataLayer and page
     const dataLayer = {
-      event: 'datalayer-initialized',        
+      event: 'datalayer-initialized',
       page: {
         type: 'templates listing page',
-        title: 'Category: ' + categories_details[category].name +' - GTM Templates',
-        category: category,
-        count: result.length
+        title: 'Category: ' + enums.categories[categorySlug] +' - GTM Templates',
+        category: categorySlug,
+        count: templates.length
       },
-      templates: templates
+      templates
     };
     res.render('category', {
       title: dataLayer.page.title,
       dataLayer: dataLayer,
       templates: templates,
-      category: categories_details[category].name,
-      count: result.length
+      category: enums.categories[categorySlug],
+      count: templates.length
     });
   } catch(err) {
-    createError(404);
     next(err);
   }
 });

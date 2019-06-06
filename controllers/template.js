@@ -26,6 +26,7 @@ router.get('/:id/:name', async (req, res, next) => {
 
     // Compile template object
     const parsed_tpl = gtmTplParser.parseTemplate(template.json, "json");
+    let date;
 
     if (parsed_tpl) {
       template.logo = parsed_tpl.info.brand.thumbnail;
@@ -34,6 +35,8 @@ router.get('/:id/:name', async (req, res, next) => {
       template.description = parsed_tpl.info.description;
       template.type = parsed_tpl.info.type;
       template.permissions = parsed_tpl.permissions;
+      template.was_added_on = new Date(template.added_date).toISOString().split("T")[0];                   
+      template.was_updated_on = new Date(template.updated_date).toISOString().split("T")[0];
     }
     template.views += 1;
 

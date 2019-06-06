@@ -40,6 +40,7 @@ router.get('/:category/', async (req, res, next) => {
     templates.forEach(template => {
       const parsed_tpl = gtmTplParser.parseTemplate(template.json, "json");
       template.logo = parsed_tpl.info.brand.thumbnail;
+      template.was_added_on = new Date(template.added_date).toISOString().split("T")[0];                  
     });
 
     // Render dataLayer and page

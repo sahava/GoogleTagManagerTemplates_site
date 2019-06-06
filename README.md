@@ -1,4 +1,6 @@
 # Google Tag Manager Templates Library
+[![Build Status](https://travis-ci.com/thyngster/gtmtemplates_com.svg?token=xxmVdtxvbfFcJjMsgYbV&branch=master)](https://travis-ci.com/thyngster/gtmtemplates_com)
+
 gtm templates dot com website
 
 # Installation

@@ -10,6 +10,7 @@ block content
     .row
     ul.list-group
       each category, index in categories
-          li.list-group-item            
-            a(href='/categories/'+category.slug+'/') #{category.name}&nbsp;
-            span.badge.badge-info #{category.count} Templates
+        li.list-group-item
+          a(href='/categories/'+index+'/') #{category}&nbsp;
+          span.badge.badge-info #{category.count} Templates
+

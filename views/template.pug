@@ -2,11 +2,8 @@ extends layout
 
 
 block content
-   // Needs Refactor, not sure where should I keep this, maybe using some i18 library ?
-   - var permissions_translation = {access_globals: "Accesses Global Variables",inject_script: "Injects Scripts",logging: "Logs to Console",set_cookies: "Sets a cookie value"};
-
-   script(src='https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?autoload=true&skin=sunburst&lang=css', defer='')
-   main.container(role='main')
+  script(src='https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?autoload=true&skin=sunburst&lang=css', defer='')
+  main.container(role='main')
     .container
     // Modal
     #exampleModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
@@ -25,9 +22,9 @@ block content
       .col-lg-3
         h1.my-4
         .list-group
-          each category, index in categories_list      
-              -var activeClass = (category.slug===template.category) ? "active" : ""
-              a.list-group-item(href='/categories/'+category.slug class=''+activeClass) #{category.name}
+          each category, index in categories_list
+              -var activeClass = (index===template.category) ? "active" : ""
+              a.list-group-item(href='/categories/'+index class=''+activeClass) #{category}
       // /.col-lg-3
       .col-lg-9
         .card.mt-4
@@ -80,7 +77,7 @@ block content
                           td #{template.name}
                         tr
                           td Category
-                          td #{template.category}
+                          td #{categories_list[template.category]}
                         tr
                           td Description
                           td #{template.description}
@@ -112,7 +109,7 @@ block content
                     .card-header(id='heading-' + index)
                       h5.mb-0
                         button.btn.btn-link(data-toggle='collapse', data-target='#collapse-'+ index, aria-expanded='true', aria-controls='collapse-'+index)
-                         | #{permissions_translation[permission.instance.key.publicId]}
+                         | #{permissions[permission.instance.key.publicId]}
                     .collapse(aria-labelledby='heading-'+index, data-parent='#accordion' id='collapse-'+index)
                       .card-body
                         pre.prettyprint #{JSON.stringify(permission.instance.param)}

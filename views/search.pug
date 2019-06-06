@@ -3,7 +3,67 @@ extends layout
 block content
   main.container(role='main')
     .jumbotron
-      h1 SEARCH
-      p.lead
-        | X Results found for '%'
+      h1 SEARCH RESULTS         
     .container    
+    .row
+      .col-8
+        div
+        | #{count} Results found for '%#{query}%'
+        br
+        br
+        each template, index in templates
+          .mb-4
+            .card.h-100(data-ga-action="impression")&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category, 'data-product-type': template.type})
+              .card-body
+                img.rounded.float-right(src=''+template.logo, alt='' width='100px')
+                h4.card-title
+                  a(href='/template/'+template.id+'/'+template.slug+'')= template.name
+                span.autor Author:
+                a(href='#')= template.author
+                br
+                small Added:#{template.added_date}
+                p.card-text
+                  | #{template.description}
+              .card-footer
+                small.text-muted &starf; &starf; &starf; &starf; &star; ( #{template.views} views, #{template.downloads} Downloads )
+      .col-4
+        h2 Refine
+        .card
+          .card-body
+            h5.card-title Template Type
+            p.card-text
+              ul
+                input#tagTypeTag.form-check-input(name="tagTypeTag" type='checkbox', value='')
+                label.form-check-label(for='tagTypeTag')
+                  | Tag
+                br
+                input#tagTypeVar.form-check-input(name="tagTypeVar" type='checkbox', value='')
+                label.form-check-label(for='tagTypeVar')
+                  | Variable
+        br
+        .card
+          .card-body
+            h5.card-title Category
+            p.card-text
+              ul
+                  each category, index in categories
+                    input#defaultCheck1.form-check-input(name=''+category type='checkbox', value='')
+                    label.form-check-label(for=''+category)
+                    | #{category}&nbsp; #{category.count}                
+                    br
+      .col-lg-12.col-md-6.mb-4
+          nav(aria-label='Page navigation example')
+            ul.pagination
+              li.page-item
+              a.page-link(href='#') Previous
+              li.page-item
+                a.page-link(href='#') 1
+              li.page-item
+                a.page-link(href='#') 2
+              li.page-item
+                a.page-link(href='#') 3
+              li.page-item
+                a.page-link(href='#') Next                    
+
+            
+    

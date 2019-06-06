@@ -94,13 +94,9 @@ block content
                           td Template Contexts
                           td #{template.contexts}
                         tr
-                          td.text-center
-                            button.btn.btn-primary(id="install-template" type='button' data-toggle='modal' data-target='#exampleModal')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category})
-                                | Auto-Install
-
-                          td.text-center
-                            a.btn.btn-primary.btn.btn-warning(id="download-template" href='#' role='button')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category}) Download
-                      br
+                          td(colspan=2).text-center
+                            a.btn.btn-primary.btn.btn-warning(id="download-template" href='#' role='button')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category}) 
+                                strong Download
               #permissions.tab-pane.fade(role='tabpanel' aria-labelledby='permissions-tab')
                 p.card-text
                 #accordion

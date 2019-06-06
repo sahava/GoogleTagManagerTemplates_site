@@ -8,6 +8,7 @@ const indexRouter = require('./controllers/index');
 const usersRouter = require('./controllers/users');
 const templateRouter = require('./controllers/template');
 const categoriesRouter = require('./controllers/categories');
+const searchRouter = require('./controllers/search');
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/template', templateRouter);
 app.use('/categories', categoriesRouter);
+app.use('/search', searchRouter);
 
 
 // catch 404 and forward to error handler

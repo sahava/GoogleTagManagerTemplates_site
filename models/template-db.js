@@ -60,6 +60,7 @@ const listByCategory = async category => {
   return rows.map(fromDatastore);
 };
 
+
 // Get template with ID
 const read = async id => {
   const key = ds.key([kind, parseInt(id, 10)])

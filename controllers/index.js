@@ -2,6 +2,7 @@ const express = require('express');
 const model = require('../models/template-db');
 const router = express.Router();
 const gtmTplParser = require('../helpers/gtm-custom-template-parser');
+const enums = require('../helpers/enum');
 
 
 /* GET home page. */
@@ -34,12 +35,34 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.get('/search', (req, res) => {
-    let dataLayer = {
-        event: 'datalayer-initialized',
-        page: { type: 'search results page', title: 'Search - GTM Templates' }
-    };
-    res.render('search', { title: dataLayer.page.title, dataLayer: dataLayer })
+router.get('/search', async (req, res, next) => {
+    try {
+        // GEt Query 
+        const query = req.query.q;
+        // Grab templates by category
+        // const templates = await model.search();  
+        const {rows} = await model.list(9, 0);
+        let dataLayer = {
+            event: 'datalayer-initialized',
+            page: { 
+                type: 'search results page', 
+                title: 'Search - GTM Templates',
+                query: query,
+                count: rows.length
+            }
+        };
+        res.render('search', { 
+            title: dataLayer.page.title, 
+            dataLayer: dataLayer,
+            categories: enums.categories,
+            templates: rows,
+            count: rows.length,
+            query: query
+        });        
+    } catch(err) {
+     next(err);
+    }
+
 });
 
 module.exports = router;

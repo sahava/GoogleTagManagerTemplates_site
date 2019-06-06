@@ -36,11 +36,8 @@ router.get('/:category/', async (req, res, next) => {
     // Grab templates by category
     const templates = await model.listByCategory(categorySlug);
 
-    // Parse logo from template JSON
-    templates.forEach(template => {
-      const parsed_tpl = gtmTplParser.parseTemplate(template.json, "json");
-      template.logo = parsed_tpl.info.brand.thumbnail;
-    });
+    // Parse logo and dates from template JSON
+    const parsedTemplates = templates.map(gtmTplParser.parseTemplate);
 
     // Render dataLayer and page
     const dataLayer = {
@@ -49,16 +46,16 @@ router.get('/:category/', async (req, res, next) => {
         type: 'templates listing page',
         title: 'Category: ' + enums.categories[categorySlug] +' - GTM Templates',
         category: categorySlug,
-        count: templates.length
+        count: parsedTemplates.length
       },
-      templates
+      templates: parsedTemplates
     };
     res.render('category', {
       title: dataLayer.page.title,
       dataLayer: dataLayer,
-      templates: templates,
+      templates: parsedTemplates,
       category: enums.categories[categorySlug],
-      count: templates.length
+      count: parsedTemplates.length
     });
   } catch(err) {
     next(err);

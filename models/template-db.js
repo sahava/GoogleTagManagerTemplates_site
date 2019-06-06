@@ -40,7 +40,7 @@ const list = async (limit, token) => {
 
   const [rows, nextQuery] = await ds.runQuery(q);
   return {
-    rows: rows.map(fromDatastore),
+    templates: rows.map(fromDatastore),
     hasMore: nextQuery.moreResults !== Datastore.NO_MORE_RESULTS
       ? nextQuery.endCursor
       : false

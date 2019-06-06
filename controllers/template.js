@@ -25,19 +25,10 @@ router.get('/:id/:name', async (req, res, next) => {
     }
 
     // Compile template object
-    const parsed_tpl = gtmTplParser.parseTemplate(template.json, "json");
-
-    if (parsed_tpl) {
-      template.logo = parsed_tpl.info.brand.thumbnail;
-      template.contexts = parsed_tpl.info.containerContexts.join(', ');
-      template.displayName = parsed_tpl.info.displayName;
-      template.description = parsed_tpl.info.description;
-      template.type = parsed_tpl.info.type;
-      template.permissions = parsed_tpl.permissions;
-    }
-    template.views += 1;
+    const parsed_tpl = gtmTplParser.parseTemplate(JSON.parse(JSON.stringify(template)));
 
     // Increment template views
+    template.views += 1;
     await model.update(id, template);
 
     // Render dataLayer and page
@@ -45,7 +36,7 @@ router.get('/:id/:name', async (req, res, next) => {
       event: 'datalayer-initialized',
       page: {
         type: 'custom template page',
-        title: template.displayName + ' Custom Template'
+        title: parsed_tpl.displayName + ' Custom Template'
       },
       template: parsed_tpl
     };
@@ -54,7 +45,7 @@ router.get('/:id/:name', async (req, res, next) => {
         title: dataLayer.page.title,
         dataLayer: dataLayer,
         categories_list: enums.categories,
-        template,
+        template: parsed_tpl,
         permissions: enums.permissions
     });
 

@@ -1,4 +1,4 @@
-const categories = ["analytics", "abtests", "pixels"];
+const {categories} = require('../helpers/enum');
 
 const templateSchema = {
   name: 'string',
@@ -8,8 +8,8 @@ const templateSchema = {
   type: 'string',
   price: 'number',
   currency: 'string',
-  license: 'string',
   category: categories,
+  license: 'string',
   json: 'string',
   slug: 'string',
   added_date: 'date',
@@ -32,8 +32,8 @@ const toSchema = obj => {
     // Check date properties
     if (templateSchema[key] === 'date' && typeof obj[key].getMonth === 'function') {
       result[key] = obj[key];
-    // Check against enums
-    } else if (Array.isArray(templateSchema[key]) && templateSchema[key].indexOf(obj[key]) > -1) {
+    // Check against enum
+    } else if (typeof templateSchema[key].hasOwnProperty === 'function' && templateSchema[key].hasOwnProperty(obj[key])) {
       result[key] = obj[key];
     // Check against primitives (e.g. string, number)
     } else if (typeof obj[key] === templateSchema[key]) {
@@ -44,6 +44,5 @@ const toSchema = obj => {
 };
 
 module.exports = {
-  toSchema,
-  categories
+  toSchema
 };

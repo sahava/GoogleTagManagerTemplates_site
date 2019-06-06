@@ -10,47 +10,47 @@ block content
     .container
     .row
       each template, index in templates
-          if index < 3
-              .col-lg-4.col-md-6.mb-4
-                .card.h-100(data-ga-action="impression")&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category})
-                  .card-body
-                    img.rounded.float-right(src=''+template.logo, alt='', width="75px")
-                    h4.card-title
-                      a(href='template/'+template.id+'/'+template.slug+'')= template.name
-                    span.autor Author:&nbsp;
-                    a(href='#')= template.author
-                    br
-                    small Added: #{template.added_date}
-                    p.card-text
-                      | #{template.description}
-                  .card-footer
-                    small.text-muted &starf; &starf; &starf; &starf; &star; ( #{template.views} views, #{template.downloads} Downloads )
-          else
-              .col-lg-12.col-md-6.mb-4
-                .card.h-100(data-ga-action="impression")&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category})
-                  .card-body
-                    img.rounded.float-right(src=''+template.logo, alt='')
-                    h4.card-title
-                      a(href='template/'+template.id+'/'+template.slug+'')= template.name
-                    span.autor Author:
-                    a(href='#')= template.author
-                    br
-                    small Added:#{template.added_date}
-                    p.card-text
-                      | #{template.description}
-                  .card-footer
-                    small.text-muted &starf; &starf; &starf; &starf; &star; ( #{template.views} views, #{template.downloads} Downloads )
+        if index < 3
+          .col-lg-4.col-md-6.mb-4
+            .card.h-100(data-ga-action="impression")&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category})
+              .card-body
+                img.rounded.float-right(src=''+template.logo, alt='', width="75px")
+                h4.card-title
+                  a(href='template/'+template.id+'/'+template.slug+'')= template.name
+                span.autor Author:&nbsp;
+                a(href='#')= template.author
+                br
+                small Added: #{template.added_date}
+                p.card-text
+                  | #{template.description}
+              .card-footer
+                small.text-muted &starf; &starf; &starf; &starf; &star; ( #{template.views} views, #{template.downloads} Downloads )
+        else
+          .col-lg-12.col-md-6.mb-4
+            .card.h-100(data-ga-action="impression")&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category})
+              .card-body
+                img.rounded.float-right(src=''+template.logo, alt='')
+                h4.card-title
+                  a(href='template/'+template.id+'/'+template.slug+'')= template.name
+                span.autor Author:
+                a(href='#')= template.author
+                br
+                small Added:#{template.added_date}
+                p.card-text
+                  | #{template.description}
+              .card-footer
+                small.text-muted &starf; &starf; &starf; &starf; &star; ( #{template.views} views, #{template.downloads} Downloads )
 
       .col-lg-12.col-md-6.mb-4
-          nav(aria-label='Page navigation example')
-            ul.pagination
-              li.page-item
-              a.page-link(href='#') Previous
-              li.page-item
-                a.page-link(href='#') 1
-              li.page-item
-                a.page-link(href='#') 2
-              li.page-item
-                a.page-link(href='#') 3
-              li.page-item
-                a.page-link(href='#') Next
+        nav(aria-label='Page navigation example')
+          ul.pagination
+            li.page-item
+            a.page-link(href='#') Previous
+            li.page-item
+              a.page-link(href='#') 1
+            li.page-item
+              a.page-link(href='#') 2
+            li.page-item
+              a.page-link(href='#') 3
+            li.page-item
+              a.page-link(href='#') Next

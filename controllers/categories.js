@@ -2,50 +2,63 @@ const express = require('express');
 const model = require('../models/template-db');
 const createError = require('http-errors');
 const router = express.Router();
-const {categories} = require('../helpers/datastore-schema');
+const gtmTplParser = require('../helpers/gtm-custom-template-parser');
+const enums = require('../helpers/enum');
 
-router.get('/', async (req, res) => {
+router.get('/', (req, res) => {
+
   const dataLayer = {
+    event: 'datalayer-initialized',
     page: {
       type: 'categories listing page',
       title: 'Categories - GTMs Templates'
     },
-    categories: categories
+    categories: enums.categories
   };
 
   res.render('categories', {
     title: dataLayer.page.title,
     dataLayer: dataLayer,
-    categories: categories
+    categories: enums.categories
   });
 });
 
 router.get('/:category/', async (req, res, next) => {
   try {
-    const category = req.params.category;
-    // Grab All Templates
-    const result = await model.listByCategory(category);
-    // If no such item exists
-    if (result.length === 0) {
-      next(createError(404));
+    const categorySlug = req.params.category;
+
+    // If invalid category
+    if (!enums.categories[categorySlug]) {
+      next(createError(404, 'Category doesn\'t exist!'));
       return;
     }
-    // Compile categories object
-    const templates = result;
+
+    // Grab templates by category
+    const templates = await model.listByCategory(categorySlug);
+
+    // Parse logo from template JSON
+    templates.forEach(template => {
+      const parsed_tpl = gtmTplParser.parseTemplate(template.json, "json");
+      template.logo = parsed_tpl.info.brand.thumbnail;
+    });
+
     // Render dataLayer and page
     const dataLayer = {
+      event: 'datalayer-initialized',
       page: {
         type: 'templates listing page',
-        title: 'Templates by Category: ' + category +' GTMs Templates',
-        category: category
+        title: 'Category: ' + enums.categories[categorySlug] +' - GTM Templates',
+        category: categorySlug,
+        count: templates.length
       },
-      templates: templates
+      templates
     };
     res.render('category', {
       title: dataLayer.page.title,
       dataLayer: dataLayer,
       templates: templates,
-      category: category
+      category: enums.categories[categorySlug],
+      count: templates.length
     });
   } catch(err) {
     next(err);

@@ -42,11 +42,12 @@ router.get('/:id/:name', async (req, res, next) => {
     };
 
     res.render('template', {
-        title: dataLayer.page.title,
-        dataLayer: dataLayer,
-        categories_list: enums.categories,
-        template: parsed_tpl,
-        permissions: enums.permissions
+      title: dataLayer.page.title,
+      dataLayer: dataLayer,
+      categories_list: enums.categories,
+      template: parsed_tpl,
+      permissions: enums.permissions,
+      downloadUrl: `/api/template/tpl/${id}`
     });
 
   } catch(err) {

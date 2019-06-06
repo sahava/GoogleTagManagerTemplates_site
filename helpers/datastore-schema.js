@@ -1,18 +1,25 @@
-const categories = [
-  'Analytics'
-];
+const categories = ["analytics", "abtests", "pixels"];
 
 const templateSchema = {
   name: 'string',
   author: 'string',
+  author_url : 'string',
+  author_slug : 'string',
+  type: 'string',
+  price: 'number',
+  currency: 'string',
+  license: 'string',
   category: categories,
   json: 'string',
   slug: 'string',
   added_date: 'date',
   updated_date: 'date',
   downloads: 'number',
+  installs: 'number',
   views: 'number',
-  votes: 'number'
+  vendor_url : 'string',
+  landing_url : 'string',
+  git_url : 'string'
 };
 
 const checkEqual = (obj1, obj2) => JSON.stringify(Object.keys(obj1).sort()) === JSON.stringify(Object.keys(obj2).sort());

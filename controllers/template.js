@@ -3,7 +3,23 @@ const model = require('../models/template-db');
 const createError = require('http-errors');
 const router = express.Router();
 const gtmTplParser = require('../helpers/gtm-custom-template-parser');
-
+const categories_details = {
+    'analytics': {
+        name: 'Analytics',
+        slug: 'analytics',
+        count: 1
+    },
+    'abtest': {
+        name: 'A/B Tests',
+        slug: 'abtest',
+        count: 1
+    },
+    'pixels': {
+        name: 'Marketing Pixel',
+        slug: 'pixels',
+        count: 1
+    }
+}; 
 router.get('/:id/:name', async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -53,11 +69,12 @@ router.get('/:id/:name', async (req, res, next) => {
     res.render('template', {
         title: dataLayer.page.title,
         dataLayer: dataLayer,
+        categories_list: categories_details,
         template
     });
 
   } catch(err) {
-    next(err);
+     next(err);
   }
 });
 

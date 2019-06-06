@@ -46,7 +46,7 @@ app.use((err, req, res, next) => {
   res.locals.stack = req.app.get('env') === 'development' ? err.stack : '';
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error', {title: 'Error'});
 });
 
 module.exports = app;

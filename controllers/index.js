@@ -21,7 +21,6 @@ router.get('/', async (req, res, next) => {
     
     rows.forEach(function(e){
           const parsed_tpl = gtmTplParser.parseTemplate(e.json, "json");
-          e.was_added_on = new Date(e.added_date).toISOString().split("T")[0];          
           e.logo = parsed_tpl.info.brand.thumbnail;
     });  
     //console.log(parsed_tpl);      

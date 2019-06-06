@@ -69,7 +69,7 @@ block content
             #myTabContent.tab-content
               #details.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='details-tab')
                 p.card-text
-                    p Here is goes the tag desciption
+                    p #{template.description}
                     table.table
                       tbody
                         tr
@@ -95,7 +95,7 @@ block content
                           td #{template.contexts}
                         tr
                           td(colspan=2).text-center
-                            a.btn.btn-primary.btn.btn-warning(id="download-template" href='#' role='button')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category}) 
+                            a.btn.btn-primary.btn.btn-warning(id="download-template" href='#' role='button')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category})
                                 strong Download
               #permissions.tab-pane.fade(role='tabpanel' aria-labelledby='permissions-tab')
                 p.card-text

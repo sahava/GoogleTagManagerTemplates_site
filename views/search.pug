@@ -1,10 +1,10 @@
 extends layout
- 
+
 block content
   main.container(role='main')
     .jumbotron
-      h1 SEARCH RESULTS         
-    .container    
+      h1 SEARCH RESULTS
+    .container
     .row
       .col-8
         div
@@ -46,11 +46,11 @@ block content
             h5.card-title Category
             p.card-text
               ul
-                  each category, index in categories
-                    input#defaultCheck1.form-check-input(name=''+category type='checkbox', value='')
-                    label.form-check-label(for=''+category)
-                    | #{category}&nbsp; #{category.count}                
-                    br
+                each category, index in categories
+                  input#defaultCheck1.form-check-input(name=''+category type='checkbox', value='')
+                  label.form-check-label(for=''+category)
+                  | #{category}&nbsp; #{category.count}
+                  br
       .col-lg-12.col-md-6.mb-4
           nav(aria-label='Page navigation example')
             ul.pagination
@@ -63,7 +63,6 @@ block content
               li.page-item
                 a.page-link(href='#') 3
               li.page-item
-                a.page-link(href='#') Next                    
+                a.page-link(href='#') Next
 
-            
-    
+

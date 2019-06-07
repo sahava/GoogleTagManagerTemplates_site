@@ -4,7 +4,7 @@ const createError = require('http-errors');
 
 // Config
 const ds = new Datastore();
-const kind = 'Template';
+const kind = process.env.NODE_ENV === 'production' ? 'Template' : 'Template_dev';
 const doNotIndex = ['json','slug'];
 
 // Append ID from datastore object to application object

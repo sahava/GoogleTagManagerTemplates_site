@@ -3,12 +3,13 @@ node_js:
 - lts/*
 script:
 - npm run lint
+- npm run test:unit
 deploy:
   provider: gae
-  keyfile: client-secrets.json
+  keyfile: cs.json
   project: gtm-templates-com
   default: true
   skip_cleanup: true
 before_install:
-- openssl aes-256-cbc -K $encrypted_c43d0a9d19c9_key -iv $encrypted_c43d0a9d19c9_iv
-  -in client-secrets.json.enc -out client-secrets.json -d
+- openssl aes-256-cbc -K $encrypted_6fc55035f215_key -iv $encrypted_6fc55035f215_iv
+  -in cs.json.enc -out cs.json -d

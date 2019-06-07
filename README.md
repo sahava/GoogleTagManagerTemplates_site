@@ -12,3 +12,11 @@ gtm templates dot com website
 4.1 on Windows Run `set GOOGLE_APPLICATION_CREDENTIALS=secret/client-secrets.json`
 5. Run app with `npm start`
 6. Browse to `localhost:8080`
+
+# Tests
+
+All tests: `npm test`
+
+Unit tests: `npm run test:unit`
+
+Integration tests: `npm run test:integration`

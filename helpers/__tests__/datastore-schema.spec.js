@@ -1,5 +1,5 @@
 const {toSchema} = require('../datastore-schema');
-const mocks = require('./helpers.mocks');
+const mocks = require('../__mocks__/helpers.mocks');
 
 describe('Test datastore-schema.js', () => {
   test('Should return schema-compliant result with valid template object', () => {

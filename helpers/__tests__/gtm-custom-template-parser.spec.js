@@ -1,5 +1,5 @@
 const {parseTemplate} = require('../gtm-custom-template-parser');
-const mocks = require('./helpers.mocks');
+const mocks = require('../__mocks__/helpers.mocks');
 
 describe('Test gtm-custom-template-parser.js', () => {
   test('Should return expected parsed template with a valid input', () => {

@@ -3,6 +3,7 @@ node_js:
 - lts/*
 script:
 - npm run lint
+- npm test
 deploy:
   provider: gae
   keyfile: client-secrets.json

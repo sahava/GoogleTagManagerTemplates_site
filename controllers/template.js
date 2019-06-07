@@ -27,11 +27,9 @@ router.get('/:id/:name', async (req, res, next) => {
     // Compile template object
     const parsed_tpl = gtmTplParser.parseTemplate(JSON.parse(JSON.stringify(template)));
 
-    // Ignore template view increment in dev
-    if (process.env.NODE_ENV === 'production') {
-      template.views += 1;
-      await model.update(id, template);
-    }
+    // Increment template views
+    template.views += 1;
+    await model.update(id, template);
 
     // Render dataLayer and page
     const dataLayer = {

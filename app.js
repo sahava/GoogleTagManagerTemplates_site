@@ -10,6 +10,8 @@ const templateRouter = require('./controllers/template');
 const categoriesRouter = require('./controllers/categories');
 const searchRouter = require('./controllers/search');
 
+const templateApi = require('./controllers/api.template');
+
 const app = express();
 
 // view engine setup
@@ -32,6 +34,8 @@ app.use('/users', usersRouter);
 app.use('/template', templateRouter);
 app.use('/categories', categoriesRouter);
 app.use('/search', searchRouter);
+
+app.use('/api/template', templateApi);
 
 
 // catch 404 and forward to error handler

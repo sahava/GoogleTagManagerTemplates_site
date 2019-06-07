@@ -3,7 +3,7 @@ node_js:
 - lts/*
 script:
 - npm run lint
-- npm test
+- npm test:unit
 deploy:
   provider: gae
   keyfile: cs.json

@@ -6,10 +6,10 @@ script:
 - npm run test:unit
 deploy:
   provider: gae
-  keyfile: cs.json
+  keyfile: client-secret.json
   project: gtm-templates-com
   default: true
   skip_cleanup: true
 before_install:
 - openssl aes-256-cbc -K $encrypted_6fc55035f215_key -iv $encrypted_6fc55035f215_iv
-  -in cs.json.enc -out cs.json -d
+  -in client-secret.json.enc -out secret/client-secret.json -d

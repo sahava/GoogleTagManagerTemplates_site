@@ -47,6 +47,7 @@ router.get('/:id/:name?', async (req, res, next) => {
       categories_list: enums.categories,
       template: parsed_tpl,
       permissions: enums.permissions,
+      permissions_icons: enums.permissions_icons,
       downloadUrl: `/api/template/tpl/${id}`
     });
 

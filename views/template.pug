@@ -118,8 +118,24 @@ block content
                                 li Only log during debug and preview
                             else
                                 li Always log
-                          when 1
-                            p you have a friend
+                          when "set_cookies"
+                            p Sets a cookie with the specified name and parameters.
+                            table.table
+                              thead.thead-light
+                                tr
+                                  th(scope='col') Cookie name
+                                  th(scope='col') Domain
+                                  th(scope='col') Path
+                                  th(scope='col') Secure
+                                  th(scope='col') Session
+                              tbody
+                                each cookie, index in permission.instance.param[0].value.listItem     
+                                    tr
+                                      td= cookie.mapValue[0].string
+                                      td= cookie.mapValue[1].string
+                                      td= cookie.mapValue[2].string
+                                      td= cookie.mapValue[3].string
+                                      td= cookie.mapValue[4].string
                           default
                             pre.prettyprint #{JSON.stringify(permission.instance.param)}
               #reviews.tab-pane.fade(role='tabpanel' aria-labelledby='reviews-tab')

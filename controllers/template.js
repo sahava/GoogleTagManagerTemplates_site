@@ -98,7 +98,7 @@ ___WEB_PERMISSIONS___
           "key": "urlParts",
           "value": {
             "type": 1,
-            "string": "any"
+            "string": "specific"
           }
         }
       ]
@@ -181,7 +181,7 @@ ___WEB_PERMISSIONS___
           "key": "queriesAllowed",
           "value": {
             "type": 1,
-            "string": "specific"
+            "string": "any"
           }
         },
         {
@@ -206,36 +206,10 @@ ___WEB_PERMISSIONS___
           }
         },
         {
-          "key": "extension",
-          "value": {
-            "type": 8,
-            "boolean": true
-          }
-        },
-        {
-          "key": "fragment",
-          "value": {
-            "type": 8,
-            "boolean": true
-          }
-        },
-        {
           "key": "port",
           "value": {
             "type": 8,
             "boolean": true
-          }
-        },
-        {
-          "key": "queryKeys",
-          "value": {
-            "type": 2,
-            "listItem": [
-              {
-                "type": 1,
-                "string": "qs"
-              }
-            ]
           }
         },
         {
@@ -384,7 +358,7 @@ data.gtmOnSuccess();
 
 ___NOTES___
 
-Created on 11/6/2019 0:58:27
+Created on 11/6/2019 1:29:15
 `;
       
     // Compile template object

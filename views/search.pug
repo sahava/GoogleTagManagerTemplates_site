@@ -33,11 +33,11 @@ block content
             h5.card-title Template Type
             p.card-text
               ul
-                input#tagTypeTag.form-check-input(name="tagTypeTag" type='checkbox', value='')
+                input#tagTypeTag.form-check-input.filter(name="tagTypeTag" type='checkbox', value='' data-filter-tag-type="tag" checked)
                 label.form-check-label(for='tagTypeTag')
                   | Tag
                 br
-                input#tagTypeVar.form-check-input(name="tagTypeVar" type='checkbox', value='')
+                input#tagTypeVar.form-check-input.filter(name="tagTypeVar" type='checkbox', value='' data-filter-tag-type="variable" checked)
                 label.form-check-label(for='tagTypeVar')
                   | Variable
         br
@@ -47,8 +47,8 @@ block content
             p.card-text
               ul
                 each category, index in categories
-                  input#defaultCheck1.form-check-input(name=''+category type='checkbox', value='')
-                  label.form-check-label(for=''+category)
+                  input#tagTypeTag.form-check-input.filter(name="tagCategoryName_"+index type='checkbox', value='', data-filter-tag-category=""+index checked)
+                  label.form-check-label(for='tagTypeTag')
                   | #{category}&nbsp; #{category.count}
                   br
       .col-lg-12.col-md-6.mb-4

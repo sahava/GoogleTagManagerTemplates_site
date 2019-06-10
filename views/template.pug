@@ -120,6 +120,7 @@ block content
                                 li Always log
                           when "set_cookies"
                             p Sets a cookie with the specified name and parameters.
+                            hr
                             table.table
                               thead.thead-light
                                 tr
@@ -136,6 +137,35 @@ block content
                                       td= cookie.mapValue[2].string
                                       td= cookie.mapValue[3].string
                                       td= cookie.mapValue[4].string
+                          when "access_globals"
+                            p Accesses a global variable (potentially including sensitive APIs)
+                            hr
+                            table.table
+                              thead.thead-light
+                                tr                                
+                                  th(scope='col') Key
+                                  th(scope='col') Read
+                                  th(scope='col') Write
+                                  th(scope='col') Execute      
+                              tbody
+                                each variable, index in permission.instance.param[0].value.listItem
+                                    tr
+                                      td= variable.mapValue[0].string
+                                      td
+                                        if variable.mapValue[1].boolean
+                                            input#gridCheck.form-check-input(type='checkbox' disabled checked)
+                                        else 
+                                            input#gridCheck.form-check-input(type='checkbox' disabled)
+                                      td
+                                        if variable.mapValue[2].boolean
+                                            input#gridCheck.form-check-input(type='checkbox' disabled checked)
+                                        else 
+                                            input#gridCheck.form-check-input(type='checkbox' disabled)
+                                      td
+                                        if variable.mapValue[3].boolean
+                                            input#gridCheck.form-check-input(type='checkbox' disabled checked)
+                                        else 
+                                            input#gridCheck.form-check-input(type='checkbox' disabled)
                           default
                             pre.prettyprint #{JSON.stringify(permission.instance.param)}
               #reviews.tab-pane.fade(role='tabpanel' aria-labelledby='reviews-tab')

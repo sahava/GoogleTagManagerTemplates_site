@@ -85,5 +85,5 @@ module.exports = grunt => {
 
   // the default task can be run just by typing "grunt" on the command line
   grunt.registerTask('default', ['cssmin:custom', 'copy:bootstrap', 'copy:jquery', 'eslint', 'uglify:custom', 'concurrent' ]);
-  grunt.registerTask('deploy', ['cssmin:custom', 'copy:bootstrap', 'copy:jquery', 'uglify:custom' ]);
+  grunt.registerTask('deploy', ['cssmin:custom', 'copy:bootstrap', 'copy:jquery', 'eslint', 'uglify:custom' ]);
 };

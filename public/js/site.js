@@ -1,5 +1,10 @@
 // CUSTOM PAGE JS
 (function($) {
+    let pathParts = location.pathname.split('/');
+    if(window.dataLayer[0].page.type==="custom template page" && pathParts.length){
+        pathParts.push(window.dataLayer[0].template.slug);
+        window.history.replaceState({}, document.title, pathParts.join('/'));
+    }
     $('.filter').on('click', function() {
         var tag_types = $('[data-filter-tag-type]:checked').map(function() {
             return $(this).data('filterTagType');

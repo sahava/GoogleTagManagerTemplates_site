@@ -1,7 +1,7 @@
 // CUSTOM PAGE JS
 (function($) {
     let pathParts = location.pathname.split('/');
-    if(window.dataLayer[0].page.type==="custom template page" && pathParts.length){
+    if(window.dataLayer[0].page.type==="custom template page" && pathParts.length===3){
         pathParts.push(window.dataLayer[0].template.slug);
         window.history.replaceState({}, document.title, pathParts.join('/'));
     }

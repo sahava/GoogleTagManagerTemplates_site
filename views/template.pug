@@ -166,6 +166,14 @@ block content
                                             input#gridCheck.form-check-input(type='checkbox' disabled checked)
                                         else 
                                             input#gridCheck.form-check-input(type='checkbox' disabled)
+                          when "inject_script"
+                            p Injects a script into the page
+                            hr                             
+                            ul.list-group
+                              li.list-group-item.active 
+                                small Allowed URL Match Patterns *
+                              each pattern, index in permission.instance.param[0].value.listItem
+                                li.list-group-item= pattern.string                                            
                           default
                             pre.prettyprint #{JSON.stringify(permission.instance.param)}
               #reviews.tab-pane.fade(role='tabpanel' aria-labelledby='reviews-tab')

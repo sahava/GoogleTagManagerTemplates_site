@@ -5,7 +5,7 @@ const router = express.Router();
 const gtmTplParser = require('../helpers/gtm-custom-template-parser');
 const enums = require('../helpers/enum');
 
-router.get('/:id/:name', async (req, res, next) => {
+router.get('/:id/:name?', async (req, res, next) => {
   try {
     const id = req.params.id;
 

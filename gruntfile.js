@@ -56,7 +56,10 @@ module.exports = grunt => {
     },
     nodemon: {
       dev: {
-        script: 'bin/www'
+        script: 'bin/www',
+        options: {
+          ext: 'js,pug'
+        }
       }
     },
     watch: {

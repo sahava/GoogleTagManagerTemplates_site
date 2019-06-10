@@ -105,7 +105,7 @@ block content
                     .card-header(id='heading-' + index)
                       h5.mb-0
                         button.btn.btn-link(data-toggle='collapse', data-target='#collapse-'+ index, aria-expanded='true', aria-controls='collapse-'+index)
-                         | #{permissions[permission.instance.key.publicId]}
+                         | #{permissions[permission.instance.key.publicId] || permission.instance.key.publicId }
                     .collapse(aria-labelledby='heading-'+index, data-parent='#accordion' id='collapse-'+index)
                       .card-body
                         pre.prettyprint #{JSON.stringify(permission.instance.param)}

@@ -9,8 +9,7 @@
     "test:integration": "jest --testPathPattern=\\.test\\.js",
     "test:unit": "jest --verbose --testPathPattern=\\.spec\\.js",
     "test:coverage": "jest --coverage --testPathPattern=\\.spec\\.js",
-    "test:all": "jest --coverage",
-    "lint": "eslint \"./**/*.js\""
+    "test:all": "jest --coverage"
   },
   "dependencies": {
     "@google-cloud/datastore": "^4.0.0",
@@ -28,7 +27,14 @@
     "pug": "^2.0.3"
   },
   "devDependencies": {
-    "eslint": "^5.16.0",
+    "grunt": "^1.0.4",
+    "grunt-concurrent": "^2.3.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^3.0.0",
+    "grunt-contrib-nodemon": "^0.5.4",
+    "grunt-contrib-uglify": "^4.0.1",
+    "grunt-contrib-watch": "^1.1.0",
+    "gruntify-eslint": "^5.0.0",
     "jest": "^24.8.0",
     "supertest": "^4.0.2"
   }

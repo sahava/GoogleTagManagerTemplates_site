@@ -5,7 +5,7 @@ const categories = {
 };
 
 const permissions = {
-  access_globals: 'Accesses Global Variables',
+  acscess_globals: 'Accesses Global Variables',
   get_cookies: 'Reads cookie value(s)',
   get_referrer: 'Reads Referrer URL',
   get_url: 'Reads URL',

@@ -223,7 +223,18 @@ block content
                                     li.list-group-item= pattern.string  
                             else
                                 p Library seems to be set to load but not patterns are defined                              
-                          default
+                          when "get_cookies"
+                            p Reads the values of the cookies with the specified name.
+                            hr
+                            if permission.instance.param.length !== 0
+                                ul.list-group
+                                  li.list-group-item.active 
+                                    small Cookie Name
+                                  each cookie, index in permission.instance.param[0].value.listItem
+                                    li.list-group-item= cookie.string  
+                            else
+                                p Library seems to be set to load but not patterns are defined                              
+                          default                          
                             pre.prettyprint #{JSON.stringify(permission.instance.param)}
               #reviews.tab-pane.fade(role='tabpanel' aria-labelledby='reviews-tab')
                 p.card-text

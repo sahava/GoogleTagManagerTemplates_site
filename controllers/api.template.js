@@ -22,6 +22,10 @@ router.get('/tpl/:id', async (req, res, next) => {
       return;
     }
 
+   // Increment template downloads
+    template.downloads += 1;
+    await model.update(id, template);
+      
     res.setHeader('Content-Type', 'application/json');
     res.set('Content-Disposition', `attachment;filename=${template.slug}.tpl`);
     res.end(template.json);

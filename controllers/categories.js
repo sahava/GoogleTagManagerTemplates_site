@@ -5,22 +5,32 @@ const router = express.Router();
 const gtmTplParser = require('../helpers/gtm-custom-template-parser');
 const enums = require('../helpers/enum');
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res, next) => {
+  try {
+    const listCategories = await model.listOnlyCategories();
+    const categoryCounts = listCategories.reduce((acc, cur) => {
+      acc[cur.category] = acc[cur.category] ? acc[cur.category] + 1 : 1;
+      return acc;
+    }, {});
 
-  const dataLayer = {
-    event: 'datalayer-initialized',
-    page: {
-      type: 'categories listing page',
-      title: 'Categories - GTMs Templates'
-    },
-    categories: enums.categories
-  };
+    const dataLayer = {
+      event: 'datalayer-initialized',
+      page: {
+        type: 'categories listing page',
+        title: 'Categories - GTMs Templates'
+      },
+      categories: enums.categories
+    };
 
-  res.render('categories', {
-    title: dataLayer.page.title,
-    dataLayer: dataLayer,
-    categories: enums.categories
-  });
+    res.render('categories', {
+      title: dataLayer.page.title,
+      dataLayer: dataLayer,
+      categories: enums.categories,
+      categoryCounts
+    });
+  } catch(err) {
+    next(err);
+  }
 });
 
 router.get('/:category/', async (req, res, next) => {

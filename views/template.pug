@@ -108,7 +108,20 @@ block content
                          | #{permissions[permission.instance.key.publicId] || permission.instance.key.publicId }
                     .collapse(aria-labelledby='heading-'+index, data-parent='#accordion' id='collapse-'+index)
                       .card-body
-                        pre.prettyprint #{JSON.stringify(permission.instance.param)}
+                        - var permissionType = permission.instance.key.publicId
+                        case permissionType
+                          when "logging"
+                            p Logs to the developer console and Tag Manager's preview mode
+                            hr
+                            ul
+                            if permission.instance.param[0].value.type == 1
+                                li Only log during debug and preview
+                            else
+                                li Always log
+                          when 1
+                            p you have a friend
+                          default
+                            pre.prettyprint #{JSON.stringify(permission.instance.param)}
               #reviews.tab-pane.fade(role='tabpanel' aria-labelledby='reviews-tab')
                 p.card-text
                   | REVIEWS TAB

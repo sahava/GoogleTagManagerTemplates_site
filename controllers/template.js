@@ -4,6 +4,7 @@ const createError = require('http-errors');
 const router = express.Router();
 const gtmTplParser = require('../helpers/gtm-custom-template-parser');
 const enums = require('../helpers/enum');
+const dataLayerHelper = require('../helpers/dataLayer');
 
 router.get('/:id/:name?', async (req, res, next) => {
   try {
@@ -31,19 +32,19 @@ router.get('/:id/:name?', async (req, res, next) => {
     template.views += 1;
     await model.update(id, template);
 
-    // Render dataLayer and page
-    const dataLayer = {
-      event: 'datalayer-initialized',
-      page: {
-        type: 'custom template page',
-        title: parsed_tpl.displayName + ' Custom Template'
-      },
-      template: parsed_tpl
-    };
-
+    // Build DataLayer
+    dataLayerHelper.mergeDataLayer({
+        page: {
+            type: 'custom template page',
+            title: parsed_tpl.displayName + ' Custom Template'
+        },
+        template: template
+    });      
+    dataLayerHelper.mergeDataLayer(dataLayerHelper.buildEEC('detail',{},[template]));      
+      
     res.render('template', {
-      title: dataLayer.page.title,
-      dataLayer: dataLayer,
+      title: dataLayerHelper.get().page.title,
+      dataLayer: dataLayerHelper.get(),
       categories_list: enums.categories,
       template: parsed_tpl,
       permissions: enums.permissions,

@@ -18,9 +18,6 @@ module.exports = grunt => {
     },
     uglify: {
       options: {
-        compress: {
-          warnings: false
-        },
         mangle: true,
         preserveComments: /^!|@preserve|@license|@cc_on/i
       },

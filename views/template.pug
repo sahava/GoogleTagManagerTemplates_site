@@ -63,7 +63,7 @@ block content
                 a#permissions-tab.nav-link(data-toggle='tab' href='#permissions' role='tab' aria-controls='permissions' aria-selected='false') Permissions
               li.nav-item
                 a#reviews-tab.nav-link(data-toggle='tab' href='#reviews' role='tab' aria-controls='reviews' aria-selected='false') Reviews
-                    span.badge.badge-warning 5
+                    span.disqus-comment-count.badge.badge-warning(data-disqus-identifier=''+template.id)
               li.nav-item
                 a#changelog-tab.nav-link(data-toggle='tab' href='#changelog' role='tab' aria-controls='changelog' aria-selected='false') Changelog
             #myTabContent.tab-content

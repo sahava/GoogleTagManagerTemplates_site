@@ -5,7 +5,7 @@ const router = express.Router();
 const gtmTplParser = require('../helpers/gtm-custom-template-parser');
 const enums = require('../helpers/enum');
 
-router.get('/:id/:name', async (req, res, next) => {
+router.get('/:id/:name?', async (req, res, next) => {
   try {
     const id = req.params.id;
 
@@ -23,7 +23,7 @@ router.get('/:id/:name', async (req, res, next) => {
       next(createError(404, 'Template doesn\'t exist!'));
       return;
     }
-
+ 
     // Compile template object
     const parsed_tpl = gtmTplParser.parseTemplate(JSON.parse(JSON.stringify(template)));
 
@@ -47,6 +47,7 @@ router.get('/:id/:name', async (req, res, next) => {
       categories_list: enums.categories,
       template: parsed_tpl,
       permissions: enums.permissions,
+      permissions_icons: enums.permissions_icons,
       downloadUrl: `/api/template/tpl/${id}`
     });
 

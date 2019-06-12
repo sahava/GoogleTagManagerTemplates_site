@@ -60,6 +60,15 @@ const listByCategory = async category => {
   return rows.map(fromDatastore);
 };
 
+// Get only categories
+const listOnlyCategories = async () => {
+  const q = ds
+    .createQuery([kind])
+    .select(['category']);
+
+  const [rows] = await ds.runQuery(q);
+  return rows
+};
 
 // Get template with ID
 const read = async id => {
@@ -103,6 +112,7 @@ const create = data => {
 module.exports = {
   list,
   listByCategory,
+  listOnlyCategories,
   read,
   create,
   update,

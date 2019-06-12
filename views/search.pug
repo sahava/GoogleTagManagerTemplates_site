@@ -13,7 +13,7 @@ block content
         br
         each template, index in templates
           .mb-4
-            .card.h-100(data-ga-action="impression")&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category, 'data-product-type': template.type})
+            .card.h-100(data-eec-action="impression")&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category, 'data-product-variant': template.type.toLowerCase(), 'data-product-position': index, 'data-product-tracked': "false", 'data-product-list-name': "search results page" })
               .card-body
                 img.rounded.float-right(src=''+template.logo, alt='' width='100px')
                 h4.card-title

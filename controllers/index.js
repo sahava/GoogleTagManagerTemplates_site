@@ -19,12 +19,12 @@ router.get('/', async (req, res, next) => {
           title: 'Home - GTM Templates'
       }
     });      
-    dataLayerHelper.mergeDataLayer(dataLayerHelper.buildEEC('impressions',{list: 'home page'},templates));  
-           
+    dataLayerHelper.mergeDataLayer(dataLayerHelper.buildEEC('impressions',{list: 'home page'},templates));             
     res.render('index', {
       title: dataLayerHelper.get().page.title,
       dataLayer: dataLayerHelper.get(),
-      templates: parsedTemplates
+      templates: parsedTemplates,
+      category: 'home page'
     });
 
   } catch(err) {

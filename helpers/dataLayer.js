@@ -26,6 +26,9 @@ const buildEEC = (action,actionField,products) => {
       default:
         break;
     }    
+    if(action==='impressions'){
+        return { productsImpressions: ecommerce.impressions };
+    }
     return {ecommerce: ecommerce};
 };
 
@@ -33,19 +36,19 @@ const mapProducts = (templates, listName) => {
     const products = templates.map(function(tpl,index){
         return {
             id: tpl.id || undefined,
-            name: tpl.name || undefined,
-            price: tpl.price || undefined,
-            brand: tpl.price || undefined,            
-            category: tpl.category || undefined,
-            variant: tpl.type || undefined,
-            list: listName || undefined,  
-            position: (listName) ? index.toString() : undefined,
-            views: tpl.views.toString() || undefined,
-            downloads: tpl.downloads.toString() || undefined,
+            name: tpl.name.toLowerCase() || undefined,
+            // price: tpl.price || undefined,
+            brand: (tpl.brand) ? tpl.brand.toLowerCase() : undefined,            
+            category: (tpl.category) ? tpl.category.toLowerCase() : undefined,    
+            variant: (tpl.type) ? tpl.type.toLowerCase() : undefined,    
+            list: (tpl.listName) ? tpl.listName.toLowerCase() : undefined,    
+            position: (listName) ? index.toString() : undefined,            
+            views: (tpl.views) ? tpl.views.toString().toLowerCase() : undefined,
+            downloads: (tpl.downloads) ? tpl.downloads.toString().toLowerCase() : undefined,
             added_date: tpl.added_date || undefined,
             updated_date: tpl.updated_date || undefined,            
-            author: tpl.author || undefined,
-            license: tpl.license || undefined
+            author: (tpl.author) ? tpl.author.toLowerCase() : undefined,    
+            license: (tpl.license) ? tpl.license.toLowerCase() : undefined,    
         };        
     });
     return products;

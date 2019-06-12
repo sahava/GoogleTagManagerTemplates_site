@@ -20,6 +20,7 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jquery": "^3.4.1",
+    "memjs": "^1.2.0",
     "moment": "^2.24.0",
     "morgan": "~1.9.1",
     "nodemon": "^1.19.1",

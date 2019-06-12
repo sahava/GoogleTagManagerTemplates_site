@@ -1,6 +1,7 @@
 const {Datastore} = require('@google-cloud/datastore');
 const {toSchema} = require('../helpers/datastore-schema');
 const createError = require('http-errors');
+const modelHelper = require('../helpers/model');
 
 // Config
 const ds = new Datastore();
@@ -49,6 +50,14 @@ const list = async (limit, token) => {
 
 // List templates by category
 const listByCategory = async category => {
+  const stored = await modelHelper.getMemcache(`category_${category}`);
+
+  // If in memcache, use it
+  if (stored.value) {
+    return JSON.parse(stored.value);
+  }
+  
+  // Otherwise do the query
   const q = ds
     .createQuery([kind])
     .filter('category', '=', category)
@@ -56,8 +65,13 @@ const listByCategory = async category => {
       descending: true
     });
 
-  const [rows] = await ds.runQuery(q);
-  return rows.map(fromDatastore);
+  let [rows] = await ds.runQuery(q);
+  rows = rows.map(fromDatastore);
+
+  // Write to memcache
+  await modelHelper.setMemcache(`category_${category}`, JSON.stringify(rows));
+
+  return rows;
 };
 
 // Get only categories

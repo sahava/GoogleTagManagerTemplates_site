@@ -7,10 +7,8 @@ block content
     .container
     .row
       .col-8
-        div
-        | #{count} Results found for '%#{query}%'
-        br
-        br
+        div 
+            h4.results-count #{count} &nbsp;Results found for query: '#{query}'
         each template, index in templates
           .mb-4
             .card.h-100(data-eec-action="impression")&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category, 'data-product-variant': template.type.toLowerCase(), 'data-product-position': index, 'data-product-tracked': "false", 'data-product-list-name': "search results page" })

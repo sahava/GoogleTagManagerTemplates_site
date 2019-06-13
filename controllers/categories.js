@@ -3,6 +3,7 @@ const model = require('../models/template-db');
 const createError = require('http-errors');
 const router = express.Router();
 const gtmTplParser = require('../helpers/gtm-custom-template-parser');
+const dataLayerHelper = require('../helpers/dataLayer');
 const enums = require('../helpers/enum');
 
 router.get('/', async (req, res, next) => {
@@ -49,20 +50,22 @@ router.get('/:category/', async (req, res, next) => {
     // Parse logo and dates from template JSON
     const parsedTemplates = templates.map(gtmTplParser.parseTemplate);
 
+      
     // Render dataLayer and page
-    const dataLayer = {
-      event: 'datalayer-initialized',
-      page: {
+    // Build DataLayer
+    dataLayerHelper.mergeDataLayer({
+        page: {
         type: 'templates listing page',
         title: 'Category: ' + enums.categories[categorySlug] +' - GTM Templates',
         category: categorySlug,
         count: parsedTemplates.length
-      },
-      templates: parsedTemplates
-    };
+      }
+    });      
+    dataLayerHelper.mergeDataLayer(dataLayerHelper.buildEEC('impressions',{list: 'plp: '+categorySlug},parsedTemplates));        
+      
     res.render('category', {
-      title: dataLayer.page.title,
-      dataLayer: dataLayer,
+      title: dataLayerHelper.get().page.title,
+      dataLayer: dataLayerHelper.get(),
       templates: parsedTemplates,
       category: enums.categories[categorySlug],
       count: parsedTemplates.length

@@ -11,7 +11,7 @@ block content
       .row
         each template, index in templates
           .col-lg-12.col-md-6.mb-4
-            .card.h-100(data-ga-action="impression")&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category})
+            .card.h-100(data-eec-action="impression")&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category, 'data-product-variant': template.type.toLowerCase(), 'data-product-position': index, 'data-product-tracked': "false", 'data-product-list-name': "plp: "+categorySlug })
               .card-body
                 img.rounded.float-right(src=''+template.logo, alt='' width='100px')
                 h4.card-title

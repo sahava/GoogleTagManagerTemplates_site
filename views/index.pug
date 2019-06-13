@@ -3,9 +3,11 @@ extends layout
 block content
   main.container(role='main')
     .jumbotron
-      h1 Featured Custom Template
+      h1 Custom Templates Gallery
       p.lead
-        | This is the current Featured Custom Template, it's grabbed from Related Products Feed
+        | This is an open-source, community-driven gallery for custom templates in&nbsp;
+        a(href="https://tagmanager.google.com" target="_blank") Google Tag Manager
+        | .
       a.btn.btn-lg.btn-primary(href='#' role='button') More Details &raquo;
     .container
     .row
@@ -40,17 +42,3 @@ block content
                   | #{template.description}
               .card-footer
                 small.text-muted &starf; &starf; &starf; &starf; &star; ( #{template.views} views, #{template.downloads} Downloads )
-
-      .col-lg-12.col-md-6.mb-4
-        nav(aria-label='Page navigation example')
-          ul.pagination
-            li.page-item
-            a.page-link(href='#') Previous
-            li.page-item
-              a.page-link(href='#') 1
-            li.page-item
-              a.page-link(href='#') 2
-            li.page-item
-              a.page-link(href='#') 3
-            li.page-item
-              a.page-link(href='#') Next

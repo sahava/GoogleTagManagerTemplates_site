@@ -24,7 +24,7 @@ router.get('/:id/:name?', async (req, res, next) => {
       next(createError(404, 'Template doesn\'t exist!'));
       return;
     }
- 
+
     // Compile template object
     const parsed_tpl = gtmTplParser.parseTemplate(JSON.parse(JSON.stringify(template)));
 
@@ -34,14 +34,14 @@ router.get('/:id/:name?', async (req, res, next) => {
 
     // Build DataLayer
     dataLayerHelper.mergeDataLayer({
-        page: {
-            type: 'custom template page',
-            title: parsed_tpl.displayName + ' Custom Template'
-        },
-        template: template
-    });      
-    dataLayerHelper.mergeDataLayer(dataLayerHelper.buildEEC('detail',{},[template]));      
-      
+      page: {
+        type: 'custom template page',
+        title: parsed_tpl.displayName + ' Custom Template'
+      },
+      template: template
+    });
+    dataLayerHelper.mergeDataLayer(dataLayerHelper.buildEEC('detail',{},[template]));
+
     res.render('template', {
       title: dataLayerHelper.get().page.title,
       dataLayer: dataLayerHelper.get(),

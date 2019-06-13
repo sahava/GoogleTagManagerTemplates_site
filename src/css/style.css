@@ -5,3 +5,12 @@ body {
 span.badge {
   margin-left: 10px;
 }
+
+.card-header {
+    padding: .15rem 0.45rem;
+}
+
+#query-details{
+    padding-bottom: 14px;
+}
+

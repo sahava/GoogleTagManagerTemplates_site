@@ -6,7 +6,6 @@ const dataLayerHelper = require('../helpers/dataLayer');
 
 router.get('/', async (req, res, next) => {
   try {
-
     // Fetch templates
     // TODO: Control pagination with const {rows, hasMore} hasMore
     const {templates} = await model.list(0, 0);

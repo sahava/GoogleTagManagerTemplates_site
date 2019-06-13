@@ -28,6 +28,7 @@
     } else {
       $('.card[data-product-type]').show();
     }
+    $('.results-count').text($('div.card[data-eec-action]:visible').length)      
   });
   }
 )(window.jQuery);

@@ -168,31 +168,31 @@ block content
                                             if variable.mapValue[3].boolean
                                                 input#gridCheck.form-check-input(type='checkbox' disabled checked)
                                             else
-                                                input#gridCheck.form-check-input(type='checkbox' disabled)                            
+                                                input#gridCheck.form-check-input(type='checkbox' disabled)
                             else
-                                p Library seems to be set to load but not variables are defined                        
+                                p Library seems to be set to load but not variables are defined
                           when "inject_script"
                             p Injects a script into the page
-                            hr    
+                            hr
                             if permission.instance.param.length !== 0
                                 ul.list-group
-                                  li.list-group-item.active 
+                                  li.list-group-item.active
                                     small Allowed URL Match Patterns
                                   each pattern, index in permission.instance.param[0].value.listItem
-                                    li.list-group-item= pattern.string  
+                                    li.list-group-item= pattern.string
                             else
-                                p Library seems to be set to load but not patterns are defined  
+                                p Library seems to be set to load but not patterns are defined
                           when "inject_hidden_iframe"
                             p Injects an invisible iframe with a given URL
-                            hr                             
+                            hr
                             if permission.instance.param.length !== 0
                                 ul.list-group
-                                  li.list-group-item.active 
+                                  li.list-group-item.active
                                     small Allowed URL Match Patterns
                                   each pattern, index in permission.instance.param[0].value.listItem
-                                    li.list-group-item= pattern.string  
+                                    li.list-group-item= pattern.string
                             else
-                                p Library seems to be set to load but not patterns are defined  
+                                p Library seems to be set to load but not patterns are defined
                           when "read_character_set"
                             p Reads document.characterSet
                             hr
@@ -200,16 +200,16 @@ block content
                           when "read_title"
                             p Reads document.title
                             hr
-                            small There is nothing to limit                            
+                            small There is nothing to limit
                           when "read_data_layer"
                             p Reads data from the dataLayer
                             hr
                             if permission.instance.param.length !== 0
                                 ul.list-group
-                                  li.list-group-item.active 
+                                  li.list-group-item.active
                                     small Keys
                                   each datalayer, index in permission.instance.param[0].value.listItem
-                                    li.list-group-item= datalayer.string  
+                                    li.list-group-item= datalayer.string
                             else
                                 p Library seems to be set to load but not keys are defined
                           when "send_pixel"
@@ -217,21 +217,21 @@ block content
                             hr
                             if permission.instance.param.length !== 0
                                 ul.list-group
-                                  li.list-group-item.active 
+                                  li.list-group-item.active
                                     small Allowed URL Match Patterns
                                   each pattern, index in permission.instance.param[0].value.listItem
-                                    li.list-group-item= pattern.string  
+                                    li.list-group-item= pattern.string
                             else
-                                p Library seems to be set to load but not patterns are defined                              
+                                p Library seems to be set to load but not patterns are defined
                           when "get_cookies"
                             p Reads the values of the cookies with the specified name.
                             hr
                             if permission.instance.param.length !== 0
                                 ul.list-group
-                                  li.list-group-item.active 
+                                  li.list-group-item.active
                                     small Cookie Name
                                   each cookie, index in permission.instance.param[0].value.listItem
-                                    li.list-group-item= cookie.string  
+                                    li.list-group-item= cookie.string
                             else
                                 p Library seems to be set to load but not patterns are defined
                           when "get_referrer"
@@ -270,7 +270,7 @@ block content
                                                  else
                                                     input#gridCheck.form-check-input(type='checkbox' disabled)
                                                     span= urlPart.key
-                          default                          
+                          default
                             pre.prettyprint #{JSON.stringify(permission.instance.param)}
               #reviews.tab-pane.fade(role='tabpanel' aria-labelledby='reviews-tab')
                 p.card-text

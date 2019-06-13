@@ -9,17 +9,17 @@ router.get('/', async (req, res, next) => {
 
     // Fetch templates
     // TODO: Control pagination with const {rows, hasMore} hasMore
-    const {templates} = await model.list(9, 0);      
+    const {templates} = await model.list(0, 0);
     const parsedTemplates = templates.map(gtmTplParser.parseTemplate);
     // Render dataLayer and page
     // Build DataLayer
     dataLayerHelper.mergeDataLayer({
-        page: {
-          type: 'home page',
-          title: 'Home - GTM Templates'
+      page: {
+        type: 'home page',
+        title: 'Home - GTM Templates'
       }
-    });      
-    dataLayerHelper.mergeDataLayer(dataLayerHelper.buildEEC('impressions',{list: 'home page'},templates));             
+    });
+    dataLayerHelper.mergeDataLayer(dataLayerHelper.buildEEC('impressions',{list: 'home page'}, templates));
     res.render('index', {
       title: dataLayerHelper.get().page.title,
       dataLayer: dataLayerHelper.get(),

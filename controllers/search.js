@@ -10,18 +10,18 @@ router.get('/', async (req, res, next) => {
     const query = req.query.q;
     const {templates} = await model.list();
     const parsedTemplates = templates.map(gtmTplParser.parseTemplate);
-      
+
     // Render dataLayer and page
     // Build DataLayer
     dataLayerHelper.mergeDataLayer({
-        page: {
-            type: 'search results page',
-            title: 'Search - GTM Templates',
-            query: query,
-            count: parsedTemplates.length            
+      page: {
+        type: 'search results page',
+        title: 'Search - GTM Templates',
+        query: query,
+        count: parsedTemplates.length
       }
-    });            
-    dataLayerHelper.mergeDataLayer(dataLayerHelper.buildEEC('impressions',{list: 'home page'},parsedTemplates));             
+    });
+    dataLayerHelper.mergeDataLayer(dataLayerHelper.buildEEC('impressions',{list: 'home page'}, parsedTemplates));
     res.render('search', {
       title: dataLayerHelper.get().page.title,
       dataLayer: dataLayerHelper.get(),

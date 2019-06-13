@@ -51,19 +51,18 @@ router.get('/:category/', async (req, res, next) => {
     // Parse logo and dates from template JSON
     const parsedTemplates = templates.map(gtmTplParser.parseTemplate);
 
-      
     // Render dataLayer and page
     // Build DataLayer
     dataLayerHelper.mergeDataLayer({
-        page: {
+      page: {
         type: 'templates listing page',
-        title: 'Category: ' + enums.categories[categorySlug] +' - GTM Templates',
+        title: 'Category: ' + enums.categories[categorySlug] + ' - GTM Templates',
         category: categorySlug,
         count: parsedTemplates.length
       }
-    });      
-    dataLayerHelper.mergeDataLayer(dataLayerHelper.buildEEC('impressions',{list: 'plp: '+categorySlug},parsedTemplates));        
-      
+    });
+    dataLayerHelper.mergeDataLayer(dataLayerHelper.buildEEC('impressions',{list: 'plp: ' + categorySlug}, parsedTemplates));
+
     res.render('category', {
       title: dataLayerHelper.get().page.title,
       dataLayer: dataLayerHelper.get(),

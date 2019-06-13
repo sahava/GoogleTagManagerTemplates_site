@@ -27,7 +27,8 @@ router.get('/', async (req, res, next) => {
       title: dataLayer.page.title,
       dataLayer: dataLayer,
       categories: enums.categories,
-      categoryCounts
+      categoryCounts,
+      category: 'categories'
     });
   } catch(err) {
     next(err);

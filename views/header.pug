@@ -4,11 +4,11 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.mb-4
     span.navbar-toggler-icon
   #navbarCollapse.collapse.navbar-collapse
     ul.navbar-nav.mr-auto
-      li.nav-item.active
+      li.nav-item(class={"active": category==="home page"})
         a.nav-link(href='/')&attributes({'data-ga-action':'event','data-ga-event': {category:'cat',action:'act',label:'label',value:undefined,nonint:0}})
           | Home
           span.sr-only (current)
-      li.nav-item
+      li.nav-item(class={"active": category==="categories"})
         a.nav-link(href='/categories')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category}) Categories
     form.form-inline.mt-2.mt-md-0(action='/search')
       input.form-control.mr-sm-2(name='q' type='text' placeholder='Search' aria-label='Search')

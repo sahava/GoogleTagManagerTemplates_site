@@ -1,13 +1,11 @@
 const validTemplate = {
   type: 'TAG',
-  price: 0,
   installs: 0,
   author: 'David Vallejo',
   views: 119,
   author_slug: 'david-vallejo',
   name: 'Yandex Metrica',
   category: 'analytics',
-  currency: 'USD',
   vendor_url: 'https://metrika.yandex.com',
   git_url: 'https://github.com/sahava/GoogleTagManagerTemplates/blob/master/tags/Yandex/YandexMetrica/Yandex%20Metrica.tpl',
   updated_date: new Date('2019-06-05T07:45:00.000Z'),
@@ -682,14 +680,12 @@ const invalidTemplate = {
 
 const validTemplateNoLogo = {
   type: 'TAG',
-  price: 0,
   installs: 0,
   author: 'David Vallejo',
   views: 119,
   author_slug: 'david-vallejo',
   name: 'Yandex Metrica',
   category: 'analytics',
-  currency: 'USD',
   vendor_url: 'https://metrika.yandex.com',
   git_url: 'https://github.com/sahava/GoogleTagManagerTemplates/blob/master/tags/Yandex/YandexMetrica/Yandex%20Metrica.tpl',
   updated_date: new Date('2019-06-05T07:45:00.000Z'),

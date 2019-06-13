@@ -1,4 +1,4 @@
 runtime: nodejs10
 
 includes:
-  - secret/env.yaml
+  - env.yaml

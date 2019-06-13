@@ -6,8 +6,6 @@ const templateSchema = {
   author_url : 'string',
   author_slug : 'string',
   type: 'string',
-  price: 'number',
-  currency: 'string',
   category: categories,
   license: 'string',
   json: 'string',

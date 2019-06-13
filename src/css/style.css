@@ -14,3 +14,6 @@ span.badge {
     padding-bottom: 14px;
 }
 
+#accordion.permissions div.card{
+    margin-bottom: 8px;
+}

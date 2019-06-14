@@ -5,3 +5,8 @@ body {
 span.badge {
   margin-left: 10px;
 }
+
+.navbar-login {
+  width: 305px;
+  padding: 10px 10px 0px 10px;
+}

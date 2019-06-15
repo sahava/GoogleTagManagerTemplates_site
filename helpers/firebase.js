@@ -1,25 +1,21 @@
-const firebase = require('firebase');
+const admin = require('firebase-admin');
 
-const app = firebase.initializeApp({
-  apiKey: "AIzaSyDRgej0H6RrmLXYRpGzwuB1lWTXjQFYCV0",
-  authDomain: "gtm-templates-com.firebaseapp.com",
-  databaseURL: "https://gtm-templates-com.firebaseio.com",
-  projectId: "gtm-templates-com",
-  storageBucket: "gtm-templates-com.appspot.com",
-  messagingSenderId: "874469196632",
-  appId: "1:874469196632:web:c3b9f79df26d65ed"
+const app = admin.initializeApp({
+  credential: admin.credential.applicationDefault(),
+  databaseURL: 'https://gtm-templates-com.firebaseio.com'
 });
 
-const isAuthenticated = (req, res, next) => {
-  const user = app.auth().currentUser;
-  if (user !== null) {
-    req.user = user;
+const authenticate = async (req, res, next) => {
+  try {
+    const sessionCookie = req.cookies.session || '';
+    req.user = await app.auth().verifySessionCookie(sessionCookie, true);
     next();
-  } else {
-    res.redirect('/', 301);
+  } catch(err) {
+    next();
   }
 };
 
 module.exports = {
-  isAuthenticated
+  app,
+  authenticate
 };

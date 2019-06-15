@@ -49,7 +49,8 @@ router.get('/:id/:name?', async (req, res, next) => {
       template: parsed_tpl,
       permissions: enums.permissions,
       permissions_icons: enums.permissions_icons,
-      downloadUrl: `/api/template/tpl/${id}`
+      downloadUrl: `/api/template/tpl/${id}`,
+      user: req.user
     });
 
   } catch(err) {

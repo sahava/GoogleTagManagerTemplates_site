@@ -28,7 +28,8 @@ router.get('/', async (req, res, next) => {
       dataLayer: dataLayer,
       categories: enums.categories,
       categoryCounts,
-      category: 'categories'
+      category: 'categories',
+      user: req.user
     });
   } catch(err) {
     next(err);
@@ -68,7 +69,8 @@ router.get('/:category/', async (req, res, next) => {
       dataLayer: dataLayerHelper.get(),
       templates: parsedTemplates,
       category: enums.categories[categorySlug],
-      count: parsedTemplates.length
+      count: parsedTemplates.length,
+      user: req.user
     });
   } catch(err) {
     next(err);

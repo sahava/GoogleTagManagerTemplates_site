@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const {authenticate} = require('./helpers/firebase');
 
 const indexRouter = require('./controllers/index');
 const adminRouter = require('./controllers/admin');
@@ -11,6 +12,7 @@ const categoriesRouter = require('./controllers/categories');
 const searchRouter = require('./controllers/search');
 
 const templateApi = require('./controllers/api.template');
+const sessionApi = require('./controllers/api.session');
 
 const app = express();
 
@@ -23,6 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(authenticate);
 
 app.use('/', indexRouter);
 app.use('/admin', adminRouter);
@@ -31,6 +34,7 @@ app.use('/categories', categoriesRouter);
 app.use('/search', searchRouter);
 
 app.use('/api/template', templateApi);
+app.use('/api/session', sessionApi);
 
 
 // catch 404 and forward to error handler

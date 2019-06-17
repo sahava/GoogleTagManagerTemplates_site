@@ -17,3 +17,8 @@ span.badge {
 #accordion.permissions div.card{
     margin-bottom: 8px;
 }
+
+.navbar-login {
+  width: 305px;
+  padding: 10px 10px 0px 10px;
+}

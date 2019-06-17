@@ -45,9 +45,9 @@ describe('Test /search/', () => {
 
 describe('Test /users/', () => {
 
-  test('It should respond 200 status to GET request for /users/', async () => {
-    const response = await request(app).get('/users/');
-    expect(response.statusCode).toBe(200);
+  test('It should respond 301 status to GET request for /admin/', async () => {
+    const response = await request(app).get('/admin/');
+    expect(response.statusCode).toBe(301);
   });
 
 });

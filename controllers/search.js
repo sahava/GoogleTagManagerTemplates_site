@@ -28,7 +28,8 @@ router.get('/', async (req, res, next) => {
       categories: enums.categories,
       templates: parsedTemplates,
       count: parsedTemplates.length,
-      query: query
+      query: query,
+      user: req.user
     });
   } catch(err) {
     next(err);

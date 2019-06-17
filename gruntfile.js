@@ -14,7 +14,7 @@ module.exports = grunt => {
       }
     },
     eslint: {
-      src: ['**/*.js', '!public/**/*.js', '!node_modules/**/*.js']
+      src: ['**/*.js', '!src/**/*.js', '!public/**/*.js', '!node_modules/**/*.js']
     },
     uglify: {
       options: {
@@ -22,8 +22,13 @@ module.exports = grunt => {
         preserveComments: /^!|@preserve|@license|@cc_on/i
       },
       custom: {
-        src: 'src/js/site.js',
-        dest: 'public/js/site.min.js'
+        files: [{
+          src: 'src/js/site.js',
+          dest: 'public/js/site.min.js'
+        },{
+          src: 'src/js/firebase.init.js',
+          dest: 'public/js/firebase.init.min.js'
+        }]
       }
     },
     copy: {
@@ -65,7 +70,7 @@ module.exports = grunt => {
         tasks: ['cssmin:custom']
       },
       customjs: {
-        files: ['src/js/site.js'],
+        files: ['src/js/site.js', 'src/js/firebase.init.js'],
         tasks: ['eslint', 'uglify:custom']
       },
       otherjs: {

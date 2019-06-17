@@ -1,7 +1,7 @@
 // CUSTOM PAGE JS
 (function($) {
   var pathParts = location.pathname.split('/');
-  if(window.dataLayer[0].page.type==="custom template page" && pathParts.length===3){
+  if (window.dataLayer[0].page.type === "custom template page" && pathParts.length === 3) {
     pathParts.push(window.dataLayer[0].template.slug);
     window.history.replaceState({}, document.title, pathParts.join('/'));
   }
@@ -30,5 +30,4 @@
     }
     $('.results-count').text($('div.card[data-eec-action]:visible').length)      
   });
-  }
-)(window.jQuery);
+})(window.jQuery);

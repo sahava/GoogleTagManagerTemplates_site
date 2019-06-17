@@ -7,13 +7,13 @@ block content
     .container
     .row
       .col-8
-        div
-        | #{count} Results found for '%#{query}%'
-        br
-        br
+        div 
+            p#query-details
+                span.results-count #{count}
+                span &nbsp;Results found for query: '#{query}'
         each template, index in templates
           .mb-4
-            .card.h-100(data-eec-action="impression")&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category, 'data-product-variant': template.type.toLowerCase(), 'data-product-position': index, 'data-product-tracked': "false", 'data-product-list-name': "search results page" })
+            .card.h-100(data-eec-action="impression")&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category, 'data-product-variant': template.type.toLowerCase(), 'data-product-type': template.type,  'data-product-position': index, 'data-product-tracked': "false", 'data-product-list-name': "search results page" })
               .card-body
                 img.rounded.float-right(src=''+template.logo, alt='' width='100px')
                 h4.card-title
@@ -51,18 +51,3 @@ block content
                   label.form-check-label(for='tagTypeTag')
                   | #{category}&nbsp; #{category.count}
                   br
-      .col-lg-12.col-md-6.mb-4
-          nav(aria-label='Page navigation example')
-            ul.pagination
-              li.page-item
-              a.page-link(href='#') Previous
-              li.page-item
-                a.page-link(href='#') 1
-              li.page-item
-                a.page-link(href='#') 2
-              li.page-item
-                a.page-link(href='#') 3
-              li.page-item
-                a.page-link(href='#') Next
-
-

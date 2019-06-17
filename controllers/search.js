@@ -7,7 +7,7 @@ const dataLayerHelper = require('../helpers/dataLayer');
 
 router.get('/', async (req, res, next) => {
   try {
-    const query = req.query.q;
+    const query = escape(req.query.q);
     const {templates} = await model.list();
     const parsedTemplates = templates.map(gtmTplParser.parseTemplate);
 

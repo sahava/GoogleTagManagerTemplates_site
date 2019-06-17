@@ -8,6 +8,6 @@ describe('Test datastore-schema.js', () => {
   });
   test('Should return false with invalid template object', () => {
     const result = toSchema(mocks.invalidTemplate);
-    expect(result).toBe(false);
+    expect(result).toEqual({error: {delta: ['category']}});
   });
 });

@@ -15,8 +15,8 @@ const parseTemplate = tpl => {
   tpl.displayName = tpl.info.displayName;
   tpl.description = tpl.info.description;
   tpl.type = tpl.info.type;
-  tpl.added_date = moment(tpl.added_date, 'YYYY-MM-DDTHH:mm:ss.SSSZ').format('DD MMM YYYY');
-  tpl.updated_date = moment(tpl.updated_date, 'YYYY-MM-DDTHH:mm:ss.SSSZ').format('DD MMM YYYY');
+  tpl.parsed_added_date = moment(tpl.added_date, 'YYYY-MM-DDTHH:mm:ss.SSSZ').format('DD MMM YYYY');
+  tpl.parsed_updated_date = moment(tpl.updated_date, 'YYYY-MM-DDTHH:mm:ss.SSSZ').format('DD MMM YYYY');
   return tpl;
 };
 

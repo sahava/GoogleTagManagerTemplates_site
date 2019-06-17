@@ -39,8 +39,8 @@ describe('Test gtm-custom-template-parser.js', () => {
     expect(result).toHaveProperty('displayName', 'Yandex Metrica');
     expect(result).toHaveProperty('description', 'Yandex Metrica Custom Template');
     expect(result).toHaveProperty('type', 'TAG');
-    expect(result).toHaveProperty('added_date', '05 Jun 2019');
-    expect(result).toHaveProperty('updated_date', '05 Jun 2019');
+    expect(result).toHaveProperty('parsed_added_date', '05 Jun 2019');
+    expect(result).toHaveProperty('parsed_updated_date', '05 Jun 2019');
   });
 
   test('Should use default logo if no thumbnail provided', () => {

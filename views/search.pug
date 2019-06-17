@@ -7,7 +7,7 @@ block content
     .container
     .row
       .col-8
-        div 
+        div
             p#query-details
                 span.results-count #{count}
                 span &nbsp;Results found for query: '#{query}'
@@ -21,7 +21,7 @@ block content
                 span.autor Author:
                 a(href='#')= template.author
                 br
-                small Added:#{template.added_date}
+                small Added:#{template.parsed_added_date}
                 p.card-text
                   | #{template.description}
               .card-footer

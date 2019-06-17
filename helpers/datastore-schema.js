@@ -38,7 +38,11 @@ const toSchema = obj => {
       result[key] = obj[key];
     }
   });
-  return checkEqual(templateSchema, result) ? result : false;
+  return checkEqual(templateSchema, result) ? result : {
+    error: {
+      delta: Object.keys(templateSchema).filter(x => !Object.keys(result).includes(x))
+    }
+  };
 };
 
 module.exports = {

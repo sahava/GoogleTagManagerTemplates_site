@@ -1,11 +1,12 @@
 const {Datastore} = require('@google-cloud/datastore');
 const {toSchema} = require('../helpers/datastore-schema');
 const createError = require('http-errors');
+const {dsKind} = require('../helpers/enum');
 
 // Config
 const ds = new Datastore();
-const kind = process.env.NODE_ENV === 'production' ? 'Template' : 'Template_dev';
-const doNotIndex = ['json','slug'];
+const kind = process.env.NODE_ENV === 'production' ? dsKind.PRODUCTION : dsKind.DEVELOPMENT;
+const doNotIndex = ['json', 'slug', 'author_url', 'author_slug', 'license', 'vendor_url', 'landing_url', 'git_url'];
 
 // Append ID from datastore object to application object
 const fromDatastore = obj => {
@@ -85,18 +86,18 @@ const _delete = async id => {
 };
 
 // Update template
-const update = async (id, data) => {
+const update = async (id, data, updateKind = kind) => {
   // Only update if the data object is complete and matches the defined schema
   const updateData = toSchema(data);
-  if (!updateData) {
-    throw createError(500, 'Incorrect data schema');
+  if (updateData.error) {
+    throw createError(500, `Incorrect data schema, incorrect/missing keys: ${updateData.error.delta}`);
   }
 
   let key;
   if (id) {
-    key = ds.key([kind, parseInt(id, 10)]);
+    key = ds.key([updateKind, parseInt(id, 10)]);
   } else {
-    key = ds.key([kind]);
+    key = ds.key([updateKind]);
   }
   const entity = {
     key,
@@ -106,8 +107,8 @@ const update = async (id, data) => {
 };
 
 // Create new template
-const create = data => {
-  return update(null, data);
+const create = (data, updateKind) => {
+  return update(null, data, updateKind);
 };
 
 module.exports = {

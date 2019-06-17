@@ -38,8 +38,8 @@ const mapProducts = (templates, listName) => {
     position: (listName) ? index.toString() : undefined,
     views: (tpl.views) ? tpl.views.toString().toLowerCase() : undefined,
     downloads: (tpl.downloads) ? tpl.downloads.toString().toLowerCase() : undefined,
-    added_date: tpl.added_date || undefined,
-    updated_date: tpl.updated_date || undefined,
+    added_date: tpl.parsed_added_date || undefined,
+    updated_date: tpl.parsed_updated_date || undefined,
     author: (tpl.author) ? tpl.author.toLowerCase() : undefined,
     license: (tpl.license) ? tpl.license.toLowerCase() : undefined,
   }));

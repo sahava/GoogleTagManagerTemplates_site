@@ -22,7 +22,7 @@ block content
                 span.autor Author:&nbsp;
                 a(href='#')= template.author
                 br
-                small Added: #{template.added_date}
+                small Added: #{template.parsed_added_date}
                 p.card-text
                   | #{template.description}
               .card-footer
@@ -37,7 +37,7 @@ block content
                 span.autor Author:
                 a(href='#')= template.author
                 br
-                small Added:#{template.added_date}
+                small Added:#{template.parsed_added_date}
                 p.card-text
                   | #{template.description}
               .card-footer

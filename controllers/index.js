@@ -6,7 +6,6 @@ const dataLayerHelper = require('../helpers/dataLayer');
 
 router.get('/', async (req, res, next) => {
   try {
-
     // Fetch templates
     // TODO: Control pagination with const {rows, hasMore} hasMore
     const {templates} = await model.list(0, 0);
@@ -24,7 +23,8 @@ router.get('/', async (req, res, next) => {
       title: dataLayerHelper.get().page.title,
       dataLayer: dataLayerHelper.get(),
       templates: parsedTemplates,
-      category: 'home page'
+      category: 'home page',
+      user: req.user
     });
 
   } catch(err) {

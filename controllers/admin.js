@@ -5,6 +5,10 @@ const {categories} = require('../helpers/enum');
 const adminUid = ['Sov88pGOKFghLeVxdhMgswityPs2'];
 
 const checkAdminUid = (req, res, next) => {
+  // Disable caching for admin
+  res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.header('Pragma', 'no-cache');
+  res.header('Expires', 0);
   if (!req.user || (req.user && adminUid.indexOf(req.user.uid) === -1)) {
     res.redirect(301, '/');
   } else {

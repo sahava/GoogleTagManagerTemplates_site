@@ -1,4 +1,5 @@
 const express = require('express');
+const _ = require('lodash');
 const model = require('../models/template-db');
 const createError = require('http-errors');
 const router = express.Router();
@@ -87,7 +88,7 @@ router.post('/create', async (req, res, next) => {
     }
 
     // Get created entity IDs
-    const ids = entities.map(e => e.mutationResults[0].key.path[0].id);
+    const ids = entities.map(e => _.get(e, 'mutationResults[0].key.path[0].id'));
 
     // Redirect with success parameter
     res.redirect(301, `/admin/create?success=${ids.join()}`);

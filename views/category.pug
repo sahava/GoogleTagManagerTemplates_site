@@ -8,20 +8,46 @@ block content
 
     .container
     if(count!==0)
-      .row
+      .row#filterOptions
+        .col-lg-4.col-md-6.mb-4
+            header.d-flex.justify-content-between.align-items-start
+              span.visible-items
+                | Showing 
+                strong 1-30 
+                | of 
+                strong 70 
+                | results
+                div#filtersList
+                    button.btn.btn-brand.btn-info.btn-sm(type='button')
+                      span Category: #{category}
+                      i.fa.fa-window-close
+                                  
+        .col-lg-8.col-md-6.mb-4            
+            .btn-group.float-right(role='group', aria-label='Button group with nested dropdown')
+              button.btn.btn-info.btn-sm(type='button') Most Viewed
+              button.btn.btn-info.btn-sm(type='button') Most Downloaded
+              .btn-group(role='group')
+                button#btnGroupDrop1.btn.btn-info.dropdown-toggle.btn-sm(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                  | Updated Date
+                .dropdown-menu(aria-labelledby='btnGroupDrop1')
+                  a.dropdown-item(href='#') Newest
+                  a.dropdown-item(href='#') Oldest                
+      .row#products-grid
         each template, index in templates
-          .col-lg-12.col-md-6.mb-4
-            .card.h-100(data-eec-action="impression")&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category, 'data-product-variant': template.type.toLowerCase(), 'data-product-position': index, 'data-product-tracked': "false", 'data-product-list-name': "plp: "+categorySlug })
-              .card-body
-                img.rounded.float-right(src=''+template.logo, alt='' width='100px')
-                h4.card-title
-                  a(href='/template/'+template.id+'/'+template.slug+'')= template.name
-                span.autor Author:&nbsp;
-                a(href='#')= template.author
-                br
-                small Added: #{template.parsed_added_date}
-                p.card-text
-                  | #{template.description}
-              .card-footer
-                small.text-muted &starf; &starf; &starf; &starf; &star; ( #{template.views} views, #{template.downloads} Downloads )
+            .col-lg-4.col-md-6.mb-4
+              .card.h-100(data-eec-action="impression")&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category, 'data-product-variant': template.type.toLowerCase(), 'data-product-position': index, 'data-product-tracked': "false", 'data-product-list-name': "home page" })
+                .card-body
+                  img.rounded.float-right(src=''+template.logo, alt='', width="60px")
+                  h4.card-title
+                    a(href='template/'+template.id+'/'+template.slug+'')= template.name
+                  span.autor Author:&nbsp;
+                  a(href='#')= template.author
+                  br
+                  small Added: #{template.parsed_added_date}
+                  p.card-text
+                    | #{template.description}
+                .card-footer
+                  small.text-muted &starf; &starf; &starf; &starf; &star; ( #{template.views} views, #{template.downloads} Downloads )
+                  span.float-right.badge.badge-info= template.type.slice(0, 3).toUpperCase()
+
 

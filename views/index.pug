@@ -10,7 +10,28 @@ block content
         | .
       a.btn.btn-lg.btn-primary(href='#' role='button') More Details &raquo;
     .container
-    .row
+    .row#filterOptions
+        .col-lg-4.col-md-6.mb-4
+            header.d-flex.justify-content-between.align-items-start
+              span.visible-items
+                | Showing 
+                strong 1-30 
+                | of 
+                strong 70 
+                | results  
+                div#filtersList
+        .col-lg-8.col-md-6.mb-4            
+            .btn-group.float-right(role='group', aria-label='Button group with nested dropdown')
+              button.btn.btn-info.btn-sm(data-sort-by='views', type='button') Most Viewed
+              button.btn.btn-info.btn-sm(data-sort-by='downloads',type='button') Most Downloaded
+              .btn-group(role='group')
+                button#btnGroupDrop1.btn.btn-info.dropdown-toggle.btn-sm(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                  | Updated Date
+                .dropdown-menu(aria-labelledby='btnGroupDrop1')
+                  a.dropdown-item(data-sort-by='newest', href='#') Newest
+                  a.dropdown-item(data-sort-by='oldest', href='#') Oldest
+
+    .row#products-grid    
       each template, index in templates
         .col-lg-4.col-md-6.mb-4
           .card.h-100(data-eec-action="impression")&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category, 'data-product-variant': template.type.toLowerCase(), 'data-product-position': index, 'data-product-tracked': "false", 'data-product-list-name': "home page" })

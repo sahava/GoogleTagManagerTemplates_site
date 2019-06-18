@@ -15,7 +15,7 @@ block content
         .col-lg-4.col-md-6.mb-4
           .card.h-100(data-eec-action="impression")&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category, 'data-product-variant': template.type.toLowerCase(), 'data-product-position': index, 'data-product-tracked': "false", 'data-product-list-name': "home page" })
             .card-body
-              img.rounded.float-right(src=''+template.logo, alt='', width="75px")
+              img.rounded.float-right(src=''+template.logo, alt='', width="60px")
               h4.card-title
                 a(href='template/'+template.id+'/'+template.slug+'')= template.name
               span.autor Author:&nbsp;
@@ -26,4 +26,6 @@ block content
                 | #{template.description}
             .card-footer
               small.text-muted &starf; &starf; &starf; &starf; &star; ( #{template.views} views, #{template.downloads} Downloads )
+              span.float-right.badge.badge-info= template.type.slice(0, 3).toUpperCase()
+
 

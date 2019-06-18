@@ -1,7 +1,10 @@
 const categories = {
   'analytics': 'Analytics',
+  'chat': 'Chat',
   'experimentation': 'Experimentation',
-  'pixel': 'Marketing / Advertising Pixel'
+  'personalization': 'Personalization',
+  'pixel': 'Marketing / Advertising Pixel',
+  'utility': 'Utility'
 };
 
 const permissions = {

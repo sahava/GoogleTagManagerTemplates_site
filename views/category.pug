@@ -18,20 +18,20 @@ block content
                 strong 70 
                 | results
                 div#filtersList
-                    button.btn.btn-brand.btn-info.btn-sm(type='button')
+                    button.btn.btn-brand.btn-info.btn-sm.category-btn(type='button')
                       span Category: #{category}
                       i.fa.fa-window-close
                                   
         .col-lg-8.col-md-6.mb-4            
             .btn-group.float-right(role='group', aria-label='Button group with nested dropdown')
-              button.btn.btn-info.btn-sm(type='button') Most Viewed
-              button.btn.btn-info.btn-sm(type='button') Most Downloaded
+              button.btn.btn-info.btn-sm(data-sort-by='views', type='button') Most Viewed
+              button.btn.btn-info.btn-sm(data-sort-by='downloads',type='button') Most Downloaded
               .btn-group(role='group')
                 button#btnGroupDrop1.btn.btn-info.dropdown-toggle.btn-sm(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
                   | Updated Date
                 .dropdown-menu(aria-labelledby='btnGroupDrop1')
-                  a.dropdown-item(href='#') Newest
-                  a.dropdown-item(href='#') Oldest                
+                  a.dropdown-item(data-sort-by='newest', href='#') Newest
+                  a.dropdown-item(data-sort-by='oldest', href='#') Oldest             
       .row#products-grid
         each template, index in templates
             .col-lg-4.col-md-6.mb-4
@@ -39,7 +39,7 @@ block content
                 .card-body
                   img.rounded.float-right(src=''+template.logo, alt='', width="60px")
                   h4.card-title
-                    a(href='template/'+template.id+'/'+template.slug+'')= template.name
+                    a(href='/template/'+template.id+'/'+template.slug+'')= template.name
                   span.autor Author:&nbsp;
                   a(href='#')= template.author
                   br

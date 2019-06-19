@@ -47,6 +47,7 @@ const parseTemplate = tpl => {
   tpl.logo = _.get(tpl, 'info.brand.thumbnail') || imgNotAvailable;
   tpl.contexts = _.get(tpl, 'info.containerContexts').join(', ');
   tpl.displayName = _.get(tpl, 'info.displayName');
+  tpl.description = _.get(tpl, 'info.description');
   tpl.type = _.get(tpl, 'info.type') === 'TAG' ? 'Tag' : 'Variable';
   tpl.parsed_added_date = moment(tpl.added_date, 'YYYY-MM-DDTHH:mm:ss.SSSZ').format('DD MMM YYYY');
   tpl.parsed_updated_date = moment(tpl.updated_date, 'YYYY-MM-DDTHH:mm:ss.SSSZ').format('DD MMM YYYY');

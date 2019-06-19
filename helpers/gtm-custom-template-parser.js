@@ -15,12 +15,12 @@ const parseRegex = {
     start: '___TEMPLATE_PARAMETERS___',
     end: '___[^_]+_PERMISSIONS___'
   },
-  permissions: {
-    start: '___[^_]+_PERMISSIONS___',
-    end: '___SANDBOXED_JS_FOR_[^_]+_TEMPLATE___'
-  },
   parameters_alt: {
     start: '___TEMPLATE_PARAMETERS___',
+    end: '___SANDBOXED_JS_FOR_[^_]+_TEMPLATE___'
+  },
+  permissions: {
+    start: '___[^_]+_PERMISSIONS___',
     end: '___SANDBOXED_JS_FOR_[^_]+_TEMPLATE___'
   },
   notes: {
@@ -28,7 +28,6 @@ const parseRegex = {
     end: '$'
   }
 };
-
 
 const parseTemplate = tpl => {
 
@@ -39,7 +38,7 @@ const parseTemplate = tpl => {
   }
 
   tpl.info = JSON.parse(tpl.info);
-  tpl.parameters = JSON.parse(tpl.parameters ? tpl.parameters : tpl.parameters_alt);
+  tpl.parameters = JSON.parse(tpl.parameters !== '{}' ? tpl.parameters : tpl.parameters_alt);
   delete tpl.parameters_alt;
   tpl.permissions = JSON.parse(tpl.permissions);
   tpl.notes = tpl.notes.trim();

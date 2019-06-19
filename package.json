@@ -6,7 +6,7 @@
     "start": "nodemon ./bin/www",
     "deploy": "gcloud config set project gtm-templates-com & gcloud app deploy",
     "test": "jest --verbose",
-    "test:integration": "jest --testPathPattern=\\.test\\.js",
+    "test:integration": "jest --coverage --testPathPattern=\\.test\\.js",
     "test:unit": "jest --verbose --testPathPattern=\\.spec\\.js",
     "test:coverage": "jest --coverage --testPathPattern=\\.spec\\.js",
     "test:all": "jest --coverage"

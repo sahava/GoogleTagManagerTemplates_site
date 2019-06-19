@@ -32,7 +32,7 @@ const mapProducts = (templates, listName) => {
     id: tpl.id || undefined,
     name: tpl.name.toLowerCase() || undefined,
     brand: (tpl.brand) ? tpl.brand.toLowerCase() : undefined,
-    category: (tpl.category) ? tpl.category.toLowerCase() : undefined,
+    category: (tpl.category) ? [tpl.type.toLowerCase(),tpl.category.toLowerCase()].join('/') : undefined,
     variant: (tpl.type) ? tpl.type.toLowerCase() : undefined,
     list: (tpl.listName) ? tpl.listName.toLowerCase() : undefined,
     position: (listName) ? index.toString() : undefined,

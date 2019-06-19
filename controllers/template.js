@@ -1,4 +1,4 @@
-const express = require('express');
+    const express = require('express');
 const model = require('../models/template-db');
 const createError = require('http-errors');
 const router = express.Router();
@@ -42,6 +42,25 @@ router.get('/:id/:name?', async (req, res, next) => {
     dataLayerHelper.mergeDataLayer(dataLayerHelper.buildEEC('detail',{},[template]));
  
     const dataLayer = dataLayerHelper.get();
+    const schema = {
+      "@context": "http://schema.org",
+      "@type": "Product",        
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "bestRating": "100",
+        "ratingCount": "24",
+        "ratingValue": "87"
+      },
+      "image": "/img",
+      "name": template.name,
+      "category": template.category,
+      "model": template.type,
+      "sku": template.id,
+      "mpn": template.id,
+      "description": template.description || 'N/A',    
+      "brand": "Google Tag Manager",        
+      "offers": {}
+    };
     res.render('template', {
       title: dataLayer.page.title,
       dataLayer: dataLayer,
@@ -50,7 +69,8 @@ router.get('/:id/:name?', async (req, res, next) => {
       permissions: enums.permissions,
       permissions_icons: enums.permissions_icons,
       downloadUrl: `/api/template/tpl/${id}`,
-      user: req.user
+      user: req.user,
+      schema: schema
     });
 
   } catch(err) {

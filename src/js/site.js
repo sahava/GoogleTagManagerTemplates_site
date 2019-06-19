@@ -32,8 +32,6 @@
     });
 // Sorting
 $('#sortFilter').on('changed.bs.select', function() {
-    if (!window.google_tag_manager)
-        return;
     // https://gomakethings.com/how-to-build-a-query-string-from-an-object-with-vanilla-js/   
     var buildQuery = function(data) {
         // If the data is already a string, return it as-is
@@ -54,7 +52,7 @@ $('#sortFilter').on('changed.bs.select', function() {
         // Join each item in the array with a `&` and return the resulting string
         return query.join('&');
     };        
-    var params = JSON.parse(JSON.stringify(window.google_tag_manager["GTM-NHFW9Q3"].dataLayer.get('page.filters')));        
+    var params = JSON.parse(JSON.stringify(window.dataLayer[0].page.filters));
     var filterValue = $('option:selected', this).data('filterSort');
     params.sort= filterValue || "all";
     location.href = '/?' + buildQuery(params);
@@ -62,11 +60,8 @@ $('#sortFilter').on('changed.bs.select', function() {
 
 
 $('#categoryFilter').on('changed.bs.select', function() {
-    if (!window.google_tag_manager)
-        return;
-    // https://gomakethings.com/how-to-build-a-query-string-from-an-object-with-vanilla-js/    
+    // https://gomakethings.com/how-to-build-a-query-string-from-an-object-with-vanilla-js/   
     var buildQuery = function(data) {
-
         // If the data is already a string, return it as-is
         if (typeof (data) === 'string')
             return data;
@@ -85,7 +80,7 @@ $('#categoryFilter').on('changed.bs.select', function() {
         // Join each item in the array with a `&` and return the resulting string
         return query.join('&');
     };        
-    var params = JSON.parse(JSON.stringify(window.google_tag_manager["GTM-NHFW9Q3"].dataLayer.get('page.filters')));        
+    var params = JSON.parse(JSON.stringify(window.dataLayer[0].page.filters));
     var filterValue = $('#categoryFilter option:selected').map(function(){ return $(this).data('filterCategory'); }).get().join(',');
     if(params.categories.indexOf("all")>-1) params.categories.splice(params.categories.indexOf("all"));
     params.categories= filterValue || "all";
@@ -93,9 +88,7 @@ $('#categoryFilter').on('changed.bs.select', function() {
 });
 
 $('#tagTypeFilter').on('changed.bs.select', function() {
-    if (!window.google_tag_manager)
-        return;
-    // https://gomakethings.com/how-to-build-a-query-string-from-an-object-with-vanilla-js/    
+    // https://gomakethings.com/how-to-build-a-query-string-from-an-object-with-vanilla-js/   
     var buildQuery = function(data) {
 
         // If the data is already a string, return it as-is
@@ -116,7 +109,7 @@ $('#tagTypeFilter').on('changed.bs.select', function() {
         // Join each item in the array with a `&` and return the resulting string
         return query.join('&');
     };        
-    var params = JSON.parse(JSON.stringify(window.google_tag_manager["GTM-NHFW9Q3"].dataLayer.get('page.filters'))); 
+    var params = JSON.parse(JSON.stringify(window.dataLayer[0].page.filters));
     if(params.tagTypes.indexOf("all")>-1) params.tagTypes.splice(params.tagTypes.indexOf("all"));
     
     var filterValue = $('#tagTypeFilter option:selected').map(function(){ return $(this).data('filterTagType'); }).get().join(',');

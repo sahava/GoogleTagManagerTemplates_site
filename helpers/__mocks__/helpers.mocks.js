@@ -1,5 +1,4 @@
 const validTemplate = {
-  type: 'TAG',
   installs: 0,
   author: 'David Vallejo',
   views: 119,
@@ -334,11 +333,11 @@ const validTemplate = {
 'default:\n    break;\n}\n// Call data.gtmOnSuccess when the tag is finished.\n' +
 'data.gtmOnSuccess();\n\n\n___NOTES___\n\nCreated on 30/5/2019 13:14:07\n',
   author_url: 'https://www.twitter.com/thyng',
-  id: '5641906755207168'
+  id: '5641906755207168',
+  kind: 'Template_dev'
 };
 
 const invalidTemplate = {
-  type: 'TAG',
   price: 0,
   installs: 0,
   author: 'David Vallejo',
@@ -675,11 +674,11 @@ const invalidTemplate = {
     'default:\n    break;\n}\n// Call data.gtmOnSuccess when the tag is finished.\n' +
     'data.gtmOnSuccess();\n\n\n___NOTES___\n\nCreated on 30/5/2019 13:14:07\n',
   author_url: 'https://www.twitter.com/thyng',
-  id: '5641906755207168'
+  id: '5641906755207168',
+  kind: 'Template_dev'
 };
 
 const validTemplateNoLogo = {
-  type: 'TAG',
   installs: 0,
   author: 'David Vallejo',
   views: 119,
@@ -1012,11 +1011,126 @@ const validTemplateNoLogo = {
     'default:\n    break;\n}\n// Call data.gtmOnSuccess when the tag is finished.\n' +
     'data.gtmOnSuccess();\n\n\n___NOTES___\n\nCreated on 30/5/2019 13:14:07\n',
   author_url: 'https://www.twitter.com/thyng',
-  id: '5641906755207168'
+  id: '5641906755207168',
+  kind: 'Template_dev'
+};
+
+const validTemplateNoPermissions = {
+  author_slug: 'simo-ahava',
+  name: 'String from array of objects',
+  category: 'utility',
+  vendor_url: '',
+  git_url: 'https://github.com/sahava/GoogleTagManagerTemplates/blob/master/variables/String%20from%20array%20of%20objects.tpl',
+  landing_url: '',
+  updated_date: new Date('2019-06-18T09:22:37.732Z'),
+  added_date: new Date('2019-06-18T09:22:37.732Z'),
+  downloads: 0,
+  slug: 'string-from-array-of-objects',
+  license: '',
+  json: '___INFO___\r' +
+    '\n\r' +
+    '\n{\r' +
+    '\n  "type": "MACRO",\r' +
+    '\n  "id": "cvt_temp_public_id",\r' +
+    '\n  "version": 1,\r' +
+    '\n  "securityGroups": [],\r' +
+    '\n  "displayName": "String from array of objects",\r' +
+    '\n  "__wm": ' +
+    '"VGVtcGxhdGUtQXV0aG9yX1N0cmluZy1mcm9tLWFycmF5LW9mLW9iamVjdHMtU2ltby1BaGF2YQ==",\r' +
+    '\n  "description": "Create a concatenated string of a key in an array of ' +
+    'objects.",\r' +
+    '\n  "containerContexts": [\r' +
+    '\n    "WEB"\r' +
+    '\n  ],\r' +
+    '\n  "brand": {}\r' +
+    '\n}\r' +
+    '\n\r' +
+    '\n\r' +
+    '\n___TEMPLATE_PARAMETERS___\r' +
+    '\n\r' +
+    '\n[\r' +
+    '\n  {\r' +
+    '\n    "type": "LABEL",\r' +
+    '\n    "name": "helpText",\r' +
+    '\n    "displayName": "Use this variable to turn an array of objects (e.g. ' +
+    "<strong>[{id: '123', name: 'first'},{id: '234', name: 'second}]</strong>) " +
+    `into a string (e.g. <strong>'123,234'</strong>)."\r` +
+    '\n  },\r' +
+    '\n  {\r' +
+    '\n    "type": "SELECT",\r' +
+    '\n    "name": "inputArray",\r' +
+    '\n    "displayName": "Input array",\r' +
+    '\n    "macrosInSelect": true,\r' +
+    '\n    "selectItems": [],\r' +
+    '\n    "simpleValueType": true\r' +
+    '\n  },\r' +
+    '\n  {\r' +
+    '\n    "type": "TEXT",\r' +
+    '\n    "name": "keyToConcatenate",\r' +
+    '\n    "displayName": "Object property",\r' +
+    '\n    "simpleValueType": true,\r' +
+    '\n    "help": "Choose a key that can be found in the objects within the ' +
+    'array. The values of this key will be used to create the string.",\r' +
+    '\n    "valueHint": "e.g. id",\r' +
+    '\n    "valueValidators": [\r' +
+    '\n      {\r' +
+    '\n        "type": "NON_EMPTY"\r' +
+    '\n      }\r' +
+    '\n    ],\r' +
+    '\n    "alwaysInSummary": true\r' +
+    '\n  },\r' +
+    '\n  {\r' +
+    '\n    "type": "TEXT",\r' +
+    '\n    "name": "delimiter",\r' +
+    '\n    "displayName": "Delimiter",\r' +
+    '\n    "simpleValueType": true,\r' +
+    '\n    "help": "Choose a delimiter symbol or string used to separate each ' +
+    'value in the string.",\r' +
+    '\n    "defaultValue": ",",\r' +
+    '\n    "alwaysInSummary": true\r' +
+    '\n  }\r' +
+    '\n]\r' +
+    '\n\r' +
+    '\n\r' +
+    '\n___SANDBOXED_JS_FOR_WEB_TEMPLATE___\r' +
+    '\n\r' +
+    "\nconst callInWindow = require('callInWindow');\r" +
+    "\nconst log = require('logToConsole');\r" +
+    '\n\r' +
+    '\n// Helper method\r' +
+    "\nconst isArray = arr => callInWindow('toString.call', arr) === '[object " +
+    "Array]';\r" +
+    '\n\r' +
+    '\nconst inputArray = data.inputArray;\r' +
+    '\nconst keyToConcatenate = data.keyToConcatenate;\r' +
+    '\nconst delimiter = data.delimiter;\r' +
+    '\n\r' +
+    '\n// If not an array, return undefined\r' +
+    '\nif (!isArray(inputArray)) {\r' +
+    '\n  return;\r' +
+    '\n}\r' +
+    '\n\r' +
+    '\nreturn inputArray\r' +
+    '\n  .map(obj => obj[keyToConcatenate])\r' +
+    '\n  .filter(obj => obj)\r' +
+    '\n  .join(delimiter);\r' +
+    '\n\r' +
+    '\n\r' +
+    '\n___NOTES___\r' +
+    '\n\r' +
+    '\nCreated on 22/05/2019, 10:54:06',
+  author_url: 'https://www.simoahava.com/',
+  type: 'Variable',
+  installs: 0,
+  author: 'Simo Ahava',
+  views: 4,
+  id: '6269225047949312',
+  kind: 'Template_dev'
 };
 
 module.exports = {
   validTemplate,
+  validTemplateNoPermissions,
   invalidTemplate,
   validTemplateNoLogo
 };

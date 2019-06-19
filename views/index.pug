@@ -14,13 +14,13 @@ block content
         .col-lg-4.col-md-6.mb-4
             header.d-flex.justify-content-between.align-items-start
               span.visible-items
-                | Showing 
-                strong 1-30 
-                | of 
-                strong 70 
-                | results  
+                | Showing
+                strong 1-30
+                | of
+                strong 70
+                | results
                 div#filtersList
-        .col-lg-8.col-md-6.mb-4            
+        .col-lg-8.col-md-6.mb-4
             .btn-group.float-right(role='group', aria-label='Button group with nested dropdown')
               button.btn.btn-info.btn-sm(data-sort-by='views', type='button') Most Viewed
               button.btn.btn-info.btn-sm(data-sort-by='downloads',type='button') Most Downloaded
@@ -31,7 +31,7 @@ block content
                   a.dropdown-item(data-sort-by='newest', href='#') Newest
                   a.dropdown-item(data-sort-by='oldest', href='#') Oldest
 
-    .row#products-grid    
+    .row#products-grid
       each template, index in templates
         .col-lg-4.col-md-6.mb-4
           .card.h-100(data-eec-action="impression")&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category, 'data-product-variant': template.type.toLowerCase(), 'data-product-position': index, 'data-product-tracked': "false", 'data-product-list-name': "home page" })
@@ -48,5 +48,5 @@ block content
             .card-footer
               small.text-muted ( #{template.views} views, #{template.downloads} Downloads )
               span.float-right.badge.badge-info= template.type.slice(0, 3).toUpperCase()
-
-
+              if user && user.admin
+                a.float-right.badge.badge-danger(href='/admin/update/' + template.id) EDIT

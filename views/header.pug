@@ -31,4 +31,7 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.mb-4
                     p.text-left
                       small#userEmail #{user.email}
                     p.text-left
+                      if user && user.admin
+                        a.btn.btn-danger.my-2.my-sm-0(href='/admin') Admin
+                        | &nbsp;
                       a.btn.btn-outline-info.my-2.my-sm-0(href='/api/session/logout/') Sign out

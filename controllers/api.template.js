@@ -98,4 +98,27 @@ router.post('/create', async (req, res, next) => {
   }
 });
 
+router.post('/update/:id', async (req, res, next) => {
+  try {
+    let templateJson = req.body;
+
+    // Fetch item that matches ID
+    const [template] = await model.read(req.params.id);
+
+    for (let key in templateJson) {
+      template[key] = templateJson[key]
+    }
+
+    template.updated_date = new Date();
+
+    await model.update(template.id, template);
+
+    // Redirect with success parameter
+    res.redirect(301, `/admin/update/${template.id}?success=${template.id}`);
+
+  } catch(err) {
+    next(err);
+  }
+});
+
 module.exports = router;

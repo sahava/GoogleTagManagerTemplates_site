@@ -4,58 +4,69 @@ block content
   main.container(role='main')
     .jumbotron
       h1 Admin
-      a(href='/admin/create') Create template
-      | &nbsp;|&nbsp;
-      a(href='/admin/update') Update template
+      p
+        a(href='/admin/create') Create template
       hr
       if !success
         div.col-sm-4
-          form(method='POST' action='/api/template/create')
+          form(method='POST' action=`/api/template/${!tpl ? 'create' : `update/${tpl.id}`}`)
             div.form-group
               label(for='kind') Database:
-              select#kind.form-control(name='kind')
-                option(value='development') Development
-                option(value='production') Production
-                option(value='both') Both
+              if !tpl
+                select#kind.form-control(name='kind')
+                  option(value='development') Development
+                  option(value='production') Production
+                  option(value='both') Both
+              else
+                - var dbKind = tpl.kind === 'Template' ? 'Production' : 'Development'
+                select#kind.form-control(name='kind' disabled)
+                  option(value=dbKind.toLowerCase())= dbKind
             div.form-group
               label(for='name') Name:
-              input#name.form-control(type='text', name='name')
+              input#name.form-control(type='text' name='name' value=!!tpl ? tpl.name : '')
             div.form-group
               label(for='author') Author:
-              input#author.form-control(type='text', name='author')
+              input#author.form-control(type='text' name='author' value=!!tpl ? tpl.author : '')
             div.form-group
               label(for='category') Category:
               select#category.form-control(name='category')
                 each category, index in categories
-                  option(value=index) #{category}
+                  if !!tpl && tpl.category === index
+                    option(value=index selected) #{category}
+                  else
+                    option(value=index) #{category}
             div.form-group
               label(for='license') License:
-              input#license.form-control(type='text' name='license')
+              input#license.form-control(type='text' name='license' value=!!tpl ? tpl.license : '')
             div.form-group
               label(for='json') JSON:
-              textarea#json.form-control(rows=5 name='json')
+              textarea#json.form-control(rows=5 name='json')= !!tpl ? tpl.json : ''
             div.form-group
               label(for='slug') Slug:
-              input#slug.form-control(type='text' name='slug')
+              input#slug.form-control(type='text' name='slug' value=!!tpl ? tpl.slug : '')
             div.form-group
               label(for='author_url') Author URL:
-              input#author_url.form-control(type='text', name='author_url')
+              input#author_url.form-control(type='text' name='author_url' value=!!tpl ? tpl.author_url: '')
             div.form-group
               label(for='author_slug') Author slug:
-              input#author_slug.form-control(type='text' name='author_slug')
+              input#author_slug.form-control(type='text' name='author_slug' value=!!tpl ? tpl.author_slug: '')
             div.form-group
               label(for='vendor_url') Vendor URL:
-              input#vendor_url.form-control(type='text' name='vendor_url')
+              input#vendor_url.form-control(type='text' name='vendor_url' value=!!tpl ? tpl.vendor_url: '')
             div.form-group
               label(for='landing_url') Landing URL:
-              input#landing_url.form-control(type='text' name='landing_url')
+              input#landing_url.form-control(type='text' name='landing_url' value=!!tpl ? tpl.landing_url: '')
             div.form-group
               label(for='git_url') Git URL:
-              input#git_url.form-control(type='text' name='git_url')
-            button.btn.btn-primary(type='submit') Create
+              input#git_url.form-control(type='text' name='git_url' value=!!tpl ? tpl.git_url : '')
+            if !tpl
+              button.btn.btn-primary(type='submit') Create
+            else
+              input(type='hidden' name='kind' value=tpl.kind)
+              button.btn.btn-warning(type='submit') Update
       else
         div.col-sm-6
-          h4 Successfully created the following IDs
+          h4 Successfully created/updated the following IDs
           ul.list-group
             for id in success
               li.list-group-item

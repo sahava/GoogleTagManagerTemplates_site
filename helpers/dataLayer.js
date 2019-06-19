@@ -46,7 +46,13 @@ const mapProducts = (templates, listName) => {
 };
 
 const get = () => {
-  return model;
+   
+  // Bypass caching . Tricky, I know, it works
+  const _model = JSON.parse(JSON.stringify(model));    
+  model = {
+    'event': 'datalayer-initialized'
+  };
+  return _model;
 };
 
 module.exports = {

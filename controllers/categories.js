@@ -14,14 +14,14 @@ router.get('/', async (req, res, next) => {
       return acc;
     }, {});
 
-    const dataLayer = {
-      event: 'datalayer-initialized',
-      page: {
-        type: 'categories listing page',
-        title: 'Categories - GTMs Templates'
-      },
-      categories: enums.categories
-    };
+    dataLayerHelper.mergeDataLayer({
+        page: {
+            type: 'categories listing page',
+            title: 'Categories - GTMs Templates'
+        },
+        categories: enums.categories
+    });      
+    const dataLayer = dataLayerHelper.get();
 
     res.render('categories', {
       title: dataLayer.page.title,
@@ -63,10 +63,10 @@ router.get('/:category/', async (req, res, next) => {
       }
     });
     dataLayerHelper.mergeDataLayer(dataLayerHelper.buildEEC('impressions',{list: 'plp: ' + categorySlug}, parsedTemplates));
-
+    const dataLayer = dataLayerHelper.get(); 
     res.render('category', {
-      title: dataLayerHelper.get().page.title,
-      dataLayer: dataLayerHelper.get(),
+      title: dataLayer.page.title,
+      dataLayer: dataLayer,
       templates: parsedTemplates,
       category: enums.categories[categorySlug],
       count: parsedTemplates.length,

@@ -8,7 +8,7 @@ const enums = require('../helpers/enum');
 router.get('/', async (req, res, next) => {
   try {
     // Fetch templates
-    // TODO: Control pagination with const {rows, hasMore} hasMore
+    // TODO: Control pagination with const {rows, hasMore} hasMore    
     const {templates} = await model.list(0, 0);
     const parsedTemplates = templates.map(gtmTplParser.parseTemplate);
     const filterOptions = {
@@ -32,14 +32,15 @@ router.get('/', async (req, res, next) => {
       }
     });
     dataLayerHelper.mergeDataLayer(dataLayerHelper.buildEEC('impressions',{list: 'home page'}, templates));
+    const dataLayer = dataLayerHelper.get();
     res.render('index', {
-      title: dataLayerHelper.get().page.title,
-      dataLayer: dataLayerHelper.get(),
+      title: dataLayer.page.title,
+      dataLayer: dataLayer,
       templates: parsedTemplates,
       category: 'home page',
       user: req.user,
-      filters: dataLayerHelper.get().page.filters,
-      qs: dataLayerHelper.get().page.qs,
+      filters: dataLayer.page.filters,
+      qs: dataLayer.page.qs,
       categories: enums.categories
     });
 

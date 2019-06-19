@@ -40,10 +40,11 @@ router.get('/:id/:name?', async (req, res, next) => {
       template: template
     });
     dataLayerHelper.mergeDataLayer(dataLayerHelper.buildEEC('detail',{},[template]));
-
+ 
+    const dataLayer = dataLayerHelper.get();
     res.render('template', {
-      title: dataLayerHelper.get().page.title,
-      dataLayer: dataLayerHelper.get(),
+      title: dataLayer.page.title,
+      dataLayer: dataLayer,
       categories_list: enums.categories,
       template: parsed_tpl,
       permissions: enums.permissions,

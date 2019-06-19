@@ -23,7 +23,7 @@ span.badge {
   padding: 10px 10px 0px 10px;
 }
 
-#filtersList button{
+.filter-btn{
     margin-right: 4px;
     margin-top: 4px;
 }

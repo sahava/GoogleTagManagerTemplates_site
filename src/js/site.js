@@ -30,11 +30,99 @@
         }
         $('.results-count').text($('div.card[data-eec-action]:visible').length)
     });
-    // Results Sorting
-    $('[data-sort-by]').on('click', function() {
-        $('#filtersList button.btn-sortby').remove();
-        // Build Query Reload Page Listing
-        $('#filtersList').append('<button class="btn btn-brand btn-info btn-sm btn-sortby" type="button"><span>Sort by: ' + $(this).data('sortBy') + '</span><i class="fa fa-window-close"></i></button>');
-    });
+// Sorting
+$('#sortFilter').on('changed.bs.select', function() {
+    if (!window.google_tag_manager)
+        return;
+    // https://gomakethings.com/how-to-build-a-query-string-from-an-object-with-vanilla-js/   
+    var buildQuery = function(data) {
+        // If the data is already a string, return it as-is
+        if (typeof (data) === 'string')
+            return data;
+
+        // Create a query array to hold the key/value pairs
+        var query = [];
+
+        // Loop through the data object
+        for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+
+                // Encode each key and value, concatenate them into a string, and push them to the array
+                query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
+            }
+        }
+        // Join each item in the array with a `&` and return the resulting string
+        return query.join('&');
+    };        
+    var params = JSON.parse(JSON.stringify(window.google_tag_manager["GTM-NHFW9Q3"].dataLayer.get('page.filters')));        
+    var filterValue = $('option:selected', this).data('filterSort');
+    params.sort= filterValue || "all";
+    location.href = '/?' + buildQuery(params);
+});
+
+
+$('#categoryFilter').on('changed.bs.select', function() {
+    if (!window.google_tag_manager)
+        return;
+    // https://gomakethings.com/how-to-build-a-query-string-from-an-object-with-vanilla-js/    
+    var buildQuery = function(data) {
+
+        // If the data is already a string, return it as-is
+        if (typeof (data) === 'string')
+            return data;
+
+        // Create a query array to hold the key/value pairs
+        var query = [];
+
+        // Loop through the data object
+        for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+
+                // Encode each key and value, concatenate them into a string, and push them to the array
+                query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
+            }
+        }
+        // Join each item in the array with a `&` and return the resulting string
+        return query.join('&');
+    };        
+    var params = JSON.parse(JSON.stringify(window.google_tag_manager["GTM-NHFW9Q3"].dataLayer.get('page.filters')));        
+    var filterValue = $('#categoryFilter option:selected').map(function(){ return $(this).data('filterCategory'); }).get().join(',');
+    if(params.categories.indexOf("all")>-1) params.categories.splice(params.categories.indexOf("all"));
+    params.categories= filterValue || "all";
+    location.href = '/?' + buildQuery(params);
+});
+
+$('#tagTypeFilter').on('changed.bs.select', function() {
+    if (!window.google_tag_manager)
+        return;
+    // https://gomakethings.com/how-to-build-a-query-string-from-an-object-with-vanilla-js/    
+    var buildQuery = function(data) {
+
+        // If the data is already a string, return it as-is
+        if (typeof (data) === 'string')
+            return data;
+
+        // Create a query array to hold the key/value pairs
+        var query = [];
+
+        // Loop through the data object
+        for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+
+                // Encode each key and value, concatenate them into a string, and push them to the array
+                query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
+            }
+        }
+        // Join each item in the array with a `&` and return the resulting string
+        return query.join('&');
+    };        
+    var params = JSON.parse(JSON.stringify(window.google_tag_manager["GTM-NHFW9Q3"].dataLayer.get('page.filters'))); 
+    if(params.tagTypes.indexOf("all")>-1) params.tagTypes.splice(params.tagTypes.indexOf("all"));
+    
+    var filterValue = $('#tagTypeFilter option:selected').map(function(){ return $(this).data('filterTagType'); }).get().join(',');
+    params.tagTypes= filterValue || "all";
+    location.href = '/?' + buildQuery(params);
+});  
+    
 }
 )(window.jQuery);

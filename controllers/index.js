@@ -27,6 +27,8 @@ router.get('/', async (req, res, next) => {
             showTemplate = true;
         else if(filterOptions.tagTypes.indexOf(template.type.toLocaleLowerCase())>-1 && filterOptions.categories.indexOf("all")>-1)
             showTemplate = true;
+        else if(filterOptions.tagTypes.indexOf("all")>-1 && filterOptions.categories.indexOf("all")>-1)
+            showTemplate = true;        
         if(showTemplate===true) return template;
        },filterOptions       
     );

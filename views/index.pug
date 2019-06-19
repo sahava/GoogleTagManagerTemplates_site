@@ -40,17 +40,17 @@ block content
                         button.btn.btn-brand.btn-info.btn-sm.filter-btn(type='button')
                           span Type: #{filterTagType}                             
         .col-lg-2.mb-2
-          select.selectpicker#sortFilter(multiple='' data-max-options='1')          
-                option(data-filter-sort='views', selected = (filters.sort==="views" ? true : false)) Most Viewed
-                option(data-filter-sort='downloads', selected = (filters.sort==="downloads" ? true : false)) Most Downloaded
+          select.selectpicker.sortSelect#sortFilter(multiple='' data-max-options='1')          
+                option(data-filter-sort='views', selected = (filters.sort==="views" ? true : false)) Views
+                option(data-filter-sort='downloads', selected = (filters.sort==="downloads" ? true : false)) Downloads
                 option(data-filter-sort='newest', selected = (filters.sort==="newest" ? true : false)) Newest
                 option(data-filter-sort='oldest', selected = (filters.sort==="oldest" ? true : false)) Oldest
         .col-lg-2.mb-2
-          select.selectpicker#categoryFilter(multiple='' data-max-options='4')
+          select.selectpicker.sortSelect#categoryFilter(multiple='' data-max-options='3')
             each category, index in categories 
                 option(data-filter-category=''+index, selected = (filters.categories.indexOf(index)>-1 ? true : false)) #{category}
         .col-lg-2.mb-2
-          select.selectpicker#tagTypeFilter(multiple='' data-max-options='2')
+          select.selectpicker.sortSelect#tagTypeFilter(multiple='' data-max-options='2')
                 option(data-filter-tag-type='tag', selected = (filters.tagTypes.indexOf("tag")>-1 ? true : false)) Tag
                 option(data-filter-tag-type='variable',selected = (filters.tagTypes.indexOf("variable")>-1 ? true : false)) Variable                  
     .row#products-grid    

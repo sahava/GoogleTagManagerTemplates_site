@@ -27,3 +27,15 @@ span.badge {
     margin-right: 4px;
     margin-top: 4px;
 }
+
+.bootstrap-select>.dropdown-toggle {
+    width: 72%!important;
+}
+
+.sortSelect{
+    padding-top: 4px;
+}
+
+.btn-group-sm>.btn, .btn-sm {
+    padding: 0.48rem .5rem!important;
+}

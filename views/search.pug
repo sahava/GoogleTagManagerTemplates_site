@@ -14,18 +14,19 @@ block content
         each template, index in templates
           .mb-4
             .card.h-100(data-eec-action="impression")&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category, 'data-product-variant': template.type.toLowerCase(), 'data-product-type': template.type,  'data-product-position': index, 'data-product-tracked': "false", 'data-product-list-name': "search results page" })
-              .card-body
-                img.rounded.float-right(src=''+template.logo, alt='' width='100px')
-                h4.card-title
-                  a(href='/template/'+template.id+'/'+template.slug+'')= template.name
-                span.autor Author:
-                a(href='#')= template.author
-                br
-                small Added:#{template.parsed_added_date}
-                p.card-text
-                  | #{template.description}
-              .card-footer
-                small.text-muted &starf; &starf; &starf; &starf; &star; ( #{template.views} views, #{template.downloads} Downloads )
+                .card-body
+                  img.rounded.float-right(src=''+template.logo, alt='', width="60px")
+                  h4.card-title
+                    a(href='template/'+template.id+'/'+template.slug+'')= template.name
+                  span.autor Author:&nbsp;
+                  a(href='#')= template.author
+                  br
+                  small Added: #{template.parsed_added_date}
+                  p.card-text
+                    | #{template.description}
+                .card-footer
+                  small.text-muted ( #{template.views} views, #{template.downloads} Downloads )
+                  span.float-right.badge.badge-info= template.type.slice(0, 3).toUpperCase()
       .col-4
         h2 Refine
         .card

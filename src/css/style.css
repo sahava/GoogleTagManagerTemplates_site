@@ -22,3 +22,8 @@ span.badge {
   width: 305px;
   padding: 10px 10px 0px 10px;
 }
+
+#filtersList button{
+    margin-right: 4px;
+    margin-top: 4px;
+}

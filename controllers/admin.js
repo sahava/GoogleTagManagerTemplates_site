@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const dataLayerHelper = require('../helpers/dataLayer');
 const {categories} = require('../helpers/enum');
-const adminUid = ['Sov88pGOKFghLeVxdhMgswityPs2'];
+const adminUid = ['Sov88pGOKFghLeVxdhMgswityPs2','34HpqBLNtdU6w777mfwznhD1fxI3'];
 
 const checkAdminUid = (req, res, next) => {
   // Disable caching for admin

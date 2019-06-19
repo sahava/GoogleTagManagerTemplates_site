@@ -10,7 +10,7 @@ const mergeDataLayer = push => {
   model = {...model, ...push};
 };
 
-const buildEEC = (action, actionField, products) => {
+const buildEEC = (action, actionField, products, listName) => {
   const ecommerce = {};
   switch (action) {
     case 'detail':
@@ -21,7 +21,7 @@ const buildEEC = (action, actionField, products) => {
       break;
     case 'impressions':
       return {
-        productsImpressions: mapProducts(products)
+        productsImpressions: mapProducts(products, listName)
       };
   }
   return {ecommerce: ecommerce};
@@ -29,19 +29,19 @@ const buildEEC = (action, actionField, products) => {
 
 const mapProducts = (templates, listName) => {
   return templates.map((tpl, index) => ({
-    id: tpl.id || undefined,
-    name: tpl.name.toLowerCase() || undefined,
-    brand: (tpl.brand) ? tpl.brand.toLowerCase() : undefined,
+    id: tpl.id,
+    name: tpl.name.toLowerCase(),
+    brand: tpl.brand ? tpl.brand.toLowerCase() : undefined,
     category: (tpl.category) ? [tpl.type.toLowerCase(),tpl.category.toLowerCase()].join('/') : undefined,
-    variant: (tpl.type) ? tpl.type.toLowerCase() : undefined,
-    list: (tpl.listName) ? tpl.listName.toLowerCase() : undefined,
-    position: (listName) ? index.toString() : undefined,
-    views: (tpl.views) ? tpl.views.toString().toLowerCase() : undefined,
-    downloads: (tpl.downloads) ? tpl.downloads.toString().toLowerCase() : undefined,
-    added_date: tpl.parsed_added_date || undefined,
-    updated_date: tpl.parsed_updated_date || undefined,
-    author: (tpl.author) ? tpl.author.toLowerCase() : undefined,
-    license: (tpl.license) ? tpl.license.toLowerCase() : undefined,
+    variant: tpl.type.toLowerCase(),
+    list: listName ? listName.toLowerCase() : undefined,
+    position: listName ? index.toString() : undefined,
+    views: tpl.views.toString(),
+    downloads: tpl.downloads.toString(),
+    added_date: tpl.parsed_added_date,
+    updated_date: tpl.parsed_updated_date,
+    author: tpl.author ? tpl.author.toLowerCase() : undefined,
+    license: tpl.license ? tpl.license.toLowerCase() : undefined,
   }));
 };
 

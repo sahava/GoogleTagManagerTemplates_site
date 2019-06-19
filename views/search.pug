@@ -27,6 +27,8 @@ block content
                 .card-footer
                   small.text-muted ( #{template.views} views, #{template.downloads} Downloads )
                   span.float-right.badge.badge-info= template.type.slice(0, 3).toUpperCase()
+                  if user && user.admin
+                    a.float-right.badge.badge-danger(href='/admin/update/' + template.id) EDIT
       .col-4
         h2 Refine
         .card

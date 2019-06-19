@@ -11,6 +11,7 @@ const doNotIndex = ['json', 'slug', 'author_url', 'author_slug', 'license', 'ven
 // Append ID from datastore object to application object
 const fromDatastore = obj => {
   obj.id = obj[Datastore.KEY].id;
+  obj.kind = obj[Datastore.KEY].kind;
   return obj;
 };
 

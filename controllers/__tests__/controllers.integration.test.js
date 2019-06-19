@@ -43,7 +43,7 @@ describe('Test /search/', () => {
 
 });
 
-describe('Test /users/', () => {
+describe('Test /admin/', () => {
 
   test('It should respond 301 status to GET request for /admin/', async () => {
     const response = await request(app).get('/admin/');

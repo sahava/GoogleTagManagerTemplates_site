@@ -54,6 +54,7 @@ block content
                 option(data-filter-tag-type='tag', selected = (filters.tagTypes.indexOf("tag")>-1 ? true : false)) Tag
                 option(data-filter-tag-type='variable',selected = (filters.tagTypes.indexOf("variable")>-1 ? true : false)) Variable                  
     .row#products-grid    
+
       each template, index in templates
         .col-lg-4.col-md-6.mb-4
           .card.h-100(data-eec-action="impression")&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category, 'data-product-variant': template.type.toLowerCase(), 'data-product-position': index, 'data-product-tracked': "false", 'data-product-list-name': "home page" })
@@ -70,5 +71,5 @@ block content
             .card-footer
               small.text-muted ( #{template.views} views, #{template.downloads} Downloads )
               span.float-right.badge.badge-info= template.type.slice(0, 3).toUpperCase()
-
-
+              if user && user.admin
+                a.float-right.badge.badge-danger(href='/admin/update/' + template.id) EDIT

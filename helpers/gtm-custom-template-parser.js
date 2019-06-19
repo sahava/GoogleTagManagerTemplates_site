@@ -15,12 +15,12 @@ const parseRegex = {
     start: '___TEMPLATE_PARAMETERS___',
     end: '___[^_]+_PERMISSIONS___'
   },
-  permissions: {
-    start: '___[^_]+_PERMISSIONS___',
-    end: '___SANDBOXED_JS_FOR_[^_]+_TEMPLATE___'
-  },
   parameters_alt: {
     start: '___TEMPLATE_PARAMETERS___',
+    end: '___SANDBOXED_JS_FOR_[^_]+_TEMPLATE___'
+  },
+  permissions: {
+    start: '___[^_]+_PERMISSIONS___',
     end: '___SANDBOXED_JS_FOR_[^_]+_TEMPLATE___'
   },
   notes: {
@@ -28,7 +28,6 @@ const parseRegex = {
     end: '$'
   }
 };
-
 
 const parseTemplate = tpl => {
 
@@ -39,7 +38,7 @@ const parseTemplate = tpl => {
   }
 
   tpl.info = JSON.parse(tpl.info);
-  tpl.parameters = JSON.parse(tpl.parameters ? tpl.parameters : tpl.parameters_alt);
+  tpl.parameters = JSON.parse(tpl.parameters !== '{}' ? tpl.parameters : tpl.parameters_alt);
   delete tpl.parameters_alt;
   tpl.permissions = JSON.parse(tpl.permissions);
   tpl.notes = tpl.notes.trim();
@@ -47,6 +46,7 @@ const parseTemplate = tpl => {
   tpl.logo = _.get(tpl, 'info.brand.thumbnail') || imgNotAvailable;
   tpl.contexts = _.get(tpl, 'info.containerContexts').join(', ');
   tpl.displayName = _.get(tpl, 'info.displayName');
+  tpl.description = _.get(tpl, 'info.description');
   tpl.type = _.get(tpl, 'info.type') === 'TAG' ? 'Tag' : 'Variable';
   tpl.parsed_added_date = moment(tpl.added_date, 'YYYY-MM-DDTHH:mm:ss.SSSZ').format('DD MMM YYYY');
   tpl.parsed_updated_date = moment(tpl.updated_date, 'YYYY-MM-DDTHH:mm:ss.SSSZ').format('DD MMM YYYY');

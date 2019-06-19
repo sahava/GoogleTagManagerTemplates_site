@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 const categories = {
   'analytics': 'Analytics',
   'chat': 'Chat',

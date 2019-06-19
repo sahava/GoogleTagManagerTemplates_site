@@ -8,7 +8,7 @@ const dataLayerHelper = require('../helpers/dataLayer');
 
 router.get('/:id/:name?', async (req, res, next) => {
   try {
-    const id = req.params.id;      
+    const id = req.params.id;
     // If invalid ID, throw 404
     if (isNaN(parseInt(id, 10))) {
       next(createError(404, 'Invalid template ID!'));

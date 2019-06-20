@@ -116,7 +116,7 @@ block content
                                       th(scope='col') Secure
                                       th(scope='col') Session
                                   tbody
-                                    //each cookie, index in permission.instance.param[0].value.listItem
+                                    each cookie, index in permission.instance.param[0].value.listItem
                                         tr
                                           td= cookie.mapValue[0].string
                                           td= cookie.mapValue[1].string

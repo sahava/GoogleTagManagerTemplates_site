@@ -12,11 +12,9 @@ const mergeDataLayer = push => {
 };
 
 const normalize = tpl => {
-  for (let prop in tpl) {
-    if (tpl.hasOwnProperty(prop)) {
-      tpl[prop] = tpl[prop].toString().toLowerCase()
-    }
-  }
+  _.forOwn(tpl, (val, key) => {
+    tpl[key] = tpl[key].toString().toLowerCase();
+  });
   return tpl;
 };
 

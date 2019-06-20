@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {app} = require('../helpers/firebase');
+const {app} = require('./middleware/firebase');
 
 router.post('/login/', async (req, res) => {
   try {

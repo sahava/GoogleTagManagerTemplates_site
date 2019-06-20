@@ -209,14 +209,15 @@ block content
                               when "get_cookies"
                                 p Reads the values of the cookies with the specified name.
                                 hr
-                                if permission.instance.param.length !== 0
-                                    ul.list-group
-                                      li.list-group-item.active
-                                        small Cookie Name
-                                      each cookie, index in permission.instance.param[0].value.listItem
-                                        li.list-group-item= cookie.string
-                                else
-                                    p Library seems to be set to load but not patterns are defined
+                                table.table
+                                    thead.thead-light
+                                       tr
+                                         th(scope='col') Cookie name
+                                    tbody
+                                    if permission.instance.param.length !== 0
+                                        each cookie, index in permission.instance.param[0].value.listItem
+                                            tr
+                                              td= cookie.string
                               when "get_referrer"
                                 - var queriesAllowed
                                 - var queryKeys

@@ -20,7 +20,7 @@ const permissions = {
   read_character_set: 'Reads Document Character Set',
   read_title: 'Reads Document Title',
   send_pixel: 'Sends Pixels',
-  set_cookies: 'Sets a cookie'
+  set_cookies: 'Sets a cookie value'
 };
 
 const permissions_icons = {

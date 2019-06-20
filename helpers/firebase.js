@@ -1,5 +1,5 @@
 const admin = require('firebase-admin');
-const adminUid = ['Sov88pGOKFghLeVxdhMgswityPs2'];
+const adminUid = ['Sov88pGOKFghLeVxdhMgswityPs2', '34HpqBLNtdU6w777mfwznhD1fxI3'];
 
 const app = admin.initializeApp({
   credential: admin.credential.applicationDefault(),

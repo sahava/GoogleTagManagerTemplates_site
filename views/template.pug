@@ -183,14 +183,12 @@ block content
                               when "read_data_layer"
                                 p Reads data from the dataLayer
                                 hr
-                                if permission.instance.param.length !== 0
-                                    ul.list-group
-                                      li.list-group-item.active
-                                        small Keys
-                                      each datalayer, index in permission.instance.param[0].value.listItem
-                                        li.list-group-item= datalayer.string
-                                else
-                                    p Library seems to be set to load but not keys are defined
+                                ul.list-group
+                                  li.list-group-item.active
+                                    small Keys
+                                    if permission.instance.param.length !== 0
+                                      each pattern, index in permission.instance.param[0].value.listItem
+                                        li.list-group-item= pattern.string
                               when "send_pixel"
                                 p Sends a GET request to a specified URL. Response is not processed.
                                 hr

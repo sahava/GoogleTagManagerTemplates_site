@@ -157,25 +157,21 @@ block content
                               when "inject_script"
                                 p Injects a script into the page
                                 hr
-                                if permission.instance.param.length !== 0
-                                    ul.list-group
-                                      li.list-group-item.active
-                                        small Allowed URL Match Patterns
+                                ul.list-group
+                                  li.list-group-item.active
+                                    small Allowed URL Match Patterns
+                                    if permission.instance.param.length !== 0
                                       each pattern, index in permission.instance.param[0].value.listItem
                                         li.list-group-item= pattern.string
-                                else
-                                    p Library seems to be set to load but not patterns are defined
                               when "inject_hidden_iframe"
                                 p Injects an invisible iframe with a given URL
                                 hr
-                                if permission.instance.param.length !== 0
-                                    ul.list-group
-                                      li.list-group-item.active
-                                        small Allowed URL Match Patterns
+                                ul.list-group
+                                  li.list-group-item.active
+                                    small Allowed URL Match Patterns
+                                    if permission.instance.param.length !== 0
                                       each pattern, index in permission.instance.param[0].value.listItem
                                         li.list-group-item= pattern.string
-                                else
-                                    p Library seems to be set to load but not patterns are defined
                               when "read_character_set"
                                 p Reads document.characterSet
                                 hr

@@ -100,7 +100,7 @@ block content
                                 p Logs to the developer console and Tag Manager's preview mode
                                 hr
                                 ul
-                                if permission.instance.param[0].value.type == 0
+                                if permission.instance.param[0].value.string === "debug"
                                     li Only log during debug and preview
                                 else
                                     li Always log
@@ -223,7 +223,6 @@ block content
                                 else
                                     li Specific
                                         ul.no-dots-ul
-                                            - console.log(permission.instance.param)
                                             each urlPart, index in permission.instance.param
                                                 if urlPart.key === "queriesAllowed"
                                                  - queriesAllowed = urlPart
@@ -237,7 +236,6 @@ block content
                                                      else
                                                         input#gridCheck.form-check-input(type='checkbox' disabled)
                                                         span= urlPart.key
-                                            - console.log("DAVID: ",queryKeys);
                                             if queriesAllowed
                                                 input#gridCheck.form-check-input(type='checkbox' disabled checked)
                                                 span query
@@ -262,7 +260,6 @@ block content
                                 else
                                     li Specific
                                         ul.no-dots-ul
-                                            - console.log(permission.instance.param)
                                             each urlPart, index in permission.instance.param
                                                 if urlPart.key === "queriesAllowed"
                                                  - queriesAllowed = urlPart
@@ -276,7 +273,6 @@ block content
                                                      else
                                                         input#gridCheck.form-check-input(type='checkbox' disabled)
                                                         span= urlPart.key
-                                            - console.log("DAVID: ",queryKeys);
                                             if queriesAllowed
                                                 input#gridCheck.form-check-input(type='checkbox' disabled checked)
                                                 span query

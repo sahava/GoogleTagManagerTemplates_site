@@ -127,16 +127,15 @@ block content
                               when "access_globals"
                                 p Accesses a global variable (potentially including sensitive APIs)
                                 hr
-                                if permission.instance.param.length !== 0
-                                    table.table
-                                      thead.thead-light
-                                        tr
-                                          th(scope='col') Key
-                                          th(scope='col') Read
-                                          th(scope='col') Write
-                                          th(scope='col') Execute
-                                      tbody
-
+                                table.table
+                                  thead.thead-light
+                                    tr
+                                      th(scope='col') Key
+                                      th(scope='col') Read
+                                      th(scope='col') Write
+                                      th(scope='col') Execute
+                                  tbody
+                                  if permission.instance.param.length !== 0
                                         each variable, index in permission.instance.param[0].value.listItem
                                             tr
                                               td= variable.mapValue[0].string
@@ -155,8 +154,6 @@ block content
                                                     input#gridCheck.form-check-input(type='checkbox' disabled checked)
                                                 else
                                                     input#gridCheck.form-check-input(type='checkbox' disabled)
-                                else
-                                    p Library seems to be set to load but not variables are defined
                               when "inject_script"
                                 p Injects a script into the page
                                 hr

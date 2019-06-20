@@ -17,7 +17,20 @@ const authenticate = async (req, res, next) => {
   }
 };
 
+const checkAdmin = (req, res, next) => {
+  // Disable caching for admin
+  res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.header('Pragma', 'no-cache');
+  res.header('Expires', 0);
+  if (!req.user || req.user.admin !== true) {
+    res.redirect(301, '/');
+  } else {
+    next();
+  }
+};
+
 module.exports = {
   app,
-  authenticate
+  authenticate,
+  checkAdmin
 };

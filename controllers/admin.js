@@ -4,19 +4,7 @@ const dataLayerHelper = require('../helpers/dataLayer');
 const {categories} = require('../helpers/enum');
 const createError = require('http-errors');
 const model = require('../models/template-db');
-
-
-const checkAdmin = (req, res, next) => {
-  // Disable caching for admin
-  res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
-  res.header('Pragma', 'no-cache');
-  res.header('Expires', 0);
-  if (!req.user || req.user.admin !== true) {
-    res.redirect(301, '/');
-  } else {
-    next();
-  }
-};
+const {checkAdmin} = require('./middleware/firebase');
 
 router.get('/', checkAdmin, (req, res) => {
   res.redirect(301, '/admin/create');

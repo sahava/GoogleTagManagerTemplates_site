@@ -53,6 +53,27 @@ const parseTemplate = tpl => {
   return tpl;
 };
 
+const filterAndSort = (parsedTemplates, filterOptions) => {
+  return parsedTemplates.filter(template =>
+    (filterOptions.categories.indexOf(template.category) > -1 && filterOptions.tagTypes.indexOf(template.type.toLocaleLowerCase()) > -1) ||
+    (filterOptions.categories.indexOf(template.category) > -1 && filterOptions.tagTypes.indexOf('all') > -1) ||
+    (filterOptions.tagTypes.indexOf(template.type.toLocaleLowerCase()) > -1 && filterOptions.categories.indexOf('all') > -1) ||
+    (filterOptions.tagTypes.indexOf('all') > -1 && filterOptions.categories.indexOf('all') > -1)
+  ).sort((a, b) => {
+    switch(filterOptions.sort) {
+      case 'views':
+        return b.views - a.views;
+      case 'downloads':
+        return b.downloads - a.downloads;
+      case 'oldest':
+        return a.added_date - b.added_date;
+      case 'newest':
+        return b.added_date - a.added_date;
+    }
+  });
+};
+
 module.exports = {
-  parseTemplate
+  parseTemplate,
+  filterAndSort
 };

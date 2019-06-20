@@ -53,4 +53,5 @@ describe('Test gtm-custom-template-parser.js', () => {
     const result = parseTemplate(mocks.validTemplateNoLogo);
     expect(result).toHaveProperty('logo', expected);
   });
+
 });

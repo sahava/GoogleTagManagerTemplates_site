@@ -65,9 +65,9 @@
 
     $('#tagTypeFilter').on('changed.bs.select', function() {
       var params = JSON.parse(JSON.stringify(window.dataLayer[0].page.filters));
-      if(params.tagTypes.indexOf('all') > -1) params.tagTypes.splice(params.tagTypes.indexOf('all'));
+      if(params.templateTypes.indexOf('all') > -1) params.templateTypes.splice(params.templateTypes.indexOf('all'));
       var filterValue = $('#tagTypeFilter option:selected').map(function(){ return $(this).data('filterTagType'); }).get().join(',');
-      params.tagTypes= filterValue || 'all';
+      params.templateTypes= filterValue || 'all';
       location.href = '/?' + window._gtm_templates.tools.buildQuery(params);
     });
   }

@@ -11,7 +11,7 @@ router.get('/', async (req, res, next) => {
     const {templates} = await model.list(0, 0);
     const filterOptions = {
       sort: req.query.sort || 'all',
-      tagTypes: (req.query.tagTypes || 'all').split(','),
+      templateTypes: (req.query.templateTypes || 'all').split(','),
       categories: (req.query.categories || 'all').split(',')
     };
 
@@ -28,7 +28,7 @@ router.get('/', async (req, res, next) => {
         title: 'Home - GTM Templates',
         filters: {
           sort:  filterOptions.sort,
-          tagTypes:  filterOptions.tagTypes,
+          templateTypes:  filterOptions.templateTypes,
           categories: filterOptions.categories
         },
         qs: Object.keys(filterOptions).map(key => key + '=' + filterOptions[key]).join('&')

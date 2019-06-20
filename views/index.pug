@@ -13,18 +13,18 @@ block content
     .row#filterOptions
         .col-lg-6.col-md-6
           span.visible-items
-            | Showing 
+            | Showing
             strong 1-#{templates.length}&nbsp;
-            | of 
-            strong  
-            | &nbsp; #{templates.length} results  
+            | of
+            strong
+            | &nbsp; #{templates.length} results
         .col-lg-2.col-md-6
             |  Sort By:
-        .col-lg-2.col-md-6            
+        .col-lg-2.col-md-6
              | Category:
         .col-lg-2.col-md-6
              | Type:
-    .row#filterOptions 
+    .row#filterOptions
         .col-lg-6.mb-2
             header.d-flex.justify-content-between.align-items-start.float-left
                 div#filtersList
@@ -32,28 +32,28 @@ block content
                     button.btn.btn-brand.btn-info.btn-sm.filter-btn(type='button')
                       span Sort by: #{filters.sort}
                 if(filters.categories.indexOf("all")===-1)
-                    each filterCategory, index in filters.categories 
+                    each filterCategory, index in filters.categories
                         button.btn.btn-brand.btn-info.btn-sm.filter-btn(type='button')
                           span Category: #{filterCategory}
-                if(filters.tagTypes.indexOf("all")===-1)
-                    each filterTagType, index in filters.tagTypes 
+                if(filters.templateTypes.indexOf("all")===-1)
+                    each filterTagType, index in filters.templateTypes
                         button.btn.btn-brand.btn-info.btn-sm.filter-btn(type='button')
-                          span Type: #{filterTagType}                             
+                          span Type: #{filterTagType}
         .col-lg-2.mb-2
-          select.selectpicker.sortSelect#sortFilter(multiple='' data-max-options='1')          
+          select.selectpicker.sortSelect#sortFilter(multiple='' data-max-options='1')
                 option(data-filter-sort='views', selected = (filters.sort==="views" ? true : false)) Views
                 option(data-filter-sort='downloads', selected = (filters.sort==="downloads" ? true : false)) Downloads
                 option(data-filter-sort='newest', selected = (filters.sort==="newest" ? true : false)) Newest
                 option(data-filter-sort='oldest', selected = (filters.sort==="oldest" ? true : false)) Oldest
         .col-lg-2.mb-2
           select.selectpicker.sortSelect#categoryFilter(multiple='' data-max-options='3')
-            each category, index in categories 
+            each category, index in categories
                 option(data-filter-category=''+index, selected = (filters.categories.indexOf(index)>-1 ? true : false)) #{category}
         .col-lg-2.mb-2
           select.selectpicker.sortSelect#tagTypeFilter(multiple='' data-max-options='2')
-                option(data-filter-tag-type='tag', selected = (filters.tagTypes.indexOf("tag")>-1 ? true : false)) Tag
-                option(data-filter-tag-type='variable',selected = (filters.tagTypes.indexOf("variable")>-1 ? true : false)) Variable                  
-    .row#products-grid    
+                option(data-filter-tag-type='tag', selected = (filters.templateTypes.indexOf("tag")>-1 ? true : false)) Tag
+                option(data-filter-tag-type='variable',selected = (filters.templateTypes.indexOf("variable")>-1 ? true : false)) Variable
+    .row#products-grid
 
       each template, index in templates
         .col-lg-4.col-md-6.mb-4

@@ -24,6 +24,10 @@ router.get('/:id/:name?', async (req, res, next) => {
       return;
     }
 
+    if (!req.params.name) {
+      res.redirect(301, `/template/${id}/${template.slug}`);
+    }
+
     // Compile template object
     const parsed_tpl = gtmTplParser.parseTemplate(JSON.parse(JSON.stringify(template)));
 

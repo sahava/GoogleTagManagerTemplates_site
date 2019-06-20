@@ -1,10 +1,8 @@
 extends layout
 
-
 block content
   script(type='application/ld+json').
     !{JSON.stringify(schema)}
-  script(src='https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?autoload=true&skin=sunburst&lang=css', defer='')
   main.container(role='main')
     .container
     // Modal

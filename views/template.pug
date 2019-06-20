@@ -218,16 +218,23 @@ block content
                                 else
                                     p Library seems to be set to load but not patterns are defined
                               when "get_referrer"
+                                - var queriesAllowed
+                                - var queryKeys
                                 p Returns part or all of the URL of the referrer
                                 hr
                                 ul
-                                if permission.instance.param[0].value.string==="any"
+                                if permission.instance.param.length === 1
                                     li Any
                                 else
                                     li Specific
                                         ul.no-dots-ul
+                                            - console.log(permission.instance.param)
                                             each urlPart, index in permission.instance.param
-                                                if urlPart.key !== "queriesAllowed" && urlPart.key !== "urlParts"
+                                                if urlPart.key === "queriesAllowed"
+                                                 - queriesAllowed = urlPart
+                                                if urlPart.key === "queryKeys"
+                                                 - queryKeys = urlPart.value.listItem[0].string.split(',')
+                                                if urlPart.key !== "queriesAllowed" && urlPart.key !== "queryKeys" && urlPart.key !== "urlParts" && urlPart.key !== "query"
                                                     li
                                                      if urlPart.value
                                                         input#gridCheck.form-check-input(type='checkbox' disabled checked)
@@ -235,7 +242,23 @@ block content
                                                      else
                                                         input#gridCheck.form-check-input(type='checkbox' disabled)
                                                         span= urlPart.key
+                                            - console.log("DAVID: ",queryKeys);
+                                            if queriesAllowed
+                                                input#gridCheck.form-check-input(type='checkbox' disabled checked)
+                                                span query
+                                                br
+                                                | Allowed Query Fields
+
+                                                if queryKeys
+                                                    ul
+                                                        each q, index in queryKeys
+                                                         li= q
+                                                else
+                                                    ul
+                                                        li Any
                               when "get_url"
+                                - var queriesAllowed
+                                - var queryKeys
                                 p Returns part or all of the URL of the current page
                                 hr
                                 ul
@@ -244,8 +267,13 @@ block content
                                 else
                                     li Specific
                                         ul.no-dots-ul
+                                            - console.log(permission.instance.param)
                                             each urlPart, index in permission.instance.param
-                                                if urlPart.key !== "queriesAllowed" && urlPart.key !== "urlParts"
+                                                if urlPart.key === "queriesAllowed"
+                                                 - queriesAllowed = urlPart
+                                                if urlPart.key === "queryKeys"
+                                                 - queryKeys = urlPart.value.listItem[0].string.split(',')
+                                                if urlPart.key !== "queriesAllowed" && urlPart.key !== "queryKeys" && urlPart.key !== "urlParts" && urlPart.key !== "query"
                                                     li
                                                      if urlPart.value
                                                         input#gridCheck.form-check-input(type='checkbox' disabled checked)
@@ -253,6 +281,20 @@ block content
                                                      else
                                                         input#gridCheck.form-check-input(type='checkbox' disabled)
                                                         span= urlPart.key
+                                            - console.log("DAVID: ",queryKeys);
+                                            if queriesAllowed
+                                                input#gridCheck.form-check-input(type='checkbox' disabled checked)
+                                                span query
+                                                br
+                                                | Allowed Query Fields
+
+                                                if queryKeys
+                                                    ul
+                                                        each q, index in queryKeys
+                                                         li= q
+                                                else
+                                                    ul
+                                                        li Any
                               default
                                 pre.prettyprint #{JSON.stringify(permission.instance.param)}
               #reviews.tab-pane.fade(role='tabpanel' aria-labelledby='reviews-tab')

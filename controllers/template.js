@@ -40,11 +40,11 @@ router.get('/:id/:name?', async (req, res, next) => {
       template: template
     });
     dataLayerHelper.mergeDataLayer(dataLayerHelper.buildEEC('detail',{},[template]));
- 
+
     const dataLayer = dataLayerHelper.get();
     const schema = {
       "@context": "http://schema.org",
-      "@type": "Product",        
+      "@type": "Product",
       "aggregateRating": {
         "@type": "AggregateRating",
         "bestRating": "100",
@@ -57,8 +57,8 @@ router.get('/:id/:name?', async (req, res, next) => {
       "model": template.type,
       "sku": template.id,
       "mpn": template.id,
-      "description": template.description || 'N/A',    
-      "brand": "Google Tag Manager",        
+      "description": template.description || 'N/A',
+      "brand": "Google Tag Manager",
       "offers": {}
     };
     res.render('template', {

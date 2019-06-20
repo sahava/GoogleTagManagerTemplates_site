@@ -9,18 +9,19 @@ const enums = require('../helpers/enum');
 router.get('/', async (req, res, next) => {
   try {
     const listCategories = await model.listOnlyCategories();
+
     const categoryCounts = listCategories.reduce((acc, cur) => {
       acc[cur.category] = acc[cur.category] ? acc[cur.category] + 1 : 1;
       return acc;
     }, {});
 
     dataLayerHelper.mergeDataLayer({
-        page: {
-            type: 'categories listing page',
-            title: 'Categories - GTMs Templates'
-        },
-        categories: enums.categories
-    });      
+      page: {
+        type: 'categories listing page',
+        title: 'Categories - GTMs Templates'
+      },
+      categories: enums.categories
+    });
     const dataLayer = dataLayerHelper.get();
 
     res.render('categories', {
@@ -63,7 +64,7 @@ router.get('/:category/', async (req, res, next) => {
       }
     });
     dataLayerHelper.mergeDataLayer(dataLayerHelper.buildEEC('impressions',{list: 'plp: ' + categorySlug}, parsedTemplates));
-    const dataLayer = dataLayerHelper.get(); 
+    const dataLayer = dataLayerHelper.get();
     res.render('category', {
       title: dataLayer.page.title,
       dataLayer: dataLayer,

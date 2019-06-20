@@ -5,6 +5,7 @@ const {categories} = require('../helpers/enum');
 const createError = require('http-errors');
 const model = require('../models/template-db');
 
+
 const checkAdmin = (req, res, next) => {
   // Disable caching for admin
   res.header('Cache-Control', 'no-cache, no-store, must-revalidate');

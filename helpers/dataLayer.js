@@ -1,6 +1,7 @@
 // NodeJS - GTM DataLayer Helper for GTM Templates
 // Will help on having a standard core dataLayer values in all pages
 // David Vallejo
+const _ = require('lodash');
 
 let model= {
   'event': 'datalayer-initialized'
@@ -8,6 +9,15 @@ let model= {
 
 const mergeDataLayer = push => {
   model = {...model, ...push};
+};
+
+const normalize = tpl => {
+  for (let prop in tpl) {
+    if (tpl.hasOwnProperty(prop)) {
+      tpl[prop] = tpl[prop].toString().toLowerCase()
+    }
+  }
+  return tpl;
 };
 
 const buildEEC = (action, actionField, products, listName) => {
@@ -28,25 +38,34 @@ const buildEEC = (action, actionField, products, listName) => {
 };
 
 const mapProducts = (templates, listName) => {
-  return templates.map((tpl, index) => ({
-    id: tpl.id,
-    name: tpl.name.toLowerCase(),
-    brand: tpl.brand ? tpl.brand.toLowerCase() : undefined,
-    category: tpl.category.toLowerCase(),
-    variant: tpl.type.toLowerCase(),
-    list: listName ? listName.toLowerCase() : undefined,
-    position: listName ? index.toString() : undefined,
-    views: tpl.views.toString(),
-    downloads: tpl.downloads.toString(),
-    added_date: tpl.parsed_added_date,
-    updated_date: tpl.parsed_updated_date,
-    author: tpl.author ? tpl.author.toLowerCase() : undefined,
-    license: tpl.license ? tpl.license.toLowerCase() : undefined,
-  }));
+  return _.cloneDeep(templates).map((tpl, index) => {
+    const ntpl = normalize(tpl);
+    return {
+      id: ntpl.id,
+      name: ntpl.name,
+      brand: ntpl.brand,
+      category: ntpl.category ? [ntpl.type, ntpl.category].join('/') : undefined,
+      variant: ntpl.type,
+      list: listName ? listName.toLowerCase() : undefined,
+      position: listName ? index.toString() : undefined,
+      views: ntpl.views,
+      downloads: ntpl.downloads,
+      added_date: ntpl.parsed_added_date,
+      updated_date: ntpl.parsed_updated_date,
+      author: ntpl.author,
+      license: ntpl.license
+    };
+  });
 };
 
 const get = () => {
-  return model;
+
+  // Bypass caching . Tricky, I know, it works
+  const _model = JSON.parse(JSON.stringify(model));
+  model = {
+    'event': 'datalayer-initialized'
+  };
+  return _model;
 };
 
 module.exports = {

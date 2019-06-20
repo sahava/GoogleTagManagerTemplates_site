@@ -22,9 +22,11 @@ router.get('/', async (req, res, next) => {
       }
     });
     dataLayerHelper.mergeDataLayer(dataLayerHelper.buildEEC('impressions',{list: 'home page'}, parsedTemplates));
+      
+    const dataLayer = dataLayerHelper.get();      
     res.render('search', {
-      title: dataLayerHelper.get().page.title,
-      dataLayer: dataLayerHelper.get(),
+      title: dataLayer.page.title,
+      dataLayer: dataLayer,
       categories: enums.categories,
       templates: parsedTemplates,
       count: parsedTemplates.length,

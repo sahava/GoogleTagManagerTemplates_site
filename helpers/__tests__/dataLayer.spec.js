@@ -26,14 +26,14 @@ describe('Test dataLayer.js', () => {
             id: '5641906755207168',
             name: 'yandex metrica',
             brand: undefined,
-            category: 'analytics',
+            category: 'tag/analytics',
             variant: 'tag',
             list: undefined,
             position: undefined,
             views: '119',
             downloads: '0',
-            added_date: '05 Jun 2019',
-            updated_date: '05 Jun 2019',
+            added_date: '05 jun 2019',
+            updated_date: '05 jun 2019',
             author: 'david vallejo',
             license: 'mit'
           }]
@@ -55,14 +55,14 @@ describe('Test dataLayer.js', () => {
             id: '5641906755207168',
             name: 'yandex metrica',
             brand: undefined,
-            category: 'analytics',
+            category: 'tag/analytics',
             variant: 'tag',
             list: undefined,
             position: undefined,
             views: '119',
             downloads: '0',
-            added_date: '05 Jun 2019',
-            updated_date: '05 Jun 2019',
+            added_date: '05 jun 2019',
+            updated_date: '05 jun 2019',
             author: 'david vallejo',
             license: 'mit'
           }]
@@ -81,14 +81,14 @@ describe('Test dataLayer.js', () => {
         id: '5641906755207168',
         name: 'yandex metrica',
         brand: undefined,
-        category: 'analytics',
+        category: 'tag/analytics',
         variant: 'tag',
         list: undefined,
         position: undefined,
         views: '119',
         downloads: '0',
-        added_date: '05 Jun 2019',
-        updated_date: '05 Jun 2019',
+        added_date: '05 jun 2019',
+        updated_date: '05 jun 2019',
         author: 'david vallejo',
         license: 'mit'
       }]
@@ -104,6 +104,7 @@ describe('Test dataLayer.js', () => {
     template.brand = 'some-brand';
     delete template.author;
     delete template.license;
+    delete template.category;
 
     const products = [parseTemplate(template)];
     const expected = {
@@ -111,14 +112,14 @@ describe('Test dataLayer.js', () => {
         id: '5641906755207168',
         name: 'yandex metrica',
         brand: 'some-brand',
-        category: 'analytics',
+        category: undefined,
         variant: 'tag',
         list: 'some-list',
         position: '0',
         views: '119',
         downloads: '0',
-        added_date: '05 Jun 2019',
-        updated_date: '05 Jun 2019',
+        added_date: '05 jun 2019',
+        updated_date: '05 jun 2019',
         author: undefined,
         license: undefined
       }]

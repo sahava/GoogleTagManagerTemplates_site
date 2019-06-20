@@ -131,25 +131,25 @@ block content
                                   thead.thead-light
                                     tr
                                       th(scope='col') Key
-                                      th(scope='col') Read
-                                      th(scope='col') Write
-                                      th(scope='col') Execute
+                                      th.text-center(scope='col') Read
+                                      th.text-center(scope='col') Write
+                                      th.text-center(scope='col') Execute
                                   tbody
                                   if permission.instance.param.length !== 0
                                         each variable, index in permission.instance.param[0].value.listItem
                                             tr
                                               td= variable.mapValue[0].string
-                                              td
+                                              td.text-center
                                                 if variable.mapValue[1].boolean
                                                     input#gridCheck.form-check-input(type='checkbox' disabled checked)
                                                 else
                                                     input#gridCheck.form-check-input(type='checkbox' disabled)
-                                              td
+                                              td.text-center
                                                 if variable.mapValue[2].boolean
                                                     input#gridCheck.form-check-input(type='checkbox' disabled checked)
                                                 else
                                                     input#gridCheck.form-check-input(type='checkbox' disabled)
-                                              td
+                                              td.text-center
                                                 if variable.mapValue[3].boolean
                                                     input#gridCheck.form-check-input(type='checkbox' disabled checked)
                                                 else
@@ -221,11 +221,11 @@ block content
                                 p Returns part or all of the URL of the referrer
                                 hr
                                 ul
-                                if permission.instance.param.length === 1
+                                if permission.instance.param[0].value.string==="any"
                                     li Any
                                 else
                                     li Specific
-                                        ul
+                                        ul.no-dots-ul
                                             each urlPart, index in permission.instance.param
                                                 if urlPart.key !== "queriesAllowed" && urlPart.key !== "urlParts"
                                                     li
@@ -243,7 +243,7 @@ block content
                                     li Any
                                 else
                                     li Specific
-                                        ul
+                                        ul.no-dots-ul
                                             each urlPart, index in permission.instance.param
                                                 if urlPart.key !== "queriesAllowed" && urlPart.key !== "urlParts"
                                                     li

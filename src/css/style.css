@@ -39,3 +39,7 @@ span.badge {
 .btn-group-sm>.btn, .btn-sm {
     padding: 0.48rem .5rem!important;
 }
+
+.no-dots-ul {
+    list-style-type: none;
+}

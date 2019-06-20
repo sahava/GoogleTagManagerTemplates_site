@@ -48,12 +48,12 @@ const mapProducts = (templates, listName) => {
       variant: ntpl.type,
       list: listName ? listName.toLowerCase() : undefined,
       position: listName ? index.toString() : undefined,
-      views: tpl.views,
-      downloads: tpl.downloads,
-      added_date: tpl.parsed_added_date,
-      updated_date: tpl.parsed_updated_date,
-      author: tpl.author,
-      license: tpl.license
+      views: ntpl.views,
+      downloads: ntpl.downloads,
+      added_date: ntpl.parsed_added_date,
+      updated_date: ntpl.parsed_updated_date,
+      author: ntpl.author,
+      license: ntpl.license
     };
   });
 };

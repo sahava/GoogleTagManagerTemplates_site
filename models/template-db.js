@@ -37,7 +37,7 @@ const list = async (limit, token) => {
   const q = ds
     .createQuery([kind])
     .limit(limit)
-    .order('views')
+    .order('views', {descending: true})
     .start(token);
 
   const [rows, nextQuery] = await ds.runQuery(q);

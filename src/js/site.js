@@ -51,7 +51,7 @@
     $('#sortFilter').on('changed.bs.select', function() {
       var params = JSON.parse(JSON.stringify(window.dataLayer[0].page.filters));
       var filterValue = $('option:selected', this).data('filterSort');
-      params.sort = filterValue || 'all';
+      params.sort = filterValue || 'views';
       location.href = '/?' + window._gtm_templates.tools.buildQuery(params);
     });
 

@@ -8,9 +8,9 @@ const enums = require('../helpers/enum');
 router.get('/', async (req, res, next) => {
   try {
     // Fetch templates
-    const {templates} = await model.list(0, 0);
+    const {templates} = await model.list(0, null);
     const filterOptions = {
-      sort: req.query.sort || 'all',
+      sort: req.query.sort || 'views',
       templateTypes: (req.query.templateTypes || 'all').split(','),
       categories: (req.query.categories || 'all').split(',')
     };

@@ -65,10 +65,10 @@ const filterAndSort = (parsedTemplates, filterOptions) => {
         return b.views - a.views;
       case 'downloads':
         return b.downloads - a.downloads;
-      case 'oldest':
-        return a.added_date - b.added_date;
-      case 'newest':
+      case 'added_date':
         return b.added_date - a.added_date;
+      case 'updated_data':
+        return b.updated_date - a.updated_date;
     }
   });
 };

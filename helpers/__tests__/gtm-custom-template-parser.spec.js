@@ -103,12 +103,12 @@ describe('Test gtm-custom-template-parser.js', () => {
     expect(result).toMatchObject([parsedTemplates[1], parsedTemplates[0]]);
 
     // Fourth test
-    filterOptions.sort = 'oldest';
+    filterOptions.sort = 'updated_date';
     result = filterAndSort(parsedTemplates, filterOptions);
     expect(result).toMatchObject(parsedTemplates);
 
     // Fifth test
-    filterOptions.sort = 'newest';
+    filterOptions.sort = 'added_date';
     result = filterAndSort(parsedTemplates, filterOptions);
     expect(result).toMatchObject([parsedTemplates[1], parsedTemplates[0]]);
 

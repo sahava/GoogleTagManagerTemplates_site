@@ -1,298 +1,298 @@
 extends layout
 
 block content
-  script(type='application/ld+json').
-    !{JSON.stringify(schema)}
-  main.container(role='main')
-    .container
-    // Modal
-    #exampleModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
-      .modal-dialog(role='document')
-        .modal-content
-          .modal-header
-            h5#exampleModalLabel.modal-title Modal title
-            button.close(type='button' data-dismiss='modal' aria-label='Close')
-              span(aria-hidden='true') &times;
-          .modal-body
-            | ...
-          .modal-footer
-            button.btn.btn-secondary(type='button' data-dismiss='modal') Close
-            button.btn.btn-primary(type='button') Save changes
-    .row
-      .col-lg-3
-        h1.my-4
-        .list-group
-          each category, index in categories_list
-              -var activeClass = (index===template.category) ? "active" : ""
-              a.list-group-item(href='/categories/'+index class=''+activeClass) #{category}
-      // /.col-lg-3
-      .col-lg-9
-        .card.mt-4
+    script(type='application/ld+json').
+        !{JSON.stringify(schema)}
+    main.container(role='main')
+        .container
+        // Modal
+        #exampleModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
+            .modal-dialog(role='document')
+                .modal-content
+                    .modal-header
+                        h5#exampleModalLabel.modal-title Modal title
+                        button.close(type='button' data-dismiss='modal' aria-label='Close')
+                            span(aria-hidden='true') &times;
+                    .modal-body
+                        | ...
+                    .modal-footer
+                        button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+                        button.btn.btn-primary(type='button') Save changes
+        .row
+            .col-lg-3
+                h1.my-4
+                .list-group
+                    each category, index in categories_list
+                        -var activeClass = (index===template.category) ? 'active' : ''
+                        a.list-group-item(href='/categories/'+index class=''+activeClass) #{category}
+            // /.col-lg-3
+            .col-lg-9
+                .card.mt-4
 
-          .card-body
-            .media
-              .media-body
-                h3.mt-0.mb-1 #{template.name}
-                h6 Author: #{template.author}
-                h6 Views: #{template.views}
-                h6 Downloads: #{template.downloads}
-              img.ml-3(src=template.logo, alt=template.name+' Logo',width= '100px')
-            hr
-            ul#myTab.nav.nav-tabs(role='tablist')
-              li.nav-item
-                a#details-tab.nav-link.active(data-toggle='tab' href='#details' role='tab' aria-controls='details' aria-selected='true') Details
-              li.nav-item
-                a#permissions-tab.nav-link(data-toggle='tab' href='#permissions' role='tab' aria-controls='permissions' aria-selected='false') Permissions
-              li.nav-item
-                a#reviews-tab.nav-link(data-toggle='tab' href='#reviews' role='tab' aria-controls='reviews' aria-selected='false') Reviews
-                    span.disqus-comment-count.badge.badge-warning(data-disqus-identifier=''+template.id)
-              li.nav-item
-                a#changelog-tab.nav-link(data-toggle='tab' href='#changelog' role='tab' aria-controls='changelog' aria-selected='false') Changelog
-            #myTabContent.tab-content
-              #details.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='details-tab')
-                p.card-text
-                    p #{template.description}
-                    table.table
-                      tbody
-                        tr
-                          td Name
-                          td #{template.name}
-                        tr
-                          td Category
-                          td #{categories_list[template.category]}
-                        tr
-                          td Description
-                          td #{template.description}
-                        tr
-                          td Template Type
-                          td #{template.type}
-                        tr
-                          td Date Added
-                          td #{template.parsed_added_date}
-                        tr
-                          td Date Updated
-                          td #{template.parsed_updated_date}
-                        tr
-                          td Template Contexts
-                          td #{template.contexts}
-                        tr
-                          td(colspan=2).text-left
-                            a.btn.btn-warning(id="download-template" href=downloadUrl role='button')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category,'data-product-variant': template.type.toLowerCase()})
-                              strong Download
-                            if user && user.admin
-                              | &nbsp;
-                              a.btn.btn-danger(href='/admin/update/' + template.id) EDIT
-              #permissions.tab-pane.fade(role='tabpanel' aria-labelledby='permissions-tab')
-                p.card-text
-                #accordion.permissions
-                    each permission, index in template.permissions
-                      .card
-                        .card-header(id='heading-' + index)
-                          h5.mb-0
-                            img.gtm-tag-thumbnail(width='24px' src='data:image/svg+xml;base64,'+permissions_icons[permission.instance.key.publicId])
-                            button.btn.btn-link(data-toggle='collapse', data-target='#collapse-'+ index, aria-expanded='true', aria-controls='collapse-'+index)
-                             | #{permissions[permission.instance.key.publicId] || permission.instance.key.publicId }
-                        .collapse(aria-labelledby='heading-'+index, data-parent='#accordion' id='collapse-'+index)
-                          .card-body
-                            - var permissionType = permission.instance.key.publicId
-                            case permissionType
-                              when "logging"
-                                p Logs to the developer console and Tag Manager's preview mode
-                                hr
-                                ul
-                                if permission.instance.param[0].value.string === "debug"
-                                    li Only log during debug and preview
-                                else
-                                    li Always log
-                              when "set_cookies"
-                                p Sets a cookie with the specified name and parameters.
-                                hr
-                                table.table
-                                  thead.thead-light
-                                    tr
-                                      th(scope='col') Cookie name
-                                      th(scope='col') Domain
-                                      th(scope='col') Path
-                                      th(scope='col') Secure
-                                      th(scope='col') Session
-                                  tbody
-                                    if permission.instance.param.length !== 0
-                                        each cookie, index in permission.instance.param[0].value.listItem
+                    .card-body
+                        .media
+                            .media-body
+                                h3.mt-0.mb-1 #{template.name}
+                                h6 Author: #{template.author}
+                                h6 Views: #{template.views}
+                                h6 Downloads: #{template.downloads}
+                            img.ml-3(src=template.logo alt=template.name+' Logo' width= '100px')
+                        hr
+                        ul#myTab.nav.nav-tabs(role='tablist')
+                            li.nav-item
+                                a#details-tab.nav-link.active(data-toggle='tab' href='#details' role='tab' aria-controls='details' aria-selected='true') Details
+                            li.nav-item
+                                a#permissions-tab.nav-link(data-toggle='tab' href='#permissions' role='tab' aria-controls='permissions' aria-selected='false') Permissions
+                            li.nav-item
+                                a#reviews-tab.nav-link(data-toggle='tab' href='#reviews' role='tab' aria-controls='reviews' aria-selected='false') Reviews
+                                    span.disqus-comment-count.badge.badge-warning(data-disqus-identifier=''+template.id)
+                            li.nav-item
+                                a#changelog-tab.nav-link(data-toggle='tab' href='#changelog' role='tab' aria-controls='changelog' aria-selected='false') Changelog
+                        #myTabContent.tab-content
+                            #details.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='details-tab')
+                                p.card-text
+                                    p #{template.description}
+                                    table.table
+                                        tbody
                                             tr
-                                              td= cookie.mapValue[0].string
-                                              td= cookie.mapValue[1].string
-                                              td= cookie.mapValue[2].string
-                                              td= cookie.mapValue[3].string
-                                              td= cookie.mapValue[4].string
-                              when "access_globals"
-                                p Accesses a global variable (potentially including sensitive APIs)
-                                hr
-                                table.table
-                                  thead.thead-light
-                                    tr
-                                      th(scope='col') Key
-                                      th.text-center(scope='col') Read
-                                      th.text-center(scope='col') Write
-                                      th.text-center(scope='col') Execute
-                                  tbody
-                                  if permission.instance.param.length !== 0
-                                        each variable, index in permission.instance.param[0].value.listItem
+                                                td Name
+                                                td #{template.name}
                                             tr
-                                              td= variable.mapValue[0].string
-                                              td.text-center
-                                                if variable.mapValue[1].boolean
-                                                    input#gridCheck.form-check-input(type='checkbox' disabled checked)
-                                                else
-                                                    input#gridCheck.form-check-input(type='checkbox' disabled)
-                                              td.text-center
-                                                if variable.mapValue[2].boolean
-                                                    input#gridCheck.form-check-input(type='checkbox' disabled checked)
-                                                else
-                                                    input#gridCheck.form-check-input(type='checkbox' disabled)
-                                              td.text-center
-                                                if variable.mapValue[3].boolean
-                                                    input#gridCheck.form-check-input(type='checkbox' disabled checked)
-                                                else
-                                                    input#gridCheck.form-check-input(type='checkbox' disabled)
-                              when "inject_script"
-                                p Injects a script into the page
-                                hr
-                                ul.list-group
-                                  li.list-group-item.active
-                                    small Allowed URL Match Patterns
-                                    if permission.instance.param.length !== 0
-                                      each pattern, index in permission.instance.param[0].value.listItem
-                                        li.list-group-item= pattern.string
-                              when "inject_hidden_iframe"
-                                p Injects an invisible iframe with a given URL
-                                hr
-                                ul.list-group
-                                  li.list-group-item.active
-                                    small Allowed URL Match Patterns
-                                    if permission.instance.param.length !== 0
-                                      each pattern, index in permission.instance.param[0].value.listItem
-                                        li.list-group-item= pattern.string
-                              when "read_character_set"
-                                p Reads document.characterSet
-                                hr
-                                small There is nothing to limit
-                              when "read_title"
-                                p Reads document.title
-                                hr
-                                small There is nothing to limit
-                              when "read_data_layer"
-                                p Reads data from the dataLayer
-                                hr
-                                ul.list-group
-                                  li.list-group-item.active
-                                    small Keys
-                                    if permission.instance.param.length !== 0
-                                      each pattern, index in permission.instance.param[0].value.listItem
-                                        li.list-group-item= pattern.string
-                              when "send_pixel"
-                                p Sends a GET request to a specified URL. Response is not processed.
-                                hr
-                                if permission.instance.param.length !== 0
-                                    ul.list-group
-                                      li.list-group-item.active
-                                        small Allowed URL Match Patterns
-                                      each pattern, index in permission.instance.param[0].value.listItem
-                                        li.list-group-item= pattern.string
-                                else
-                                    p Library seems to be set to load but not patterns are defined
-                              when "get_cookies"
-                                p Reads the values of the cookies with the specified name.
-                                hr
-                                table.table
-                                    thead.thead-light
-                                       tr
-                                         th(scope='col') Cookie name
-                                    tbody
-                                    if permission.instance.param.length !== 0
-                                        each cookie, index in permission.instance.param[0].value.listItem
+                                                td Category
+                                                td #{categories_list[template.category]}
                                             tr
-                                              td= cookie.string
-                              when "get_referrer"
-                                - var queriesAllowed
-                                - var queryKeys
-                                p Returns part or all of the URL of the referrer
-                                hr
-                                ul
-                                if permission.instance.param.length === 1
-                                    li Any
-                                else
-                                    li Specific
-                                        ul.no-dots-ul
-                                            each urlPart, index in permission.instance.param
-                                                if urlPart.key === "queriesAllowed"
-                                                 - queriesAllowed = urlPart
-                                                if urlPart.key === "queryKeys"
-                                                 - queryKeys = urlPart.value.listItem[0].string.split(',')
-                                                if urlPart.key !== "queriesAllowed" && urlPart.key !== "queryKeys" && urlPart.key !== "urlParts" && urlPart.key !== "query"
-                                                    li
-                                                     if urlPart.value
-                                                        input#gridCheck.form-check-input(type='checkbox' disabled checked)
-                                                        span= urlPart.key
-                                                     else
-                                                        input#gridCheck.form-check-input(type='checkbox' disabled)
-                                                        span= urlPart.key
-                                            if queriesAllowed
-                                                input#gridCheck.form-check-input(type='checkbox' disabled checked)
-                                                span query
-                                                br
-                                                | Allowed Query Fields
+                                                td Description
+                                                td #{template.description}
+                                            tr
+                                                td Template Type
+                                                td #{template.type}
+                                            tr
+                                                td Date Added
+                                                td #{template.parsed_added_date}
+                                            tr
+                                                td Date Updated
+                                                td #{template.parsed_updated_date}
+                                            tr
+                                                td Template Contexts
+                                                td #{template.contexts}
+                                            tr
+                                                td(colspan=2).text-left
+                                                    a.btn.btn-warning(id='download-template' href=downloadUrl role='button')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category,'data-product-variant': template.type.toLowerCase()})
+                                                        strong Download
+                                                    if user && user.admin
+                                                        | &nbsp;
+                                                        a.btn.btn-danger(href='/admin/update/' + template.id) EDIT
+                            #permissions.tab-pane.fade(role='tabpanel' aria-labelledby='permissions-tab')
+                                p.card-text
+                                #accordion.permissions
+                                    each permission, index in template.permissions
+                                        .card
+                                            .card-header(id='heading-' + index)
+                                                h5.mb-0
+                                                    img.gtm-tag-thumbnail(width='24px' src='data:image/svg+xml;base64,'+permissions_icons[permission.instance.key.publicId])
+                                                    button.btn.btn-link(data-toggle='collapse', data-target='#collapse-'+ index, aria-expanded='true', aria-controls='collapse-'+index)
+                                                        | #{permissions[permission.instance.key.publicId] || permission.instance.key.publicId }
+                                            .collapse(aria-labelledby='heading-'+index, data-parent='#accordion' id='collapse-'+index)
+                                                .card-body
+                                                    - var permissionType = permission.instance.key.publicId
+                                                    case permissionType
+                                                        when "logging"
+                                                            p Logs to the developer console and Tag Manager's preview mode
+                                                            hr
+                                                            ul
+                                                            if permission.instance.param[0].value.string === "debug"
+                                                                li Only log during debug and preview
+                                                            else
+                                                                li Always log
+                                                        when "set_cookies"
+                                                            p Sets a cookie with the specified name and parameters.
+                                                            hr
+                                                            table.table
+                                                                thead.thead-light
+                                                                    tr
+                                                                        th(scope='col') Cookie name
+                                                                        th(scope='col') Domain
+                                                                        th(scope='col') Path
+                                                                        th(scope='col') Secure
+                                                                        th(scope='col') Session
+                                                                tbody
+                                                                    if permission.instance.param.length !== 0
+                                                                        each cookie, index in permission.instance.param[0].value.listItem
+                                                                            tr
+                                                                                td= cookie.mapValue[0].string
+                                                                                td= cookie.mapValue[1].string
+                                                                                td= cookie.mapValue[2].string
+                                                                                td= cookie.mapValue[3].string
+                                                                                td= cookie.mapValue[4].string
+                                                        when "access_globals"
+                                                            p Accesses a global variable (potentially including sensitive APIs)
+                                                            hr
+                                                            table.table
+                                                                thead.thead-light
+                                                                    tr
+                                                                        th(scope='col') Key
+                                                                        th.text-center(scope='col') Read
+                                                                        th.text-center(scope='col') Write
+                                                                        th.text-center(scope='col') Execute
+                                                                tbody
+                                                                if permission.instance.param.length !== 0
+                                                                    each variable, index in permission.instance.param[0].value.listItem
+                                                                        tr
+                                                                            td= variable.mapValue[0].string
+                                                                            td.text-center
+                                                                                if variable.mapValue[1].boolean
+                                                                                    input#gridCheck.form-check-input(type='checkbox' disabled checked)
+                                                                                else
+                                                                                    input#gridCheck.form-check-input(type='checkbox' disabled)
+                                                                            td.text-center
+                                                                                if variable.mapValue[2].boolean
+                                                                                    input#gridCheck.form-check-input(type='checkbox' disabled checked)
+                                                                                else
+                                                                                    input#gridCheck.form-check-input(type='checkbox' disabled)
+                                                                            td.text-center
+                                                                                if variable.mapValue[3].boolean
+                                                                                    input#gridCheck.form-check-input(type='checkbox' disabled checked)
+                                                                                else
+                                                                                    input#gridCheck.form-check-input(type='checkbox' disabled)
+                                                        when "inject_script"
+                                                            p Injects a script into the page
+                                                            hr
+                                                            ul.list-group
+                                                                li.list-group-item.active
+                                                                    small Allowed URL Match Patterns
+                                                                    if permission.instance.param.length !== 0
+                                                                        each pattern, index in permission.instance.param[0].value.listItem
+                                                                            li.list-group-item= pattern.string
+                                                        when "inject_hidden_iframe"
+                                                            p Injects an invisible iframe with a given URL
+                                                            hr
+                                                            ul.list-group
+                                                                li.list-group-item.active
+                                                                    small Allowed URL Match Patterns
+                                                                    if permission.instance.param.length !== 0
+                                                                        each pattern, index in permission.instance.param[0].value.listItem
+                                                                            li.list-group-item= pattern.string
+                                                        when "read_character_set"
+                                                            p Reads document.characterSet
+                                                            hr
+                                                            small There is nothing to limit
+                                                        when "read_title"
+                                                            p Reads document.title
+                                                            hr
+                                                            small There is nothing to limit
+                                                        when "read_data_layer"
+                                                            p Reads data from the dataLayer
+                                                            hr
+                                                            ul.list-group
+                                                                li.list-group-item.active
+                                                                    small Keys
+                                                                    if permission.instance.param.length !== 0
+                                                                        each pattern, index in permission.instance.param[0].value.listItem
+                                                                            li.list-group-item= pattern.string
+                                                        when "send_pixel"
+                                                            p Sends a GET request to a specified URL. Response is not processed.
+                                                            hr
+                                                            if permission.instance.param.length !== 0
+                                                                ul.list-group
+                                                                    li.list-group-item.active
+                                                                        small Allowed URL Match Patterns
+                                                                    each pattern, index in permission.instance.param[0].value.listItem
+                                                                        li.list-group-item= pattern.string
+                                                            else
+                                                                p Library seems to be set to load but not patterns are defined
+                                                        when "get_cookies"
+                                                            p Reads the values of the cookies with the specified name.
+                                                            hr
+                                                            table.table
+                                                                thead.thead-light
+                                                                    tr
+                                                                        th(scope='col') Cookie name
+                                                                tbody
+                                                                if permission.instance.param.length !== 0
+                                                                    each cookie, index in permission.instance.param[0].value.listItem
+                                                                        tr
+                                                                            td= cookie.string
+                                                        when "get_referrer"
+                                                            - var queriesAllowed
+                                                            - var queryKeys
+                                                            p Returns part or all of the URL of the referrer
+                                                            hr
+                                                            ul
+                                                            if permission.instance.param.length === 1
+                                                                li Any
+                                                            else
+                                                                li Specific
+                                                                    ul.no-dots-ul
+                                                                        each urlPart, index in permission.instance.param
+                                                                            if urlPart.key === "queriesAllowed"
+                                                                                - queriesAllowed = urlPart
+                                                                            if urlPart.key === "queryKeys"
+                                                                                - queryKeys = urlPart.value.listItem[0].string.split(',')
+                                                                            if urlPart.key !== "queriesAllowed" && urlPart.key !== "queryKeys" && urlPart.key !== "urlParts" && urlPart.key !== "query"
+                                                                                li
+                                                                                    if urlPart.value
+                                                                                        input#gridCheck.form-check-input(type='checkbox' disabled checked)
+                                                                                        span= urlPart.key
+                                                                                    else
+                                                                                        input#gridCheck.form-check-input(type='checkbox' disabled)
+                                                                                        span= urlPart.key
+                                                                        if queriesAllowed
+                                                                            input#gridCheck.form-check-input(type='checkbox' disabled checked)
+                                                                            span query
+                                                                            br
+                                                                            | Allowed Query Fields
 
-                                                if queryKeys
-                                                    ul
-                                                        each q, index in queryKeys
-                                                         li= q
-                                                else
-                                                    ul
-                                                        li Any
-                              when "get_url"
-                                - var queriesAllowed
-                                - var queryKeys
-                                p Returns part or all of the URL of the current page
-                                hr
-                                ul
-                                if permission.instance.param.length === 1
-                                    li Any
-                                else
-                                    li Specific
-                                        ul.no-dots-ul
-                                            each urlPart, index in permission.instance.param
-                                                if urlPart.key === "queriesAllowed"
-                                                 - queriesAllowed = urlPart
-                                                if urlPart.key === "queryKeys"
-                                                 - queryKeys = urlPart.value.listItem[0].string.split(',')
-                                                if urlPart.key !== "queriesAllowed" && urlPart.key !== "queryKeys" && urlPart.key !== "urlParts" && urlPart.key !== "query"
-                                                    li
-                                                     if urlPart.value
-                                                        input#gridCheck.form-check-input(type='checkbox' disabled checked)
-                                                        span= urlPart.key
-                                                     else
-                                                        input#gridCheck.form-check-input(type='checkbox' disabled)
-                                                        span= urlPart.key
-                                            if queriesAllowed
-                                                input#gridCheck.form-check-input(type='checkbox' disabled checked)
-                                                span query
-                                                br
-                                                | Allowed Query Fields
+                                                                            if queryKeys
+                                                                                ul
+                                                                                    each q, index in queryKeys
+                                                                                        li= q
+                                                                            else
+                                                                                ul
+                                                                                    li Any
+                                                        when "get_url"
+                                                            - var queriesAllowed
+                                                            - var queryKeys
+                                                            p Returns part or all of the URL of the current page
+                                                            hr
+                                                            ul
+                                                            if permission.instance.param.length === 1
+                                                                li Any
+                                                            else
+                                                                li Specific
+                                                                    ul.no-dots-ul
+                                                                        each urlPart, index in permission.instance.param
+                                                                            if urlPart.key === "queriesAllowed"
+                                                                                - queriesAllowed = urlPart
+                                                                            if urlPart.key === "queryKeys"
+                                                                                - queryKeys = urlPart.value.listItem[0].string.split(',')
+                                                                            if urlPart.key !== "queriesAllowed" && urlPart.key !== "queryKeys" && urlPart.key !== "urlParts" && urlPart.key !== "query"
+                                                                                li
+                                                                                    if urlPart.value
+                                                                                        input#gridCheck.form-check-input(type='checkbox' disabled checked)
+                                                                                        span= urlPart.key
+                                                                                    else
+                                                                                        input#gridCheck.form-check-input(type='checkbox' disabled)
+                                                                                        span= urlPart.key
+                                                                        if queriesAllowed
+                                                                            input#gridCheck.form-check-input(type='checkbox' disabled checked)
+                                                                            span query
+                                                                            br
+                                                                            | Allowed Query Fields
 
-                                                if queryKeys
-                                                    ul
-                                                        each q, index in queryKeys
-                                                         li= q
-                                                else
-                                                    ul
-                                                        li Any
-                              default
-                                pre.prettyprint #{JSON.stringify(permission.instance.param)}
-              #reviews.tab-pane.fade(role='tabpanel' aria-labelledby='reviews-tab')
-                p.card-text
-                  #disqus_thread
-                  br
-              #changelog.tab-pane.fade(role='tabpanel' aria-labelledby='changelog-tab')
-                p.card-text
-                  | CHANGELOG TAB
-                  br
+                                                                            if queryKeys
+                                                                                ul
+                                                                                    each q, index in queryKeys
+                                                                                        li= q
+                                                                            else
+                                                                                ul
+                                                                                    li Any
+                                                        default
+                                                            pre.prettyprint #{JSON.stringify(permission.instance.param)}
+                            #reviews.tab-pane.fade(role='tabpanel' aria-labelledby='reviews-tab')
+                                p.card-text
+                                    #disqus_thread
+                                    br
+                            #changelog.tab-pane.fade(role='tabpanel' aria-labelledby='changelog-tab')
+                                p.card-text
+                                    | CHANGELOG TAB
+                                    br

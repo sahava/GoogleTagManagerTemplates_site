@@ -1,75 +1,74 @@
 extends layout
 
 block content
-  main.container(role='main')
-    .jumbotron
-      h1 Custom Templates Gallery
-      p.lead
-        | This is an open-source, community-driven gallery for custom templates in&nbsp;
-        a(href="https://tagmanager.google.com" target="_blank") Google Tag Manager
-        | .
-      a.btn.btn-lg.btn-primary(href='#' role='button') More Details &raquo;
-    .container
-    .row#filterOptions
-        .col-lg-6.col-md-6
-          span.visible-items
-            | Showing
-            strong 1-#{templates.length}&nbsp;
-            | of
-            strong
-            | &nbsp; #{templates.length} results
-        .col-lg-2.col-md-6
-            |  Sort By:
-        .col-lg-2.col-md-6
-             | Category:
-        .col-lg-2.col-md-6
-             | Type:
-    .row#filterOptions
-        .col-lg-6.mb-2
-            header.d-flex.justify-content-between.align-items-start.float-left
-                div#filtersList
-                if(filters.sort!=="all")
-                    button.btn.btn-brand.btn-info.btn-sm.filter-btn(type='button')
-                      span Sort by: #{filters.sort}
-                if(filters.categories.indexOf("all")===-1)
-                    each filterCategory, index in filters.categories
+    main.container(role='main')
+        .jumbotron
+            h1 Custom Templates Gallery
+            p.lead
+                | This is an open-source, community-driven gallery for custom templates in&nbsp;
+                a(href='https://tagmanager.google.com' target='_blank') Google Tag Manager
+                | .
+            a.btn.btn-lg.btn-primary(href='#' role='button') More Details &raquo;
+        .container
+        .row#filterOptionsHeader
+            .col-lg-6.col-md-6
+                span.visible-items
+                    | Showing&nbsp;
+                    strong 1-#{templates.length}&nbsp;
+                    | of #{templates.length} results
+        .row#filterOptions
+            .col-lg-6.mb-2
+                header.d-flex.justify-content-between.align-items-start.float-left
+                    div#filtersList
+                    if(filters.sort !== 'all')
                         button.btn.btn-brand.btn-info.btn-sm.filter-btn(type='button')
-                          span Category: #{filterCategory}
-                if(filters.templateTypes.indexOf("all")===-1)
-                    each filterTagType, index in filters.templateTypes
-                        button.btn.btn-brand.btn-info.btn-sm.filter-btn(type='button')
-                          span Type: #{filterTagType}
-        .col-lg-2.mb-2
-          select.selectpicker.sortSelect#sortFilter(multiple='' data-max-options='1')
-                option(data-filter-sort='views', selected = (filters.sort==="views" ? true : false)) Views
-                option(data-filter-sort='downloads', selected = (filters.sort==="downloads" ? true : false)) Downloads
-                option(data-filter-sort='newest', selected = (filters.sort==="newest" ? true : false)) Newest
-                option(data-filter-sort='oldest', selected = (filters.sort==="oldest" ? true : false)) Oldest
-        .col-lg-2.mb-2
-          select.selectpicker.sortSelect#categoryFilter(multiple='' data-max-options='3')
-            each category, index in categories
-                option(data-filter-category=''+index, selected = (filters.categories.indexOf(index)>-1 ? true : false)) #{category}
-        .col-lg-2.mb-2
-          select.selectpicker.sortSelect#tagTypeFilter(multiple='' data-max-options='2')
-                option(data-filter-tag-type='tag', selected = (filters.templateTypes.indexOf("tag")>-1 ? true : false)) Tag
-                option(data-filter-tag-type='variable',selected = (filters.templateTypes.indexOf("variable")>-1 ? true : false)) Variable
-    .row#products-grid
-
-      each template, index in templates
-        .col-lg-4.col-md-6.mb-4
-          .card.h-100(data-eec-action="impression")&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category, 'data-product-variant': template.type.toLowerCase(), 'data-product-position': index, 'data-product-tracked': "false", 'data-product-list-name': "home page" })
-            .card-body
-              img.rounded.float-right(src=''+template.logo, alt='', width="60px")
-              h4.card-title
-                a(href='template/'+template.id+'/'+template.slug+'')= template.name
-              span.autor Author:&nbsp;
-              a(href='#')= template.author
-              br
-              small Added: #{template.parsed_added_date}
-              p.card-text
-                | #{template.description}
-            .card-footer
-              small.text-muted ( #{template.views} views, #{template.downloads} Downloads )
-              span.float-right.badge.badge-info= template.type.slice(0, 3).toUpperCase()
-              if user && user.admin
-                a.float-right.badge.badge-danger(href='/admin/update/' + template.id) EDIT
+                            span Sort by: #{filters.sort}
+                    if(filters.categories.indexOf('all') === -1)
+                        each filterCategory, index in filters.categories
+                            button.btn.btn-brand.btn-info.btn-sm.filter-btn(type='button')
+                                span Category: #{filterCategory}
+                    if(filters.templateTypes.indexOf('all') === -1)
+                        each filterTagType, index in filters.templateTypes
+                            button.btn.btn-brand.btn-info.btn-sm.filter-btn(type='button')
+                                span Type: #{filterTagType}
+        .row#products-grid
+            .col-8
+                .row
+                    each template, index in templates
+                        .col-lg-6.col-md-6.mb-2
+                            .card.h-100(data-eec-action='impression')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category, 'data-product-variant': template.type.toLowerCase(), 'data-product-position': index, 'data-product-tracked': 'false', 'data-product-list-name': 'home page' })
+                                .card-body
+                                    img.rounded.float-right(src=''+template.logo, alt='', width='60px')
+                                    h4.card-title
+                                        a(href='template/'+template.id+'/'+template.slug+'')= template.name
+                                    span.autor Author:&nbsp;
+                                    a(href='#')= template.author
+                                    br
+                                    small Added: #{template.parsed_added_date}
+                                    p.card-text
+                                        | #{template.description}
+                                .card-footer
+                                    small.text-muted ( #{template.views} views, #{template.downloads} Downloads )
+                                    span.float-right.badge.badge-info= template.type.slice(0, 3).toUpperCase()
+                                    if user && user.admin
+                                        a.float-right.badge.badge-danger(href='/admin/update/' + template.id) EDIT
+            .col-4
+                label.mb-0(for='sortFilter') Sort by:
+                br
+                select.selectpicker.sortSelect#sortFilter.col-12.pl-0.mb-4(multiple='' data-max-options='1' title='Select...')
+                    option(data-filter-sort='views' selected=filters.sort === 'views') Views
+                    option(data-filter-sort='downloads' selected=filters.sort === 'downloads') Downloads
+                    option(data-filter-sort='newest' selected=filters.sort === 'newest') Newest
+                    option(data-filter-sort='oldest' selected=filters.sort === 'oldest') Oldest
+                br
+                label.mb-0(for='categoryFilter') Show categories:
+                br
+                select.selectpicker.sortSelect#categoryFilter.col-12.pl-0.mb-4(multiple='' data-max-options='3' title='Select...')
+                    each category, index in categories
+                        option(data-filter-category='' + index selected=filters.categories.indexOf(index) > -1) #{category}
+                br
+                label.mb-0(for='tagTypeFilter') Show template types:
+                br
+                select.selectpicker.sortSelect#tagTypeFilter.col-12.pl-0.mb-4(multiple='' data-max-options='2' title='Select...')
+                    option(data-filter-tag-type='tag' selected=filters.templateTypes.indexOf('tag') > -1) Tag
+                    option(data-filter-tag-type='variable' selected=filters.templateTypes.indexOf('variable') > -1) Variable

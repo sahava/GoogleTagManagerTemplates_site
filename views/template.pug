@@ -1,10 +1,8 @@
 extends layout
 
-
 block content
   script(type='application/ld+json').
     !{JSON.stringify(schema)}
-  script(src='https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?autoload=true&skin=sunburst&lang=css', defer='')
   main.container(role='main')
     .container
     // Modal
@@ -102,7 +100,7 @@ block content
                                 p Logs to the developer console and Tag Manager's preview mode
                                 hr
                                 ul
-                                if permission.instance.param[0].value.type == 1
+                                if permission.instance.param[0].value.string === "debug"
                                     li Only log during debug and preview
                                 else
                                     li Always log
@@ -118,68 +116,62 @@ block content
                                       th(scope='col') Secure
                                       th(scope='col') Session
                                   tbody
-                                    //each cookie, index in permission.instance.param[0].value.listItem
-                                        tr
-                                          td= cookie.mapValue[0].string
-                                          td= cookie.mapValue[1].string
-                                          td= cookie.mapValue[2].string
-                                          td= cookie.mapValue[3].string
-                                          td= cookie.mapValue[4].string
+                                    if permission.instance.param.length !== 0
+                                        each cookie, index in permission.instance.param[0].value.listItem
+                                            tr
+                                              td= cookie.mapValue[0].string
+                                              td= cookie.mapValue[1].string
+                                              td= cookie.mapValue[2].string
+                                              td= cookie.mapValue[3].string
+                                              td= cookie.mapValue[4].string
                               when "access_globals"
                                 p Accesses a global variable (potentially including sensitive APIs)
                                 hr
-                                if permission.instance.param.length !== 0
-                                    table.table
-                                      thead.thead-light
-                                        tr
-                                          th(scope='col') Key
-                                          th(scope='col') Read
-                                          th(scope='col') Write
-                                          th(scope='col') Execute
-                                      tbody
-
+                                table.table
+                                  thead.thead-light
+                                    tr
+                                      th(scope='col') Key
+                                      th.text-center(scope='col') Read
+                                      th.text-center(scope='col') Write
+                                      th.text-center(scope='col') Execute
+                                  tbody
+                                  if permission.instance.param.length !== 0
                                         each variable, index in permission.instance.param[0].value.listItem
                                             tr
                                               td= variable.mapValue[0].string
-                                              td
+                                              td.text-center
                                                 if variable.mapValue[1].boolean
                                                     input#gridCheck.form-check-input(type='checkbox' disabled checked)
                                                 else
                                                     input#gridCheck.form-check-input(type='checkbox' disabled)
-                                              td
+                                              td.text-center
                                                 if variable.mapValue[2].boolean
                                                     input#gridCheck.form-check-input(type='checkbox' disabled checked)
                                                 else
                                                     input#gridCheck.form-check-input(type='checkbox' disabled)
-                                              td
+                                              td.text-center
                                                 if variable.mapValue[3].boolean
                                                     input#gridCheck.form-check-input(type='checkbox' disabled checked)
                                                 else
                                                     input#gridCheck.form-check-input(type='checkbox' disabled)
-                                else
-                                    p Library seems to be set to load but not variables are defined
                               when "inject_script"
                                 p Injects a script into the page
                                 hr
-                                if permission.instance.param.length !== 0
-                                    ul.list-group
-                                      li.list-group-item.active
-                                        small Allowed URL Match Patterns
+                                ul.list-group
+                                  li.list-group-item.active
+                                    small Allowed URL Match Patterns
+                                    if permission.instance.param.length !== 0
                                       each pattern, index in permission.instance.param[0].value.listItem
                                         li.list-group-item= pattern.string
-                                else
-                                    p Library seems to be set to load but not patterns are defined
                               when "inject_hidden_iframe"
                                 p Injects an invisible iframe with a given URL
                                 hr
-                                if permission.instance.param.length !== 0
-                                    ul.list-group
-                                      li.list-group-item.active
-                                        small Allowed URL Match Patterns
+                                ul.list-group
+                                  li.list-group-item.active
+                                    small Allowed URL Match Patterns
+                                    if permission.instance.param.length !== 0
                                       each pattern, index in permission.instance.param[0].value.listItem
                                         li.list-group-item= pattern.string
-                                else
-                                    p Library seems to be set to load but not patterns are defined
                               when "read_character_set"
                                 p Reads document.characterSet
                                 hr
@@ -191,14 +183,12 @@ block content
                               when "read_data_layer"
                                 p Reads data from the dataLayer
                                 hr
-                                if permission.instance.param.length !== 0
-                                    ul.list-group
-                                      li.list-group-item.active
-                                        small Keys
-                                      each datalayer, index in permission.instance.param[0].value.listItem
-                                        li.list-group-item= datalayer.string
-                                else
-                                    p Library seems to be set to load but not keys are defined
+                                ul.list-group
+                                  li.list-group-item.active
+                                    small Keys
+                                    if permission.instance.param.length !== 0
+                                      each pattern, index in permission.instance.param[0].value.listItem
+                                        li.list-group-item= pattern.string
                               when "send_pixel"
                                 p Sends a GET request to a specified URL. Response is not processed.
                                 hr
@@ -213,15 +203,18 @@ block content
                               when "get_cookies"
                                 p Reads the values of the cookies with the specified name.
                                 hr
-                                if permission.instance.param.length !== 0
-                                    ul.list-group
-                                      li.list-group-item.active
-                                        small Cookie Name
-                                      each cookie, index in permission.instance.param[0].value.listItem
-                                        li.list-group-item= cookie.string
-                                else
-                                    p Library seems to be set to load but not patterns are defined
+                                table.table
+                                    thead.thead-light
+                                       tr
+                                         th(scope='col') Cookie name
+                                    tbody
+                                    if permission.instance.param.length !== 0
+                                        each cookie, index in permission.instance.param[0].value.listItem
+                                            tr
+                                              td= cookie.string
                               when "get_referrer"
+                                - var queriesAllowed
+                                - var queryKeys
                                 p Returns part or all of the URL of the referrer
                                 hr
                                 ul
@@ -229,9 +222,13 @@ block content
                                     li Any
                                 else
                                     li Specific
-                                        ul
+                                        ul.no-dots-ul
                                             each urlPart, index in permission.instance.param
-                                                if urlPart.key !== "queriesAllowed" && urlPart.key !== "urlParts"
+                                                if urlPart.key === "queriesAllowed"
+                                                 - queriesAllowed = urlPart
+                                                if urlPart.key === "queryKeys"
+                                                 - queryKeys = urlPart.value.listItem[0].string.split(',')
+                                                if urlPart.key !== "queriesAllowed" && urlPart.key !== "queryKeys" && urlPart.key !== "urlParts" && urlPart.key !== "query"
                                                     li
                                                      if urlPart.value
                                                         input#gridCheck.form-check-input(type='checkbox' disabled checked)
@@ -239,7 +236,22 @@ block content
                                                      else
                                                         input#gridCheck.form-check-input(type='checkbox' disabled)
                                                         span= urlPart.key
+                                            if queriesAllowed
+                                                input#gridCheck.form-check-input(type='checkbox' disabled checked)
+                                                span query
+                                                br
+                                                | Allowed Query Fields
+
+                                                if queryKeys
+                                                    ul
+                                                        each q, index in queryKeys
+                                                         li= q
+                                                else
+                                                    ul
+                                                        li Any
                               when "get_url"
+                                - var queriesAllowed
+                                - var queryKeys
                                 p Returns part or all of the URL of the current page
                                 hr
                                 ul
@@ -247,9 +259,13 @@ block content
                                     li Any
                                 else
                                     li Specific
-                                        ul
+                                        ul.no-dots-ul
                                             each urlPart, index in permission.instance.param
-                                                if urlPart.key !== "queriesAllowed" && urlPart.key !== "urlParts"
+                                                if urlPart.key === "queriesAllowed"
+                                                 - queriesAllowed = urlPart
+                                                if urlPart.key === "queryKeys"
+                                                 - queryKeys = urlPart.value.listItem[0].string.split(',')
+                                                if urlPart.key !== "queriesAllowed" && urlPart.key !== "queryKeys" && urlPart.key !== "urlParts" && urlPart.key !== "query"
                                                     li
                                                      if urlPart.value
                                                         input#gridCheck.form-check-input(type='checkbox' disabled checked)
@@ -257,6 +273,19 @@ block content
                                                      else
                                                         input#gridCheck.form-check-input(type='checkbox' disabled)
                                                         span= urlPart.key
+                                            if queriesAllowed
+                                                input#gridCheck.form-check-input(type='checkbox' disabled checked)
+                                                span query
+                                                br
+                                                | Allowed Query Fields
+
+                                                if queryKeys
+                                                    ul
+                                                        each q, index in queryKeys
+                                                         li= q
+                                                else
+                                                    ul
+                                                        li Any
                               default
                                 pre.prettyprint #{JSON.stringify(permission.instance.param)}
               #reviews.tab-pane.fade(role='tabpanel' aria-labelledby='reviews-tab')

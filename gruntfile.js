@@ -39,6 +39,12 @@ module.exports = grunt => {
         },{
           src: 'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
           dest: 'public/js/bootstrap.bundle.min.js'
+        },{
+          src: 'node_modules/bootstrap-select/dist/js/bootstrap-select.min.js',
+          dest: 'public/js/bootstrap-select.min.js'
+        }, {
+          src: 'node_modules/bootstrap-select/dist/css/bootstrap-select.min.css',
+          dest: 'public/css/bootstrap-select.min.css'
         }]
       },
       jquery: {

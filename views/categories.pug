@@ -1,16 +1,16 @@
 extends layout
 
 block content
-  main.container(role='main')
-    .jumbotron
-      h1 Categories
-      p.lead
-        | Choose a category
-    .container
-    .row
-    ul.list-group
-      each category, index in categories
-        li.list-group-item
-          a(href='/categories/'+index+'/') #{category}
-          span.badge.badge-info #{categoryCounts[index]}
+    main.container(role='main')
+        .jumbotron
+            h1 Categories
+            p.lead
+                | Choose a category
+        .container
+        .row
+        ul.list-group
+            each category, index in categories
+                li.list-group-item
+                    a(href='/categories/'+index+'/') #{category}
+                    span.badge.badge-info #{categoryCounts[index]}
 

@@ -55,6 +55,8 @@ const parseTemplate = tpl => {
 };
 
 const filterAndSort = (parsedTemplates, filterOptions) => {
+  // TO-DO Query Based Filter
+  // filterOptions.query    
   return parsedTemplates.filter(template => 
     (filterOptions.categories.indexOf(template.category) > -1 && filterOptions.templateTypes.indexOf(template.type.toLocaleLowerCase()) > -1) ||
     (filterOptions.categories.indexOf(template.category) > -1 && filterOptions.templateTypes.indexOf('all') > -1) ||
@@ -88,6 +90,9 @@ const sanitize = (filterOptions) => {
   filterOptions.categories.forEach((e,i) => {
     if(Object.keys(enums.allowedFilterValues.categories).indexOf(e)===-1 && e!=="all") filterOptions.categories.splice(i,1);
   });
+  // Query    
+  if(!filterOptions.query) filterOptions.query = ['all'];
+    
   return filterOptions;
 };
 

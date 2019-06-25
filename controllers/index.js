@@ -14,8 +14,7 @@ router.get('/', async (req, res, next) => {
       templateTypes: req.query.templateTypes ? req.query.templateTypes.split(',') : ['all'],
       categories: req.query.categories ? req.query.categories.split(',') : ['all']
     });
-
-    
+      
     const parsedTemplates = gtmTplParser.filterAndSort(
       templates.map(gtmTplParser.parseTemplate),
       filterOptions
@@ -27,11 +26,7 @@ router.get('/', async (req, res, next) => {
       page: {
         type: 'home page',
         title: 'Home - GTM Templates',
-        filters: {
-          sort: filterOptions.sort,
-          templateTypes: filterOptions.templateTypes,
-          categories: filterOptions.categories
-        },
+        filters: filterOptions,
         qs: Object.keys(filterOptions).map(key => key + '=' + filterOptions[key]).join('&')
       }
     });

@@ -54,13 +54,13 @@ const parseTemplate = tpl => {
 };
 
 const filterAndSort = (parsedTemplates, filterOptions) => {
-  return parsedTemplates.filter(template =>
+  return parsedTemplates.filter(template => 
     (filterOptions.categories.indexOf(template.category) > -1 && filterOptions.templateTypes.indexOf(template.type.toLocaleLowerCase()) > -1) ||
     (filterOptions.categories.indexOf(template.category) > -1 && filterOptions.templateTypes.indexOf('all') > -1) ||
     (filterOptions.templateTypes.indexOf(template.type.toLocaleLowerCase()) > -1 && filterOptions.categories.indexOf('all') > -1) ||
-    (filterOptions.templateTypes.indexOf('all') > -1 && filterOptions.categories.indexOf('all') > -1)
+    (filterOptions.templateTypes.indexOf('all') > -1 && filterOptions.categories.indexOf('all') > -1) 
   ).sort((a, b) => {
-    switch(filterOptions.sort) {
+    switch(filterOptions.sort[0]) {
       case 'views':
         return b.views - a.views;
       case 'downloads':

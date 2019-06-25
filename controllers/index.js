@@ -10,33 +10,24 @@ router.get('/', async (req, res, next) => {
     // Fetch templates
     const {templates} = await model.list(0, null);
     const filterOptions = {
-      sort: (req.query.sort) ? req.query.sort.split(',') : ['views'],
-      templateTypes: (req.query.templateTypes) ? req.query.templateTypes.split(',') : ['all'],
-      categories: (req.query.categories) ? req.query.categories.split(',') : ['all']
+      sort: req.query.sort ? req.query.sort.split(',') : ['views'],
+      templateTypes: req.query.templateTypes ? req.query.templateTypes.split(',') : ['all'],
+      categories: req.query.categories ? req.query.categories.split(',') : ['all']
     };
-    
+
     // Sanitizing refining values
     // Template Types
     filterOptions.templateTypes.forEach((e,i) => {
-        if(Object.keys(enums.allowedFilterValues.templateTypes).indexOf(e)===-1) filterOptions.templateTypes.splice(i,1);
-    });
-      
-    // User may remove the filter value manually and key will still exist, set default value
-    if(filterOptions.templateTypes.length===0) filterOptions.templateTypes = ['all'];
-
+        if(Object.keys(enums.allowedFilterValues.templateTypes).indexOf(e)===-1 && e!=="all") filterOptions.templateTypes.splice(i,1);
+    });  
     // Sort Types
     filterOptions.sort.forEach((e,i) =>{
-        if(Object.keys(enums.allowedFilterValues.sort).indexOf(e)===-1) filterOptions.sort.splice(i,1);
+        if(Object.keys(enums.allowedFilterValues.sort).indexOf(e)===-1 && e!=="all") filterOptions.sort.splice(i,1);
     });
-    // User may remove the filter value manually and key will still exist, set default value
-    if(filterOptions.sort.length===0) filterOptions.sort = ['views'];
-
     // Categories
     filterOptions.categories.forEach((e,i) => {
-        if(Object.keys(enums.allowedFilterValues.categories).indexOf(e)===-1) filterOptions.categories.splice(i,1);
+        if(Object.keys(enums.allowedFilterValues.categories).indexOf(e)===-1 && e!=="all") filterOptions.categories.splice(i,1);
     });
-    // User may remove the filter value manually and key will still exist, set default value
-    if(filterOptions.categories.length===0) filterOptions.categories = ['all'];      
     
     const parsedTemplates = gtmTplParser.filterAndSort(
       templates.map(gtmTplParser.parseTemplate),

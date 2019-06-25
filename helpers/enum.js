@@ -52,7 +52,7 @@ const allowedFilterValues= {
   },
   templateTypes: {
     'tag': 'Tag',
-    'var': 'Variable'
+    'variable': 'Variable'
   },
   categories: categories
 };

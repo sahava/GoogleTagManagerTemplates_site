@@ -22,15 +22,15 @@ block content
                     div#filtersList
                     if(filters.sort !== 'all')
                         button.btn.btn-brand.btn-info.btn-sm.filter-btn(type='button')
-                            span Sort by: #{filters.sort}
+                            span Sort by: #{allowedFilterValues.sort[filters.sort]}
                     if(filters.categories.indexOf('all') === -1)
                         each filterCategory, index in filters.categories
                             button.btn.btn-brand.btn-info.btn-sm.filter-btn(type='button')
-                                span Category: #{filterCategory}
+                                span Category: #{allowedFilterValues.categories[filterCategory]}
                     if(filters.templateTypes.indexOf('all') === -1)
                         each filterTagType, index in filters.templateTypes
                             button.btn.btn-brand.btn-info.btn-sm.filter-btn(type='button')
-                                span Type: #{filterTagType}
+                                span Type: #{allowedFilterValues.templateTypes[filterTagType]}
         .row#products-grid
             .col-8
                 .row
@@ -56,10 +56,8 @@ block content
                 label.mb-0(for='sortFilter') Sort by:
                 br
                 select.selectpicker.sortSelect#sortFilter.col-12.pl-0.mb-4(multiple='' data-max-options='1' title='Most views')
-                    option(data-filter-sort='views' selected=filters.sort === 'views') Most views
-                    option(data-filter-sort='downloads' selected=filters.sort === 'downloads') Most downloads
-                    option(data-filter-sort='added_date' selected=filters.sort === 'added_date') Newest
-                    option(data-filter-sort='updated_date' selected=filters.sort === 'updated_date') Last modified
+                    each sortOption, index in allowedFilterValues.sort
+                        option(data-filter-sort=''+index selected=filters.sort === ''+index)= sortOption
                 br
                 label.mb-0(for='categoryFilter') Show categories:
                 br
@@ -70,5 +68,5 @@ block content
                 label.mb-0(for='tagTypeFilter') Show template types:
                 br
                 select.selectpicker.sortSelect#tagTypeFilter.col-12.pl-0.mb-4(multiple='' data-max-options='2' title='All')
-                    option(data-filter-tag-type='tag' selected=filters.templateTypes.indexOf('tag') > -1) Tag
-                    option(data-filter-tag-type='variable' selected=filters.templateTypes.indexOf('variable') > -1) Variable
+                    each templateTypesOption, index in allowedFilterValues.templateTypes
+                        option(data-filter-tag-type=''+index selected=filters.templateTypes.indexOf(index) > -1)= templateTypesOption

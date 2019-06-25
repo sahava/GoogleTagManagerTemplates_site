@@ -36,7 +36,6 @@ router.get('/', async (req, res, next) => {
     });
     // User may remove the filter value manually and key will still exist, set default value
     if(filterOptions.categories.length===0) filterOptions.categories = ['all'];      
-    console.log(filterOptions);
 
       
    /*   
@@ -83,7 +82,8 @@ router.get('/', async (req, res, next) => {
       user: req.user,
       filters: dataLayer.page.filters,
       qs: dataLayer.page.qs,
-      categories: enums.categories
+      categories: enums.categories,
+      allowedFilterValues: enums.allowedFilterValues        
     });
 
   } catch(err) {

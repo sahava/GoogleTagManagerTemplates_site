@@ -32,7 +32,7 @@ block content
                             button.btn.btn-brand.btn-info.btn-sm.filter-btn(type='button')
                                 span Type: #{filterTagType}
         .row#products-grid
-            .col-10
+            .col-8
                 .row
                     each template, index in templates
                         .col-lg-6.col-md-6.mb-2
@@ -52,7 +52,7 @@ block content
                                     span.float-right.badge.badge-info= template.type.slice(0, 3).toUpperCase()
                                     if user && user.admin
                                         a.float-right.badge.badge-danger(href='/admin/update/' + template.id) EDIT
-            .col-2
+            .col-4
                 label.mb-0(for='sortFilter') Sort by:
                 br
                 select.selectpicker.sortSelect#sortFilter.col-12.pl-0.mb-4(multiple='' data-max-options='1' title='Most views')

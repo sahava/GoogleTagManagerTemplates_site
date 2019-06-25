@@ -10,10 +10,48 @@ router.get('/', async (req, res, next) => {
     // Fetch templates
     const {templates} = await model.list(0, null);
     const filterOptions = {
-      sort: req.query.sort || 'views',
-      templateTypes: (req.query.templateTypes || 'all').split(','),
-      categories: (req.query.categories || 'all').split(',')
+      sort: (req.query.sort) ? req.query.sort.split(',') : ['views'],
+      templateTypes: (req.query.templateTypes) ? req.query.templateTypes.split(',') : ['all'],
+      categories: (req.query.categories) ? req.query.categories.split(',') : ['all']
     };
+    
+    // Sanitizing refining values
+    // Template Types
+    filterOptions.templateTypes.forEach(function(e,i){
+        if(Object.keys(enums.allowedFilterValues.templateTypes).indexOf(e)===-1) filterOptions.templateTypes.splice(i,1);
+    });
+    // User may remove the filter value manually and key will still exist, set default value
+    if(filterOptions.templateTypes.length===0) filterOptions.templateTypes = ['all'];
+
+    // Sort Types
+    filterOptions.sort.forEach(function(e,i){
+        if(Object.keys(enums.allowedFilterValues.sort).indexOf(e)===-1) filterOptions.sort.splice(i,1);
+    });
+    // User may remove the filter value manually and key will still exist, set default value
+    if(filterOptions.sort.length===0) filterOptions.sort = ['views'];
+
+    // Categories
+    filterOptions.categories.forEach(function(e,i){
+        if(Object.keys(enums.allowedFilterValues.categories).indexOf(e)===-1) filterOptions.categories.splice(i,1);
+    });
+    // User may remove the filter value manually and key will still exist, set default value
+    if(filterOptions.categories.length===0) filterOptions.categories = ['all'];      
+    console.log(filterOptions);
+
+      
+   /*   
+    if(Object.keys(enums.allowedFilterValues.sort).indexOf(filterOptions.sort)===-1){
+        filterOptions.sort = 'views';
+    }
+      
+    filterOptions.templateTypes.forEach(function(e){
+        if(Object.keys(enums.filterValues.sort).indexOf(filterOptions.sort)===-1){
+            
+        }
+    });    
+    */
+    // CleanUp Filters (Remove non-existing ones)
+    
 
     const parsedTemplates = gtmTplParser.filterAndSort(
       templates.map(gtmTplParser.parseTemplate),
@@ -27,8 +65,8 @@ router.get('/', async (req, res, next) => {
         type: 'home page',
         title: 'Home - GTM Templates',
         filters: {
-          sort:  filterOptions.sort,
-          templateTypes:  filterOptions.templateTypes,
+          sort: filterOptions.sort,
+          templateTypes: filterOptions.templateTypes,
           categories: filterOptions.categories
         },
         qs: Object.keys(filterOptions).map(key => key + '=' + filterOptions[key]).join('&')

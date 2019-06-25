@@ -43,10 +43,24 @@ const dsKind = {
   DEVELOPMENT: 'Template_dev'
 };
 
+const allowedFilterValues= {
+    sort: {
+        'views': 'Most views',
+        'downloads': 'Most downloads',
+        'added_date': 'Newest',
+        'updated_date': 'Last Modified'
+    },
+    templateTypes: {
+        'tag': 'Tag',
+        'var': 'Variable'
+    },
+    categories: categories
+};
 
 module.exports = {
   categories,
   permissions,
   permissions_icons,
-  dsKind
+  dsKind,
+  allowedFilterValues
 };

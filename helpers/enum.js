@@ -44,17 +44,17 @@ const dsKind = {
 };
 
 const allowedFilterValues= {
-    sort: {
-        'views': 'Most views',
-        'downloads': 'Most downloads',
-        'added_date': 'Newest',
-        'updated_date': 'Last Modified'
-    },
-    templateTypes: {
-        'tag': 'Tag',
-        'var': 'Variable'
-    },
-    categories: categories
+  sort: {
+    'views': 'Most views',
+    'downloads': 'Most downloads',
+    'added_date': 'Newest',
+    'updated_date': 'Last Modified'
+  },
+  templateTypes: {
+    'tag': 'Tag',
+    'var': 'Variable'
+  },
+  categories: categories
 };
 
 module.exports = {

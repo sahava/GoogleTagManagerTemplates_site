@@ -17,41 +17,27 @@ router.get('/', async (req, res, next) => {
     
     // Sanitizing refining values
     // Template Types
-    filterOptions.templateTypes.forEach(function(e,i){
+    filterOptions.templateTypes.forEach((e,i) => {
         if(Object.keys(enums.allowedFilterValues.templateTypes).indexOf(e)===-1) filterOptions.templateTypes.splice(i,1);
     });
+      
     // User may remove the filter value manually and key will still exist, set default value
     if(filterOptions.templateTypes.length===0) filterOptions.templateTypes = ['all'];
 
     // Sort Types
-    filterOptions.sort.forEach(function(e,i){
+    filterOptions.sort.forEach((e,i) =>{
         if(Object.keys(enums.allowedFilterValues.sort).indexOf(e)===-1) filterOptions.sort.splice(i,1);
     });
     // User may remove the filter value manually and key will still exist, set default value
     if(filterOptions.sort.length===0) filterOptions.sort = ['views'];
 
     // Categories
-    filterOptions.categories.forEach(function(e,i){
+    filterOptions.categories.forEach((e,i) => {
         if(Object.keys(enums.allowedFilterValues.categories).indexOf(e)===-1) filterOptions.categories.splice(i,1);
     });
     // User may remove the filter value manually and key will still exist, set default value
     if(filterOptions.categories.length===0) filterOptions.categories = ['all'];      
-
-      
-   /*   
-    if(Object.keys(enums.allowedFilterValues.sort).indexOf(filterOptions.sort)===-1){
-        filterOptions.sort = 'views';
-    }
-      
-    filterOptions.templateTypes.forEach(function(e){
-        if(Object.keys(enums.filterValues.sort).indexOf(filterOptions.sort)===-1){
-            
-        }
-    });    
-    */
-    // CleanUp Filters (Remove non-existing ones)
     
-
     const parsedTemplates = gtmTplParser.filterAndSort(
       templates.map(gtmTplParser.parseTemplate),
       filterOptions

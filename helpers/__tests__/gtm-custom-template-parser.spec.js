@@ -75,7 +75,7 @@ describe('Test gtm-custom-template-parser.js', () => {
     const filterOptions = {
       categories: ['1'],
       templateTypes: ['tag'],
-      sort: 'views'
+      sort: ['views']
     };
     let [result] = filterAndSort(parsedTemplates, filterOptions);
     expect(result).toMatchObject(parsedTemplates[0]);
@@ -98,17 +98,17 @@ describe('Test gtm-custom-template-parser.js', () => {
     // Third test
     filterOptions.categories = ['all'];
     filterOptions.templateTypes = ['all'];
-    filterOptions.sort = 'downloads';
+    filterOptions.sort = ['downloads'];
     result = filterAndSort(parsedTemplates, filterOptions);
     expect(result).toMatchObject([parsedTemplates[1], parsedTemplates[0]]);
 
     // Fourth test
-    filterOptions.sort = 'updated_date';
+    filterOptions.sort = ['updated_date'];
     result = filterAndSort(parsedTemplates, filterOptions);
     expect(result).toMatchObject(parsedTemplates);
 
     // Fifth test
-    filterOptions.sort = 'added_date';
+    filterOptions.sort = ['added_date'];
     result = filterAndSort(parsedTemplates, filterOptions);
     expect(result).toMatchObject([parsedTemplates[1], parsedTemplates[0]]);
 

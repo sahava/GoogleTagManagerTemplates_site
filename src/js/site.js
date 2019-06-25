@@ -57,9 +57,14 @@
     });
 
     $('#categoryFilter').on('changed.bs.select', function() {
-      var searchSectionPath = window.dataLayer[0].page.type==="home page" ? "/?" : "/search?";    
       var params = JSON.parse(JSON.stringify(window.dataLayer[0].page.filters));
       var filterValue = $('#categoryFilter option:selected').map(function(){ return $(this).data('filterCategory'); }).get().join(',');
+        
+      if(window.dataLayer[0].page.type==='templates listing page'){  
+          location.href = ['','categories',filterValue,''].join('/');
+          return;
+      }        
+      var searchSectionPath = window.dataLayer[0].page.type==="home page" ? "/?" : "/search?";    
       if(params.categories.indexOf('all') > -1) params.categories.splice(params.categories.indexOf('all'));
       params.categories= filterValue || 'all';
       location.href = searchSectionPath + window._gtm_templates.tools.buildQuery(params);

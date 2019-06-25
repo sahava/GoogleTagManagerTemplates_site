@@ -9,25 +9,12 @@ router.get('/', async (req, res, next) => {
   try {
     // Fetch templates
     const {templates} = await model.list(0, null);
-    const filterOptions = {
+    const filterOptions = gtmTplParser.sanitize({
       sort: req.query.sort ? req.query.sort.split(',') : ['views'],
       templateTypes: req.query.templateTypes ? req.query.templateTypes.split(',') : ['all'],
       categories: req.query.categories ? req.query.categories.split(',') : ['all']
-    };
+    });
 
-    // Sanitizing refining values
-    // Template Types
-    filterOptions.templateTypes.forEach((e,i) => {
-        if(Object.keys(enums.allowedFilterValues.templateTypes).indexOf(e)===-1 && e!=="all") filterOptions.templateTypes.splice(i,1);
-    });  
-    // Sort Types
-    filterOptions.sort.forEach((e,i) =>{
-        if(Object.keys(enums.allowedFilterValues.sort).indexOf(e)===-1 && e!=="all") filterOptions.sort.splice(i,1);
-    });
-    // Categories
-    filterOptions.categories.forEach((e,i) => {
-        if(Object.keys(enums.allowedFilterValues.categories).indexOf(e)===-1 && e!=="all") filterOptions.categories.splice(i,1);
-    });
     
     const parsedTemplates = gtmTplParser.filterAndSort(
       templates.map(gtmTplParser.parseTemplate),

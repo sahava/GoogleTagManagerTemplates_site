@@ -1,5 +1,6 @@
 const moment = require('moment');
 const _ = require('lodash');
+const enums = require('../helpers/enum');
 
 // Helper to Parse GTM TPL Files
 // David Vallejo @thyng
@@ -73,7 +74,25 @@ const filterAndSort = (parsedTemplates, filterOptions) => {
   });
 };
 
+const sanitize = (filterOptions) => {    
+  // Sanitizing refining values
+  // Template Types
+  filterOptions.templateTypes.forEach((e,i) => {
+    if(Object.keys(enums.allowedFilterValues.templateTypes).indexOf(e)===-1 && e!=="all") filterOptions.templateTypes.splice(i,1);
+  });  
+  // Sort Types
+  filterOptions.sort.forEach((e,i) =>{
+    if(Object.keys(enums.allowedFilterValues.sort).indexOf(e)===-1 && e!=="all") filterOptions.sort.splice(i,1);
+  });
+  // Categories
+  filterOptions.categories.forEach((e,i) => {
+    if(Object.keys(enums.allowedFilterValues.categories).indexOf(e)===-1 && e!=="all") filterOptions.categories.splice(i,1);
+  });
+  return filterOptions;
+};
+
 module.exports = {
   parseTemplate,
-  filterAndSort
+  filterAndSort,
+  sanitize
 };

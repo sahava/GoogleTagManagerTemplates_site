@@ -1,4 +1,4 @@
-const {parseTemplate, filterAndSort} = require('../gtm-custom-template-parser');
+const {parseTemplate, filterAndSort, sanitize} = require('../gtm-custom-template-parser');
 const mocks = require('../__mocks__/helpers.mocks');
 
 describe('Test gtm-custom-template-parser.js', () => {
@@ -54,6 +54,41 @@ describe('Test gtm-custom-template-parser.js', () => {
     expect(result).toHaveProperty('logo', expected);
   });
 
+  test('Should sanitize invalid filter options', () => {
+    const filterOptions = {
+      categories: ['abc'],
+      templateTypes: ['abc'],
+      sort: ['abc']
+    };
+    const expected = {
+      categories: [],
+      templateTypes: [],
+      sort: [],
+      query: ['all']
+    };
+
+    const result = sanitize(filterOptions);
+    expect(result).toMatchObject(expected);
+  });
+
+  test('Should not sanitize valid filter options', () => {
+    const filterOptions = {
+      categories: ['analytics', 'pixel'],
+      templateTypes: ['tag'],
+      sort: ['views'],
+      query: ['query']
+    };
+    const expected = {
+      categories: ['analytics', 'pixel'],
+      templateTypes: ['tag'],
+      sort: ['views'],
+      query: ['query']
+    };
+
+    const result = sanitize(filterOptions);
+    expect(result).toMatchObject(expected);
+  });
+
   test('Should filter and sort different options correctly', () => {
     const parsedTemplates = [{
       category: '1',
@@ -75,7 +110,7 @@ describe('Test gtm-custom-template-parser.js', () => {
     const filterOptions = {
       categories: ['1'],
       templateTypes: ['tag'],
-      sort: 'views'
+      sort: ['views']
     };
     let [result] = filterAndSort(parsedTemplates, filterOptions);
     expect(result).toMatchObject(parsedTemplates[0]);
@@ -98,17 +133,17 @@ describe('Test gtm-custom-template-parser.js', () => {
     // Third test
     filterOptions.categories = ['all'];
     filterOptions.templateTypes = ['all'];
-    filterOptions.sort = 'downloads';
+    filterOptions.sort = ['downloads'];
     result = filterAndSort(parsedTemplates, filterOptions);
     expect(result).toMatchObject([parsedTemplates[1], parsedTemplates[0]]);
 
     // Fourth test
-    filterOptions.sort = 'updated_date';
+    filterOptions.sort = ['updated_date'];
     result = filterAndSort(parsedTemplates, filterOptions);
-    expect(result).toMatchObject(parsedTemplates);
+    expect(result).toMatchObject([parsedTemplates[1], parsedTemplates[0]]);
 
     // Fifth test
-    filterOptions.sort = 'added_date';
+    filterOptions.sort = ['added_date'];
     result = filterAndSort(parsedTemplates, filterOptions);
     expect(result).toMatchObject([parsedTemplates[1], parsedTemplates[0]]);
 

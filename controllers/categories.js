@@ -49,9 +49,16 @@ router.get('/:category/', async (req, res, next) => {
 
     // Grab templates by category
     const templates = await model.listByCategory(categorySlug);
+    const filterOptions = gtmTplParser.sanitize({
+      sort: ['views'],
+      templateTypes: ['all'],
+      categories: [categorySlug]
+    });
 
-    // Parse logo and dates from template JSON
-    const parsedTemplates = templates.map(gtmTplParser.parseTemplate);
+    const parsedTemplates = gtmTplParser.filterAndSort(
+      templates.map(gtmTplParser.parseTemplate),
+      filterOptions
+    );
 
     // Render dataLayer and page
     // Build DataLayer
@@ -60,7 +67,9 @@ router.get('/:category/', async (req, res, next) => {
         type: 'templates listing page',
         title: 'Category: ' + enums.categories[categorySlug] + ' - GTM Templates',
         category: categorySlug,
-        count: parsedTemplates.length
+        count: parsedTemplates.length,
+        filters: filterOptions,
+        qs: Object.keys(filterOptions).map(key => key + '=' + filterOptions[key]).join('&')
       }
     });
     dataLayerHelper.mergeDataLayer(dataLayerHelper.buildEEC('impressions',{list: 'plp: ' + categorySlug}, parsedTemplates));
@@ -71,11 +80,14 @@ router.get('/:category/', async (req, res, next) => {
       templates: parsedTemplates,
       category: enums.categories[categorySlug],
       count: parsedTemplates.length,
-      user: req.user
+      user: req.user,
+      filters: dataLayer.page.filters,
+      qs: dataLayer.page.qs,
+      categories: enums.categories,
+      allowedFilterValues: enums.allowedFilterValues
     });
   } catch(err) {
     next(err);
   }
 });
-
 module.exports = router;

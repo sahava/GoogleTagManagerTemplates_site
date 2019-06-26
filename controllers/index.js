@@ -9,12 +9,12 @@ router.get('/', async (req, res, next) => {
   try {
     // Fetch templates
     const {templates} = await model.list(0, null);
-    const filterOptions = {
-      sort: req.query.sort || 'views',
-      templateTypes: (req.query.templateTypes || 'all').split(','),
-      categories: (req.query.categories || 'all').split(',')
-    };
-
+    const filterOptions = gtmTplParser.sanitize({
+      sort: req.query.sort ? req.query.sort.split(',') : ['views'],
+      templateTypes: req.query.templateTypes ? req.query.templateTypes.split(',') : ['all'],
+      categories: req.query.categories ? req.query.categories.split(',') : ['all']
+    });
+      
     const parsedTemplates = gtmTplParser.filterAndSort(
       templates.map(gtmTplParser.parseTemplate),
       filterOptions
@@ -26,11 +26,7 @@ router.get('/', async (req, res, next) => {
       page: {
         type: 'home page',
         title: 'Home - GTM Templates',
-        filters: {
-          sort:  filterOptions.sort,
-          templateTypes:  filterOptions.templateTypes,
-          categories: filterOptions.categories
-        },
+        filters: filterOptions,
         qs: Object.keys(filterOptions).map(key => key + '=' + filterOptions[key]).join('&')
       }
     });
@@ -45,7 +41,8 @@ router.get('/', async (req, res, next) => {
       user: req.user,
       filters: dataLayer.page.filters,
       qs: dataLayer.page.qs,
-      categories: enums.categories
+      categories: enums.categories,
+      allowedFilterValues: enums.allowedFilterValues        
     });
 
   } catch(err) {

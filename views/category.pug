@@ -3,51 +3,46 @@ extends layout
 block content
     main.container(role='main')
         .jumbotron
-            h1 Category: #{category}
-            small ( #{count} templates )
-
+            h1 CATEGORY: #{category}
         .container
-        if(count!==0)
-            .row#filterOptions
-                .col-lg-4.col-md-6.mb-4
-                    header.d-flex.justify-content-between.align-items-start
-                        span.visible-items
-                            | Showing
-                            strong 1-30
-                            | of
-                            strong 70
-                            | results
-                            div#filtersList
-                                button.btn.btn-brand.btn-info.btn-sm.category-btn(type='button')
-                                    span Category: #{category}
-                                    i.fa.fa-window-close
-
-                .col-lg-8.col-md-6.mb-4
-                    .btn-group.float-right(role='group', aria-label='Button group with nested dropdown')
-                        button.btn.btn-info.btn-sm(data-sort-by='views', type='button') Most Viewed
-                        button.btn.btn-info.btn-sm(data-sort-by='downloads',type='button') Most Downloaded
-                        .btn-group(role='group')
-                            button#btnGroupDrop1.btn.btn-info.dropdown-toggle.btn-sm(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-                                | Updated Date
-                            .dropdown-menu(aria-labelledby='btnGroupDrop1')
-                                a.dropdown-item(data-sort-by='newest', href='#') Newest
-                                a.dropdown-item(data-sort-by='oldest', href='#') Oldest
-            .row#products-grid
-                each template, index in templates
-                    .col-lg-4.col-md-6.mb-4
-                        .card.h-100(data-eec-action='impression')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category, 'data-product-variant': template.type.toLowerCase(), 'data-product-position': index, 'data-product-tracked': 'false', 'data-product-list-name': 'home page' })
-                            .card-body
-                                img.rounded.float-right(src=''+template.logo, alt='', width="60px")
-                                h4.card-title
-                                    a(href='/template/'+template.id+'/'+template.slug+'')= template.name
-                                span.autor Author:&nbsp;
-                                a(href='#')= template.author
-                                br
-                                small Added: #{template.parsed_added_date}
-                                p.card-text
-                                    | #{template.description}
-                            .card-footer
-                                small.text-muted ( #{template.views} views, #{template.downloads} Downloads )
-                                span.float-right.badge.badge-info= template.type.slice(0, 3).toUpperCase()
-                                if user && user.admin
-                                    a.float-right.badge.badge-danger(href='/admin/update/' + template.id) EDIT
+        .row#filterOptionsHeader
+            .col-lg-6.col-md-6
+                span.visible-items
+                    | Showing&nbsp;
+                    strong 1-#{templates.length}&nbsp;
+                    | of #{templates.length} results
+        .row#filterOptions
+            .col-lg-12.mb-2
+                header.d-flex.justify-content-between.align-items-start.float-left
+                    div#filtersList
+                    if(filters.categories.indexOf('all') === -1)
+                        each filterCategory, index in filters.categories
+                            button.btn.btn-brand.btn-info.btn-sm.filter-btn(type='button')
+                                span Category: #{allowedFilterValues.categories[filterCategory]}
+        .row#products-grid
+            .col-8
+                .row
+                    each template, index in templates
+                        .col-lg-6.col-md-6.mb-2
+                            .card.h-100(data-eec-action='impression')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category, 'data-product-variant': template.type.toLowerCase(), 'data-product-position': index, 'data-product-tracked': 'false', 'data-product-list-name': 'home page' })
+                                .card-body
+                                    img.rounded.float-right(src=''+template.logo, alt='', width='60px')
+                                    h4.card-title
+                                        a(href='/template/'+template.id+'/'+template.slug+'')= template.name
+                                    span.autor Author:&nbsp;
+                                    a(href='#')= template.author
+                                    br
+                                    small Added: #{template.parsed_added_date}
+                                    p.card-text
+                                        | #{template.description}
+                                .card-footer
+                                    small.text-muted ( #{template.views} views, #{template.downloads} Downloads )
+                                    span.float-right.badge.badge-info= template.type.slice(0, 3).toUpperCase()
+                                    if user && user.admin
+                                        a.float-right.badge.badge-danger(href='/admin/update/' + template.id) EDIT
+            .col-4
+              label.mb-0(for='categoryFilter') Select category:
+              br
+              select.selectpicker.sortSelect#categoryFilter.col-12.pl-0.mb-4(multiple='' data-max-options='1' title='All')
+                each category, index in categories
+                    option(data-filter-category='' + index selected=filters.categories.indexOf(index) > -1) #{category}

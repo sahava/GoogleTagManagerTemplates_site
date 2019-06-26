@@ -5,52 +5,73 @@ block content
         .jumbotron
             h1 SEARCH RESULTS
         .container
-        .row
+        .row#filterOptionsHeader
+            .col-lg-6.col-md-6
+                span.visible-items
+                    | Showing&nbsp;
+                    strong 1-#{templates.length}&nbsp;
+                    | of #{templates.length} results
+        .row#filterOptions
+            .col-lg-12.mb-2
+                header.d-flex.justify-content-between.align-items-start.float-left
+                    div#filtersList
+                    if(filters.query !== 'all')
+                        button.btn.btn-brand.btn-info.btn-sm.filter-btn(type='button')
+                            span Query: #{filters.query}                    
+                    if(filters.sort !== 'all')
+                        button.btn.btn-brand.btn-info.btn-sm.filter-btn(type='button')
+                            span Sort by: #{allowedFilterValues.sort[filters.sort]}
+                    if(filters.categories.indexOf('all') === -1)
+                        each filterCategory, index in filters.categories
+                            button.btn.btn-brand.btn-info.btn-sm.filter-btn(type='button')
+                                span Category: #{allowedFilterValues.categories[filterCategory]}
+                    if(filters.templateTypes.indexOf('all') === -1)
+                        each filterTagType, index in filters.templateTypes
+                            button.btn.btn-brand.btn-info.btn-sm.filter-btn(type='button')
+                                span Type: #{allowedFilterValues.templateTypes[filterTagType]}
+        .row#products-grid
             .col-8
-                div
-                    p#query-details
-                        span.results-count #{count}
-                        span &nbsp;Results found for query: '#{query}'
-                each template, index in templates
-                    .mb-4
-                        .card.h-100(data-eec-action="impression")&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category, 'data-product-variant': template.type.toLowerCase(), 'data-product-type': template.type,  'data-product-position': index, 'data-product-tracked': "false", 'data-product-list-name': "search results page" })
-                            .card-body
-                                img.rounded.float-right(src=''+template.logo, alt='', width="60px")
-                                h4.card-title
-                                    a(href='template/'+template.id+'/'+template.slug+'')= template.name
-                                span.autor Author:&nbsp;
-                                a(href='#')= template.author
-                                br
-                                small Added: #{template.parsed_added_date}
-                                p.card-text
-                                    | #{template.description}
-                            .card-footer
-                                small.text-muted ( #{template.views} views, #{template.downloads} Downloads )
-                                span.float-right.badge.badge-info= template.type.slice(0, 3).toUpperCase()
-                                if user && user.admin
-                                    a.float-right.badge.badge-danger(href='/admin/update/' + template.id) EDIT
-            .col-4
-                h2 Refine
-                .card
-                    .card-body
-                        h5.card-title Template Type
-                        p.card-text
-                            ul
-                                input#tagTypeTag.form-check-input.filter(name="tagTypeTag" type='checkbox', value='' data-filter-tag-type="tag" checked)
-                                label.form-check-label(for='tagTypeTag')
-                                    | Tag
-                                br
-                                input#tagTypeVar.form-check-input.filter(name="tagTypeVar" type='checkbox', value='' data-filter-tag-type="variable" checked)
-                                label.form-check-label(for='tagTypeVar')
-                                    | Variable
-                br
-                .card
-                    .card-body
-                        h5.card-title Category
-                        p.card-text
-                            ul
-                                each category, index in categories
-                                    input#tagTypeTag.form-check-input.filter(name="tagCategoryName_"+index type='checkbox', value='', data-filter-tag-category=""+index checked)
-                                    label.form-check-label(for='tagTypeTag')
-                                    | #{category}&nbsp; #{category.count}
+                .row
+                    each template, index in templates
+                        .col-lg-6.col-md-6.mb-2
+                            .card.h-100(data-eec-action='impression')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category, 'data-product-variant': template.type.toLowerCase(), 'data-product-position': index, 'data-product-tracked': 'false', 'data-product-list-name': 'home page' })
+                                .card-body
+                                    img.rounded.float-right(src=''+template.logo, alt='', width='60px')
+                                    h4.card-title
+                                        a(href='template/'+template.id+'/'+template.slug+'')= template.name
+                                    span.autor Author:&nbsp;
+                                    a(href='#')= template.author
                                     br
+                                    small Added: #{template.parsed_added_date}
+                                    p.card-text
+                                        | #{template.description}
+                                .card-footer
+                                    small.text-muted ( #{template.views} views, #{template.downloads} Downloads )
+                                    span.float-right.badge.badge-info= template.type.slice(0, 3).toUpperCase()
+                                    if user && user.admin
+                                        a.float-right.badge.badge-danger(href='/admin/update/' + template.id) EDIT
+            .col-4
+              .form-row
+                .col-10
+                  input.form-control(id="query" type='text' value=''+(filters.query=="all" ? '' :  filters.query))
+                .col-2
+                  button.btn.btn-primary#searchGo(type='submit') GO
+              br
+              
+              label.mb-0(for='sortFilter') Sort by:
+              br
+              select.selectpicker.sortSelect#sortFilter.col-12.pl-0.mb-4(multiple='' data-max-options='1' title='Most views')
+                each sortOption, index in allowedFilterValues.sort
+                    option(data-filter-sort=''+index selected=filters.sort === ''+index)= sortOption
+              br
+              label.mb-0(for='categoryFilter') Show categories:
+              br
+              select.selectpicker.sortSelect#categoryFilter.col-12.pl-0.mb-4(multiple='' data-max-options='3' title='All')
+                each category, index in categories
+                    option(data-filter-category='' + index selected=filters.categories.indexOf(index) > -1) #{category}
+              br
+              label.mb-0(for='tagTypeFilter') Show template types:
+              br
+              select.selectpicker.sortSelect#tagTypeFilter.col-12.pl-0.mb-4(multiple='' data-max-options='2' title='All')
+                each templateTypesOption, index in allowedFilterValues.templateTypes
+                    option(data-filter-tag-type=''+index selected=filters.templateTypes.indexOf(index) > -1)= templateTypesOption

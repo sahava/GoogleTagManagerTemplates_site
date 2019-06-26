@@ -1,5 +1,6 @@
 const moment = require('moment');
 const _ = require('lodash');
+const enums = require('../helpers/enum');
 
 // Helper to Parse GTM TPL Files
 // David Vallejo @thyng
@@ -54,26 +55,49 @@ const parseTemplate = tpl => {
 };
 
 const filterAndSort = (parsedTemplates, filterOptions) => {
+  // TO-DO Query Based Filter
+  // filterOptions.query
   return parsedTemplates.filter(template =>
     (filterOptions.categories.indexOf(template.category) > -1 && filterOptions.templateTypes.indexOf(template.type.toLocaleLowerCase()) > -1) ||
     (filterOptions.categories.indexOf(template.category) > -1 && filterOptions.templateTypes.indexOf('all') > -1) ||
     (filterOptions.templateTypes.indexOf(template.type.toLocaleLowerCase()) > -1 && filterOptions.categories.indexOf('all') > -1) ||
     (filterOptions.templateTypes.indexOf('all') > -1 && filterOptions.categories.indexOf('all') > -1)
   ).sort((a, b) => {
-    switch(filterOptions.sort) {
+    switch(filterOptions.sort[0]) {
       case 'views':
         return b.views - a.views;
       case 'downloads':
         return b.downloads - a.downloads;
       case 'added_date':
         return b.added_date - a.added_date;
-      case 'updated_data':
+      case 'updated_date':
         return b.updated_date - a.updated_date;
     }
   });
 };
 
+const sanitize = (filterOptions) => {
+  // Sanitizing refining values
+  // Template Types
+  filterOptions.templateTypes.forEach((e,i) => {
+    if(Object.keys(enums.allowedFilterValues.templateTypes).indexOf(e)===-1 && e!=="all") filterOptions.templateTypes.splice(i,1);
+  });
+  // Sort Types
+  filterOptions.sort.forEach((e,i) =>{
+    if(Object.keys(enums.allowedFilterValues.sort).indexOf(e)===-1 && e!=="all") filterOptions.sort.splice(i,1);
+  });
+  // Categories
+  filterOptions.categories.forEach((e,i) => {
+    if(Object.keys(enums.allowedFilterValues.categories).indexOf(e)===-1 && e!=="all") filterOptions.categories.splice(i,1);
+  });
+  // Query
+  if(!filterOptions.query) filterOptions.query = ['all'];
+
+  return filterOptions;
+};
+
 module.exports = {
   parseTemplate,
-  filterAndSort
+  filterAndSort,
+  sanitize
 };

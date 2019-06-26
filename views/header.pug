@@ -11,7 +11,7 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.mb-4
             li.nav-item(class={'active': category==='categories'})
                 a.nav-link(href='/categories')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category}) Categories
         form.form-inline.mr-auto(action='/search')
-            input.form-control.mr-sm-2(name='q' type='text' placeholder='Search' aria-label='Search')
+            input.form-control.mr-sm-2(name='query' type='text' placeholder='Search' aria-label='Search')
             button.btn.btn-outline-success.my-2.my-sm-0(type='submit' id='search-submit') Search
         ul.nav.navbar-nav.navbar-right
             if !user

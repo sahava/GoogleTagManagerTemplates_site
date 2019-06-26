@@ -41,7 +41,7 @@ block content
                                     if user && user.admin
                                         a.float-right.badge.badge-danger(href='/admin/update/' + template.id) EDIT
             .col-4
-              label.mb-0(for='categoryFilter') Show Other Category:
+              label.mb-0(for='categoryFilter') Select category:
               br
               select.selectpicker.sortSelect#categoryFilter.col-12.pl-0.mb-4(multiple='' data-max-options='1' title='All')
                 each category, index in categories

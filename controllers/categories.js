@@ -52,15 +52,13 @@ router.get('/:category/', async (req, res, next) => {
     const filterOptions = gtmTplParser.sanitize({
       sort: ['views'],
       templateTypes: ['all'],
-      categories: [categorySlug]        
+      categories: [categorySlug]
     });
 
     const parsedTemplates = gtmTplParser.filterAndSort(
       templates.map(gtmTplParser.parseTemplate),
       filterOptions
     );
-
-      
 
     // Render dataLayer and page
     // Build DataLayer
@@ -71,7 +69,7 @@ router.get('/:category/', async (req, res, next) => {
         category: categorySlug,
         count: parsedTemplates.length,
         filters: filterOptions,
-        qs: Object.keys(filterOptions).map(key => key + '=' + filterOptions[key]).join('&')  
+        qs: Object.keys(filterOptions).map(key => key + '=' + filterOptions[key]).join('&')
       }
     });
     dataLayerHelper.mergeDataLayer(dataLayerHelper.buildEEC('impressions',{list: 'plp: ' + categorySlug}, parsedTemplates));
@@ -86,7 +84,7 @@ router.get('/:category/', async (req, res, next) => {
       filters: dataLayer.page.filters,
       qs: dataLayer.page.qs,
       categories: enums.categories,
-      allowedFilterValues: enums.allowedFilterValues             
+      allowedFilterValues: enums.allowedFilterValues
     });
   } catch(err) {
     next(err);

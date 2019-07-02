@@ -57,12 +57,12 @@ block content
                 .col-2
                   button.btn.btn-primary#searchGo(type='submit') GO
               br
-              
+
               label.mb-0(for='sortFilter') Sort by:
               br
               select.selectpicker.sortSelect#sortFilter.col-12.pl-0.mb-4(multiple='' data-max-options='1' title='Most views')
                 each sortOption, index in allowedFilterValues.sort
-                    option(data-filter-sort=''+index selected=filters.sort === ''+index)= sortOption
+                    option(data-filter-sort=''+index selected=filters.sort.indexOf(index) > -1)= sortOption
               br
               label.mb-0(for='categoryFilter') Show categories:
               br

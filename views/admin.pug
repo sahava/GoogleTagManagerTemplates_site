@@ -6,6 +6,11 @@ block content
             h1 Admin
             p
                 a(href='/admin/create') Create template
+                | &nbsp;|&nbsp;
+                if typeof indexUpdated !== 'undefined'
+                    span=`Search index updated ${indexUpdated === 'false' ? 'unsuccessfully' : 'successfully'}`
+                else
+                    a(href='/admin/update-index/') Update search index
             hr
             if !success
                 div.col-sm-4

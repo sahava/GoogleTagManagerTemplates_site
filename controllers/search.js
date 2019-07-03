@@ -4,10 +4,17 @@ const router = express.Router();
 const enums = require('../helpers/enum');
 const gtmTplParser = require('../helpers/gtm-custom-template-parser');
 const dataLayerHelper = require('../helpers/dataLayer');
+const axios = require('axios');
 
 router.get('/', async (req, res, next) => {
   try {
-    const query = req.query.query ? escape(req.query.query) : 'all';
+    const query = req.query.query || '';
+    let resp = {};
+    // Do query
+    if (query) {
+      resp = await axios.get(`https://search-dot-gtm-templates-com.appspot.com/?q=${escape(query)}`);
+    }
+
     // Fetch templates
     const {templates} = await model.list(0, null);
     const filterOptions = gtmTplParser.sanitize({
@@ -16,9 +23,11 @@ router.get('/', async (req, res, next) => {
       categories: req.query.categories ? req.query.categories.split(',') : ['all'],
       query: [query]
     });
+
     const parsedTemplates = gtmTplParser.filterAndSort(
       templates.map(gtmTplParser.parseTemplate),
-      filterOptions
+      filterOptions,
+      resp.data ? resp.data.results : undefined
     );
 
     // Render dataLayer and page
@@ -30,12 +39,12 @@ router.get('/', async (req, res, next) => {
         query: query,
         count: parsedTemplates.length,
         filters: filterOptions,
-        qs: Object.keys(filterOptions).map(key => key + '=' + filterOptions[key]).join('&')   
+        qs: Object.keys(filterOptions).filter(key => key !== 'queryResults').map(key => key + '=' + filterOptions[key]).join('&')
       }
     });
     dataLayerHelper.mergeDataLayer(dataLayerHelper.buildEEC('impressions',{list: 'home page'}, parsedTemplates));
-      
-    const dataLayer = dataLayerHelper.get();      
+
+    const dataLayer = dataLayerHelper.get();
     res.render('search', {
       title: dataLayer.page.title,
       dataLayer: dataLayer,
@@ -46,9 +55,9 @@ router.get('/', async (req, res, next) => {
       user: req.user,
       filters: dataLayer.page.filters,
       qs: dataLayer.page.qs,
-      allowedFilterValues: enums.allowedFilterValues               
+      allowedFilterValues: enums.allowedFilterValues
     });
-  
+
   } catch(err) {
     next(err);
   }

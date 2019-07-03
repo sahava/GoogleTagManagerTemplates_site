@@ -54,10 +54,13 @@ const parseTemplate = tpl => {
   return tpl;
 };
 
-const filterAndSort = (parsedTemplates, filterOptions) => {
-  // TO-DO Query Based Filter
-  // filterOptions.query
-  return parsedTemplates.filter(template =>
+const filterAndSort = (parsedTemplates, filterOptions, queryResults=undefined) => {
+  return parsedTemplates.filter(template => {
+    if (queryResults) {
+      return queryResults.indexOf(template.id) > -1;
+    }
+    return true;
+  }).filter(template =>
     (filterOptions.categories.indexOf(template.category) > -1 && filterOptions.templateTypes.indexOf(template.type.toLocaleLowerCase()) > -1) ||
     (filterOptions.categories.indexOf(template.category) > -1 && filterOptions.templateTypes.indexOf('all') > -1) ||
     (filterOptions.templateTypes.indexOf(template.type.toLocaleLowerCase()) > -1 && filterOptions.categories.indexOf('all') > -1) ||

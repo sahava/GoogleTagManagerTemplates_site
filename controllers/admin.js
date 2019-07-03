@@ -5,6 +5,7 @@ const {categories} = require('../helpers/enum');
 const createError = require('http-errors');
 const model = require('../models/template-db');
 const {checkAdmin} = require('./middleware/firebase');
+const axios = require('axios');
 
 router.get('/', checkAdmin, (req, res) => {
   res.redirect(301, '/admin/create');
@@ -12,6 +13,7 @@ router.get('/', checkAdmin, (req, res) => {
 
 router.get('/create', checkAdmin, (req, res) => {
   const successIds = req.query.success;
+  const indexUpdated = req.query.indexUpdated;
 
   dataLayerHelper.mergeDataLayer({
     page: {
@@ -26,7 +28,8 @@ router.get('/create', checkAdmin, (req, res) => {
     category: 'admin',
     user: req.user,
     categories,
-    success: successIds ? successIds.split(',') : undefined
+    success: successIds ? successIds.split(',') : undefined,
+    indexUpdated
   });
 });
 
@@ -71,6 +74,15 @@ router.get('/update/:id', checkAdmin, async (req, res, next) => {
       success: successId ? [successId] : undefined
     });
 
+  } catch(err) {
+    next(err);
+  }
+});
+
+router.get('/update-index', checkAdmin, async (req, res, next) => {
+  try {
+    const resp = await axios.post('https://search-dot-gtm-templates-com.appspot.com/update/');
+    res.redirect(301, `/admin/create/?indexUpdated=${resp.status === 200}`);
   } catch(err) {
     next(err);
   }

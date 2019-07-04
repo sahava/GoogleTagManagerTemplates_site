@@ -12,7 +12,11 @@ router.get('/', async (req, res, next) => {
     let resp = {};
     // Do query
     if (query) {
-      resp = await axios.get(`https://search-dot-gtm-templates-com.appspot.com/?q=${escape(query)}`);
+      resp = await axios.get(`https://search-dot-gtm-templates-com.appspot.com/?q=${escape(query)}`, {
+        headers: {
+          'X-Incoming-AppId': process.env.NODE_ENV === 'production' ? 'gtm-templates-com' : 'localhost'
+        }
+      });
     }
 
     // Fetch templates

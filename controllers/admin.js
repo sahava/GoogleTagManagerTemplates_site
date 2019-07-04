@@ -81,7 +81,11 @@ router.get('/update/:id', checkAdmin, async (req, res, next) => {
 
 router.get('/update-index', checkAdmin, async (req, res, next) => {
   try {
-    const resp = await axios.post('https://search-dot-gtm-templates-com.appspot.com/update/');
+    const resp = await axios.post('https://search-dot-gtm-templates-com.appspot.com/update/', {
+      headers: {
+        'X-Incoming-AppId': process.env.NODE_ENV === 'production' ? 'gtm-templates-com' : 'localhost'
+      }
+    });
     res.redirect(301, `/admin/create/?indexUpdated=${resp.status === 200}`);
   } catch(err) {
     next(err);

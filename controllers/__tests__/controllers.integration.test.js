@@ -10,6 +10,16 @@ describe('Test /', () => {
 
 });
 
+describe('Test /about', () => {
+
+  test('It should respond 200 status to GET request for /about', async () => {
+    const response = await request(app).get('/about');
+    expect(response.statusCode).toBe(200);
+  });
+
+});
+
+
 describe('Test /categories/', () => {
 
   test('It should respond 200 status to GET request for /categories/', async () => {

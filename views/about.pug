@@ -1,0 +1,52 @@
+extends layout
+
+block content
+    main.container(role='main')
+        .jumbotron
+            h1 About
+            p.lead This website is an&nbsp;
+                a(href='https://github.com/sahava/GoogleTagManagerTemplates_site' target='_blank') open-source
+                | &nbsp;project, designed to collect, curate, and distribute
+                |
+                a(href='https://developers.google.com/tag-manager/templates/' target='_blank') Custom Templates
+                |
+                | created for Google Tag Manager.
+            p
+                | For more details about Custom Templates, see
+                |
+                a(href='https://www.simoahava.com/analytics/custom-templates-guide-for-google-tag-manager/' target='_blank') this guide
+                | .
+            hr
+            h4 Q: How can I upload my template to the service?
+            p There are currently three ways to do this. We are working on upload functionality directly in this service, but for now, you will need to use one of the following options:
+            ol
+                li
+                    | Fork
+                    |
+                    a(href='https://github.com/sahava/GoogleTagManagerTemplates' target='_blank') this GitHub repo
+                    | , and submit your new template as a <strong>Pull Request</strong>.
+                li
+                    | Add your template as an <strong>Issue</strong> into the same
+                    |
+                    a(href='https://github.com/sahava/GoogleTagManagerTemplates' target='_blank') GitHub repo
+                    | .
+                li
+                    | Contact Simo Ahava (<code>simo (at) simoahava.com</code>), and share the details about the template with him.
+            hr
+            h4 Q: There's a "Sign In" feature at the top, what is that for?
+            p It's a placeholder for when we eventually allow users to automatically copy a template to their containers, upload templates to the service, claim ownership of a template, edit templates, etc. For now, it will do nothing.
+            p The "Sign In" authenticates your Google ID, but the service does not maintain a database of users. The authentication is only used to (eventually) utilize some APIs that will make managing templates easier.
+            hr
+            h4 Q: Who owns the service?
+            p
+                | This service is an <strong>open-source</strong> project that doesn't have any ownership claims. It was created by
+                |
+                a(href='https://www.simoahava.com/' target='_blank') Simo Ahava
+                |
+                | and
+                |
+                a(href='https://www.thyngster.com/' target='_blank') David Vallejo
+                | . If you want to contribute, join
+                |
+                a(href='https://www.measure.chat/' target='_blank') Measure Slack
+                | , and contact Simo Ahava for an invite to the private channel for this service.

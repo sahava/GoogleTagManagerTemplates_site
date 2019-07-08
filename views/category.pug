@@ -30,7 +30,8 @@ block content
                                     h4.card-title
                                         a(href='/template/'+template.id+'/'+template.slug+'')= template.name
                                     span.autor Author:&nbsp;
-                                    a(href='#')= template.author
+                                    //- TODO: a(href='#')= template.author
+                                    | #{template.author}
                                     br
                                     small Added: #{template.parsed_added_date}
                                     p.card-text

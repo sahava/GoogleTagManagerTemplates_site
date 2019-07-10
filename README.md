@@ -21,3 +21,4 @@ All tests: `npm test`
 Unit tests: `npm run test:unit`
 
 Integration tests: `npm run test:integration`
+

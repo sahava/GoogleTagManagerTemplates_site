@@ -46,8 +46,9 @@ block content
                             li.nav-item
                                 a#reviews-tab.nav-link(data-toggle='tab' href='#reviews' role='tab' aria-controls='reviews' aria-selected='false') Reviews
                                     span.disqus-comment-count.badge.badge-warning(data-disqus-identifier=''+template.id)
-                            li.nav-item
-                                a#changelog-tab.nav-link(data-toggle='tab' href='#changelog' role='tab' aria-controls='changelog' aria-selected='false') Changelog
+                            //- TODO
+                                li.nav-item
+                                    a#changelog-tab.nav-link(data-toggle='tab' href='#changelog' role='tab' aria-controls='changelog' aria-selected='false') Changelog
                         #myTabContent.tab-content
                             #details.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='details-tab')
                                 p.card-text
@@ -292,7 +293,8 @@ block content
                                 p.card-text
                                     #disqus_thread
                                     br
-                            #changelog.tab-pane.fade(role='tabpanel' aria-labelledby='changelog-tab')
-                                p.card-text
-                                    | CHANGELOG TAB
-                                    br
+                            //- TODO
+                              #changelog.tab-pane.fade(role='tabpanel' aria-labelledby='changelog-tab')
+                                  p.card-text
+                                      | CHANGELOG TAB
+                                      br

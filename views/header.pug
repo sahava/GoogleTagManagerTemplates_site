@@ -10,6 +10,9 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.mb-4
                     span.sr-only (current)
             li.nav-item(class={'active': category==='categories'})
                 a.nav-link(href='/categories')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category}) Categories
+            li.nav-item(class={'active': category === 'about'})
+                a.nav-link(href='/about') About
+
         form.form-inline.mr-2(action='/search')
             div.input-group
                 input.form-control(name='query' type='text' placeholder='Search' aria-label='Search')

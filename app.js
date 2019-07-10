@@ -10,6 +10,7 @@ const adminRouter = require('./controllers/admin');
 const templateRouter = require('./controllers/template');
 const categoriesRouter = require('./controllers/categories');
 const searchRouter = require('./controllers/search');
+const aboutRouter = require('./controllers/about');
 
 const templateApi = require('./controllers/api.template');
 const sessionApi = require('./controllers/api.session');
@@ -32,6 +33,7 @@ app.use('/admin', adminRouter);
 app.use('/template', templateRouter);
 app.use('/categories', categoriesRouter);
 app.use('/search', searchRouter);
+app.use('/about', aboutRouter);
 
 app.use('/api/template', templateApi);
 app.use('/api/session', sessionApi);

@@ -8,7 +8,7 @@ block content
                 | This is an open-source, community-driven gallery for custom templates in&nbsp;
                 a(href='https://tagmanager.google.com' target='_blank') Google Tag Manager
                 | .
-            a.btn.btn-lg.btn-primary(href='#' role='button') More Details &raquo;
+            a.btn.btn-lg.btn-primary(href='/about' role='button') More Details &raquo;
         .container
         .row#filterOptionsHeader
             .col-lg-6.col-md-6
@@ -42,7 +42,8 @@ block content
                                     h4.card-title
                                         a(href='template/'+template.id+'/'+template.slug+'')= template.name
                                     span.autor Author:&nbsp;
-                                    a(href='#')= template.author
+                                    //- TODO: a(href='#')= template.author
+                                    | #{template.author}
                                     br
                                     small Added: #{template.parsed_added_date}
                                     p.card-text

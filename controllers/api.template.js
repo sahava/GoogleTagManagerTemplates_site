@@ -32,6 +32,9 @@ router.get('/tpl/:id', async (req, res, next) => {
     // Fetch item that matches ID
     const [template] = await model.read(id);
 
+    // Build up the Checksum String
+    const templateChecksumString = `/* GTMTEMPLATESCOM_CHECKSUM:[${template.id}-${new Date(template.updated_date)*1}] */`; 
+
     // If no such item exists
     if (!template) {
       next(createError(404, 'Template doesn\'t exist!'));
@@ -47,6 +50,10 @@ router.get('/tpl/:id', async (req, res, next) => {
     // Increment template downloads
     template.downloads += 1;
     await model.update(id, template);
+
+    // Attach the checksum data as a comment within the template code section. That part of the 
+    // template should not change. Others may be updated by Google.
+    if(template.json) template.json = template.json.replace("___SANDBOXED_JS_FOR_WEB_TEMPLATE___","___SANDBOXED_JS_FOR_WEB_TEMPLATE___\n\n"+templateChecksumString);
 
     res.setHeader('Content-Type', 'application/json');
     res.set('Content-Disposition', `attachment;filename=${template.slug}.tpl`);

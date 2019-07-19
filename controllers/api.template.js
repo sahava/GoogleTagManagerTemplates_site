@@ -5,6 +5,7 @@ const createError = require('http-errors');
 const router = express.Router();
 const {dsKind} = require('../helpers/enum');
 const {parseTemplate} = require('../helpers/gtm-custom-template-parser');
+const crypto = require('crypto');
 
 router.get('/tpl/:id', async (req, res, next) => {
   try {
@@ -32,14 +33,15 @@ router.get('/tpl/:id', async (req, res, next) => {
     // Fetch item that matches ID
     const [template] = await model.read(id);
 
-    // Build up the Checksum String
-    const templateChecksumString = `/* GTMTEMPLATESCOM_CHECKSUM:[${template.id}-${new Date(template.updated_date)*1}] */`; 
 
     // If no such item exists
     if (!template) {
       next(createError(404, 'Template doesn\'t exist!'));
       return;
     }
+
+    // Build up the Checksum String
+    const templateChecksumString = `/* GTMTEMPLATESCOM_CHECKSUM:[${template.id},${new Date(template.updated_date)*1},${crypto.createHash('md5').update(template.json).digest("hex")}] */`; 
 
     // Check no referrer Check no-allowed-referrer
     if(allowed_referrers.indexOf(referer_hostname) === -1) {

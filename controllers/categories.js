@@ -78,7 +78,7 @@ router.get('/:category/', async (req, res, next) => {
       title: dataLayer.page.title,
       dataLayer: dataLayer,
       templates: parsedTemplates,
-      category: 'categories',
+      category: categorySlug,
       count: parsedTemplates.length,
       user: req.user,
       filters: dataLayer.page.filters,

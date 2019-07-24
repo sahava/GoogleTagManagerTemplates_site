@@ -24,7 +24,7 @@ block content
                 .row
                     each template, index in templates
                         .col-lg-6.col-md-6.mb-2
-                            .card.h-100(data-eec-action='impression')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category, 'data-product-variant': template.type.toLowerCase(), 'data-product-position': index, 'data-product-tracked': 'false', 'data-product-list-name': 'home page' })
+                            .card.h-100(data-eec-action='impression')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category, 'data-product-variant': template.type.toLowerCase(), 'data-product-position': index, 'data-product-tracked': 'false', 'data-product-list-name': 'category: '+category })
                                 .card-body
                                     img.rounded.float-right(src=''+template.logo, alt='', width='60px')
                                     h4.card-title

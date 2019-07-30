@@ -1,0 +1,17 @@
+doctype html
+html
+    head
+        meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+        meta(charset='utf-8')
+        meta(content='noindex,nofollow')
+        title Logging in...
+
+    body
+        p Please wait...
+        script.
+            var params = window.location.search;
+            if (window.opener) {
+              window.opener.postMessage(params);
+            }
+            window.close();
+

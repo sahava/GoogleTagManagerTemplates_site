@@ -15,4 +15,5 @@ before_script:
 before_install:
 - openssl aes-256-cbc -K $encrypted_6fc55035f215_key -iv $encrypted_6fc55035f215_iv
   -in secret.tar.enc -out secret.tar -d
+- cp secret/client-secret.json .
 - tar -xvf secret.tar

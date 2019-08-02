@@ -14,8 +14,9 @@ router.get('/logout/', async (req, res) => {
 router.get('/login/', async (req, res) => {
   try {
     const {tokens} = await oauth2Client.getToken(req.query.code);
+    console.log(tokens);
     oauth2Client.setCredentials(tokens);
-
+    console.log(tokens);
     res.cookie('gtoken', tokens.refresh_token);
     res.end(JSON.stringify({status: 'success'}));
   } catch (err) {

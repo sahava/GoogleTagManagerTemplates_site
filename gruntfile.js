@@ -24,10 +24,7 @@ module.exports = grunt => {
       custom: {
         files: [{
           src: 'src/js/site.js',
-          dest: 'public/js/site.min.js'
-        },{
-          src: 'src/js/firebase.init.js',
-          dest: 'public/js/firebase.init.min.js'
+          dest: 'public/js/site.min.js'   
         }]
       }
     },

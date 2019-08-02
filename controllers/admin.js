@@ -4,7 +4,7 @@ const dataLayerHelper = require('../helpers/dataLayer');
 const {categories} = require('../helpers/enum');
 const createError = require('http-errors');
 const model = require('../models/template-db');
-const {checkAdmin} = require('./middleware/firebase');
+const {checkAdmin} = require('./middleware/google-auth');
 const axios = require('axios');
 
 router.get('/', checkAdmin, (req, res) => {

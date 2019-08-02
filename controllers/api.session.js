@@ -1,34 +1,31 @@
 const express = require('express');
 const router = express.Router();
-const {app} = require('./middleware/firebase');
+const {oauth2Client} = require('./middleware/google-auth');
 
-router.post('/login/', async (req, res) => {
+router.get('/logout/', async (req, res) => {
   try {
-    const idToken = req.body.idToken.toString();
+    res.clearCookie('gtoken');
+    res.redirect(301, req.headers.referer);
+  } catch(err) {
+    res.redirect(301, '/');
+  }
+});
 
-    // Set session cookie settings
-    const expiresIn = 1000 * 60 * 60 * 24 * 5;
-    const options = {maxAge: expiresIn, httpOnly: true, secure: process.env.NODE_ENV === 'production'};
+router.get('/login/', async (req, res) => {
+  try {
+    const {tokens} = await oauth2Client.getToken(req.query.code);
+    oauth2Client.setCredentials(tokens);
 
-    const sessionCookie = await app.auth().createSessionCookie(idToken, {expiresIn});
-
-    res.cookie('session', sessionCookie, options);
+    res.cookie('gtoken', tokens.refresh_token);
     res.end(JSON.stringify({status: 'success'}));
   } catch (err) {
     res.status(401).send('UNAUTHORIZED REQUEST');
   }
 });
 
-router.get('/logout/', async (req, res) => {
-  try {
-    const sessionCookie = req.cookies.session || '';
-    res.clearCookie('session');
-    const decodedClaims = app.auth().verifySessionCookie(sessionCookie);
-    await app.auth().revokeRefreshTokens(decodedClaims.sub);
-    res.redirect(301, '/');
-  } catch(err) {
-    res.redirect(301, '/');
-  }
+// Auth callback
+router.get('/callback/', async (req, res) => {
+  res.render('callback');
 });
 
 module.exports = router;

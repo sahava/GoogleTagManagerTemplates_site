@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const {authenticate} = require('./controllers/middleware/firebase');
+const {authenticate} = require('./controllers/middleware/google-auth');
 
 const indexRouter = require('./controllers/index');
 const adminRouter = require('./controllers/admin');

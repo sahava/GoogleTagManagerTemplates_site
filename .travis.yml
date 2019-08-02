@@ -2,7 +2,7 @@ language: node_js
 node_js:
 - lts/*
 script:
-- grunt deploy
+- grunt deploy --force
 - npm run test:unit
 deploy:
   provider: gae

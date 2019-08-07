@@ -7,6 +7,7 @@ html
           // Google Tag Manager
           window.__google_auth_url = !{JSON.stringify(googleAuthUrl || '')};
         script(src='/js/jquery.min.js')
+    
         script.
           (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
               new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -26,7 +27,7 @@ html
         include header.pug
         block content
         include footer.pug
+        script(src='/js/jquery.smartWizard.min.js')        
         script(src='/js/bootstrap.bundle.min.js')
         script(src='/js/bootstrap-select.min.js')
-        script(src='/js/jquery.smartWizard.min.js')
         script(src='/js/site.min.js')        

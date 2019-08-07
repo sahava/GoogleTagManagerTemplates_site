@@ -27,7 +27,8 @@
     "morgan": "~1.9.1",
     "nodemon": "^1.19.1",
     "popper.js": "^1.15.0",
-    "pug": "^2.0.3"
+    "pug": "^2.0.3",
+    "smartwizard": "^4.3.1"
   },
   "devDependencies": {
     "grunt": "^1.0.4",

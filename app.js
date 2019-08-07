@@ -14,6 +14,7 @@ const aboutRouter = require('./controllers/about');
 
 const templateApi = require('./controllers/api.template');
 const sessionApi = require('./controllers/api.session');
+const gtmApi = require('./controllers/api.gtm');
 
 const app = express();
 
@@ -37,7 +38,7 @@ app.use('/about', aboutRouter);
 
 app.use('/api/template', templateApi);
 app.use('/api/session', sessionApi);
-
+app.use('/api/gtm', gtmApi);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => next(createError(404)));

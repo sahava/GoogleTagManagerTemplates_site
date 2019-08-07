@@ -10,7 +10,6 @@ router.post('/getAccounts', async (req, res) => {
         const gtm = google.tagmanager({version: 'v2', auth: oauth2Client});
         const results = await gtm.accounts.list();
         let accounts = [];
-        console.log(results.data);
         results.data.account.forEach(function(e){            
             accounts.push(`<div class="radio radio-info">
                 <input data-account-name="${e.name}" class="form-check-input" type="radio" name="accountId" id="accountId_${e.accountId}" value="${e.accountId}">
@@ -21,7 +20,6 @@ router.post('/getAccounts', async (req, res) => {
         });              
         res.send(accounts.join(''));
     }catch(err){
-        console.log(err);
         res.status(401).send('UNAUTHORIZED REQUEST');
     }
 });
@@ -54,10 +52,8 @@ router.post('/getContainers/:accountId?', async (req, res, next) => {
             });  
             res.send(containers.join(''));                 
         } catch(err) {
-            // console.error(err)
         }                    
     } catch (err) {
-        console.log(err);
         res.status(401).send('UNAUTHORIZED REQUEST');
     }
 });
@@ -107,7 +103,6 @@ router.post('/getWorkspaces/:accountId?/:containerId?/', async (req, res, next) 
             // console.error(err)
         }                    
     } catch (err) {
-        console.log(err);
         res.status(401).send('UNAUTHORIZED REQUEST');
     }
 });

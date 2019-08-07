@@ -80,6 +80,9 @@ block content
                                                 td(colspan=2).text-left
                                                     a.btn.btn-warning(id='download-template' href=downloadUrl role='button')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category,'data-product-variant': template.type.toLowerCase()})
                                                         strong Download
+                                                    | &nbsp;
+                                                    a.btn.btn-warning(id='install-template' role='button')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category,'data-product-variant': template.type.toLowerCase()})
+                                                        strong Install
                                                     if user && user.admin
                                                         | &nbsp;
                                                         a.btn.btn-danger(href='/admin/update/' + template.id) EDIT

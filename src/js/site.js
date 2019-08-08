@@ -128,6 +128,12 @@
           return false;
         }
       }
+      if (stepDirection === 'forward' && stepNumber === 2) {
+        if ($('[name="workspaceId"]:checked').length === 0) {
+          alert("You need to select a workspace");
+          return false;
+        }
+      }      
       return true;
     });
   });

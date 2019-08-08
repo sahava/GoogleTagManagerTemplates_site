@@ -143,7 +143,8 @@
       $('#step-1').html('<img src="https://loading.io/spinners/bricks/index.block-rotate-loading-gif.svg"></img>');
       $.getJSON("/api/gtm/getAccounts?cb=" + cacheBuster, function (data) {
         var accounts = [];
-        data.forEach(function (e) {
+        console.log(data);
+        data.results.forEach(function (e) {
           accounts.push('<div class="radio radio-info"><input data-account-id="' + e.accountId + '" data-account-name="' + e.name + '" class="form-check-input" type="radio" name="accountId" id="accountId_' + e.accountId + '" value="' + e.accountId + '">                <label class="form-check-label" for="accountId_' + e.accountId + '">' + e.name + ' <small>( ' + e.accountId + ' )</small></label></div>');
         });
         $('#step-1').html(accounts.join(''));
@@ -157,7 +158,7 @@
       $('#step-2').html('<img src="https://loading.io/spinners/bricks/index.block-rotate-loading-gif.svg"></img>');
       $.getJSON("/api/gtm/getContainers/" + accountId + "?cb=" + cacheBuster, function (data) {
         var containers = [];
-        data.forEach(function (e) {
+        data.results.forEach(function (e) {
           containers.push('<div class="radio radio-info"><input data-container-id="' + e.containerId + '" data-container-name="' + e.name + '" data-container-public-id="' + e.publicId + '" class="form-check-input" type="radio" name="containerId" id="containerId_' + e.containerId + '" value="' + e.containerId + '">          <label class="form-check-label" for="containerId_' + e.containerId + '">' + e.name + ' <small>( ' + e.publicId + ' )</small></label></div>');
         });
         $('#step-2').html(containers.join(''));
@@ -173,7 +174,7 @@
       $('#step-3').html('<img src="https://loading.io/spinners/bricks/index.block-rotate-loading-gif.svg"></img>');
       $.getJSON("/api/gtm/getWorkSpaces/" + accountId + "/" + containerId + "?cb=" + cacheBuster, function (data) {
         var workspaces = [];
-        data.forEach(function (e) {
+        data.results.forEach(function (e) {
           workspaces.push('<div class="radio radio-info"><input data-workspace-id="' + e.workspaceId + '" data-workspace-name="' + e.name + '"  class="form-check-input" type="radio" name="workspaceId" id="workspaceId_' + e.workspaceId + '" value="' + e.workspaceId + '"><label class="form-check-label" for="workspaceId_${e.workspaceId}">' + e.name + '</label></div>');
         });
         $('#step-3').html(workspaces.join(''));

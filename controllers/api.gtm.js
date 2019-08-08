@@ -22,7 +22,7 @@ router.get('/getAccounts', async (req, res) => {
   }
 });
 
-router.get('/getContainers/:accountId?', async (req, res, next) => {
+router.get('/getContainers/:accountId?', async (req, res) => {
   try {
     let error = null;
     const accountId = req.params.accountId;
@@ -44,9 +44,11 @@ router.get('/getContainers/:accountId?', async (req, res, next) => {
     try {
       const gtm = google.tagmanager({ version: 'v2', auth: oauth2Client });
       const results = await gtm.accounts.containers.list({ parent: 'accounts/' + accountId });
-      res.json(results.data.container);
+      res.json({
+        status: 200,
+        results: results.data.container
+      });      
     } catch (err) {
-      console.log(err.errors);
       if(err && err.errors && err.errors[0])
         error = err.errors[0].message;
       else
@@ -64,7 +66,7 @@ router.get('/getContainers/:accountId?', async (req, res, next) => {
   }
 });
 
-router.get('/getWorkspaces/:accountId?/:containerId?/', async (req, res, next) => {
+router.get('/getWorkspaces/:accountId?/:containerId?/', async (req, res) => {
   try {
     const accountId = req.params.accountId;
     const containerId = req.params.containerId;
@@ -99,7 +101,10 @@ router.get('/getWorkspaces/:accountId?/:containerId?/', async (req, res, next) =
     try {
       const gtm = google.tagmanager({ version: 'v2', auth: oauth2Client });
       const results = await gtm.accounts.containers.workspaces.list({ parent: 'accounts/' + accountId + '/containers/' + containerId });
-      res.json(results.data.workspace);
+      res.json({
+        status: 200,
+        results: results.data.workspace
+      });      
     } catch (err) {
       res.status(500).send({
         status: 500,
@@ -171,8 +176,10 @@ router.get('/installTemplate/:templateId?/:accountId?/:containerId?/:workspaceId
     }
     // If invalid workspaceID, throw 500        
     if (isNaN(workspaceId, 10)) {
-      next(createError(500, 'Invalid workspaceId!'));
-      return;
+      res.status(500).send({
+        status: 500,
+        message: 'invalid workspace id (base 10 number expected)'
+      }); 
     }    
 
     try {

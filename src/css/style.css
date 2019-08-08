@@ -62,7 +62,9 @@ div[id^='step-']{
   padding-top: 16px;
 }
 .radio {
-  padding-left: 20px; }
+  padding-left: 20px; 
+  margin-top: 2px;
+}
   .radio label {
     display: inline-block;
     vertical-align: middle;
@@ -165,3 +167,12 @@ input[type="radio"] .styled:checked + label::before {
 input[type="checkbox"] .styled:checked + label::after,
 input[type="radio"] .styled:checked + label::after {
   color: #fff; }
+
+/* Rows color, install process */ 
+.sw-theme-arrows>ul.step-anchor>li.active>a {
+    border-color: #007bff!important;
+    background: #007bff!important;
+}
+.sw-theme-arrows>ul.step-anchor>li.active>a:after {
+    border-left: 30px solid #007bff!important;
+}

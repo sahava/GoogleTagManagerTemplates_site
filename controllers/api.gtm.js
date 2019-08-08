@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const createError = require('http-errors');
 const { google } = require('googleapis');
 const { oauth2Client } = require('./middleware/google-auth');
 const model = require('../models/template-db');
@@ -119,7 +118,7 @@ router.get('/getWorkspaces/:accountId?/:containerId?/', async (req, res) => {
   }
 });
 
-router.get('/installTemplate/:templateId?/:accountId?/:containerId?/:workspaceId?/', async (req, res, next) => {
+router.get('/installTemplate/:templateId?/:accountId?/:containerId?/:workspaceId?/', async (req, res) => {
   try {
     const templateId = req.params.templateId;
     const accountId = req.params.accountId;
@@ -188,18 +187,52 @@ router.get('/installTemplate/:templateId?/:accountId?/:containerId?/:workspaceId
       const [template] = await model.read(templateId);
       // If no such item exists
       if (!template) {
-        next(createError(404, 'Template doesn\'t exist!'));
-        return;
+        res.status(404).send({
+          status: 404,
+          message: 'template doesn\'t exist!'
+        });         
       }
       const parsed_tpl = gtmTplParser.parseTemplate(JSON.parse(JSON.stringify(template)));      
-      const ret = [{
-        templateId: templateId,
-        accountId: accountId,
-        containerId: containerId,
-        workspaceId: workspaceId,
-        json: parsed_tpl.json
-      }];
-      res.json(ret);
+
+      let bodyParams = {
+        "path": ["accounts",accountId,"containers",containerId,"workspaces",workspaceId].join('/'),
+        "accountId": accountId,
+        "containerId": containerId,
+        "workspaceId": workspaceId,
+        //"templateId": string,
+        "name": parsed_tpl.name,
+        //"fingerprint": string,
+        //"tagManagerUrl": string,
+        "templateData": parsed_tpl.json
+      }
+      const gtm = google.tagmanager({ version: 'v2', auth: oauth2Client });      
+
+      // Grab current workspace custom template names
+      const results = await gtm.accounts.containers.workspaces.templates.list({ parent: ["accounts",accountId,"containers",containerId,"workspaces",workspaceId].join('/')});
+      const tpls = results.data.template.map(function(e){
+        return e.name;
+      });
+      // Template name already exists
+      if(tpls.indexOf(bodyParams.name)>-1){        
+        // Check if the template name is already a copied one, if not increment number
+        // All this need refactoring, not happy with the way is coded for now.
+        // Talk with simo about naming format
+        // final __INT , or leading "Copy (INT) "
+        if(bodyParams.name.match(/.+(__[0-9]{1,3})$/)){
+          // This template seems to be already a copy
+          const index = parseInt(bodyParams.name.match(/.+__([0-9]{1,3})$/)[1]);
+          const nextIndex = index+1;
+          bodyParams.name = bodyParams.name.replace("__"+index,"__"+nextIndex);
+        }else{
+          bodyParams.name = bodyParams.name + '__1';  
+        }
+        
+      }
+
+      const created = await gtm.accounts.containers.workspaces.templates.create({ 
+        parent: ["accounts",accountId,"containers",containerId,"workspaces",workspaceId].join('/'), resource: bodyParams
+      });
+      res.status(200).send(created);     
       // TO-DO TASKS
       // GET https://www.googleapis.com/tagmanager/v2/+parent/templates
       // accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}
@@ -217,7 +250,9 @@ router.get('/installTemplate/:templateId?/:accountId?/:containerId?/:workspaceId
       res.json(results.data.container);
       */
     } catch (err) {
-      res.status(500).send('SOMETHING WENT WRONG');
+      //res.status(500).send('SOMETHING WENT WRONG');
+      res.status(200).send(err);
+      //res.status(500).send(err);
     }
   } catch (err) {
     res.status(401).send({

@@ -143,7 +143,6 @@
       $('#step-1').html('<img src="https://loading.io/spinners/bricks/index.block-rotate-loading-gif.svg"></img>');
       $.getJSON("/api/gtm/getAccounts?cb=" + cacheBuster, function (data) {
         var accounts = [];
-        console.log(data);
         data.results.forEach(function (e) {
           accounts.push('<div class="radio radio-info"><input data-account-id="' + e.accountId + '" data-account-name="' + e.name + '" class="form-check-input" type="radio" name="accountId" id="accountId_' + e.accountId + '" value="' + e.accountId + '">                <label class="form-check-label" for="accountId_' + e.accountId + '">' + e.name + ' <small>( ' + e.accountId + ' )</small></label></div>');
         });
@@ -163,7 +162,7 @@
         });
         $('#step-2').html(containers.join(''));
       }).fail(function (jqXHR) {
-        $('#step-2').html("Something went wrong. Try again");
+        $('#step-2').html(jqXHR.responseJSON.message);
       });
     }
 
@@ -179,7 +178,7 @@
         });
         $('#step-3').html(workspaces.join(''));
       }).fail(function (jqXHR) {
-        $('#step-3').html("Something went wrong. Try again");
+        $('#step-3').html(jqXHR.responseJSON.message);
       });
     }
 
@@ -204,7 +203,7 @@
       $.getJSON("/api/gtm/installTemplate/" + templateId + "/" + accountId + "/" + containerId + "/" + workspaceId + "/?cb=" + cacheBuster, function (data) {
         $('#step-5').html("<pre>" + JSON.stringify(data,null,"\t") + "</pre>");
       }).fail(function (jqXHR) {
-        $('#step-5').html("Something went wrong. Try again");
+        $('#step-5').html(jqXHR.responseJSON.message);
       });      
     }
   });

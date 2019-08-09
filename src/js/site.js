@@ -144,7 +144,7 @@
       $.getJSON("/api/gtm/getAccounts?cb=" + cacheBuster, function (data) {
         var accounts = [];
         data.results.forEach(function (e) {
-          accounts.push('<div class="radio radio-info"><input data-account-id="' + e.accountId + '" data-account-name="' + e.name + '" class="form-check-input" type="radio" name="accountId" id="accountId_' + e.accountId + '" value="' + e.accountId + '">                <label class="form-check-label" for="accountId_' + e.accountId + '">' + e.name + ' <small>( ' + e.accountId + ' )</small></label></div>');
+          accounts.push('<div class="radio radio-info "><input data-account-id="' + e.accountId + '" data-account-name="' + e.name + '" class="form-check-input" type="radio" name="accountId" id="accountId_' + e.accountId + '" value="' + e.accountId + '">                <label class="form-check-label" for="accountId_' + e.accountId + '">' + e.name + ' <small>( ' + e.accountId + ' )</small></label></div>');
         });
         $('#step-1').html(accounts.join(''));
       }).fail(function (jqXHR) {
@@ -201,7 +201,7 @@
         $('#step-5').html("Something went wrong. Try again");         
       }      
       $.getJSON("/api/gtm/installTemplate/" + templateId + "/" + accountId + "/" + containerId + "/" + workspaceId + "/?cb=" + cacheBuster, function (data) {
-        $('#step-5').html("<pre>" + JSON.stringify(data,null,"\t") + "</pre>");
+        $('#step-5').html("Template "+ data.results[0].name +" successfully imported");
       }).fail(function (jqXHR) {
         $('#step-5').html(jqXHR.responseJSON.message);
       });      

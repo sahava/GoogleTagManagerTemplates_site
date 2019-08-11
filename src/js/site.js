@@ -148,7 +148,11 @@
         });
         $('#step-1').html(accounts.join(''));
       }).fail(function (jqXHR) {
-        $('#step-1').html("Something went wrong. Try again");
+        if(jqXHR.responseJSON.error_code==='001'){
+          $('#step-1').html(jqXHR.responseJSON.message);
+        }else{
+          $('#step-1').html("Something went wrong. Try again");
+        }                
       });
     }
 
@@ -241,7 +245,7 @@
     req.send();
   };
 
-  var openSignInWindow = function (url, name) {
+  window.openSignInWindow = function (url, name) {
     window.removeEventListener('message', receiveMessage);
     var strWindowFeatures = 'toolbar=no,menubar=no,width=600,height=700,top=100,left=100';
     if (windowObjectReference === null || windowObjectReference.closed) {
@@ -257,7 +261,7 @@
   };
 
   if (signIn) {
-    signIn.addEventListener('click', function () {
+    $(document).on('click','#signIn',function(){
       openSignInWindow(window.__google_auth_url, 'google-auth-popup');
     });
   }

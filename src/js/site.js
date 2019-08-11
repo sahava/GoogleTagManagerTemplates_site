@@ -140,7 +140,7 @@
   $(document).on("showStep", "#smartwizard", function (e, anchorObject, stepNumber, stepDirection) {
     var cacheBuster = [new Date() * 1, Math.random().toString(36).substring(7)].join('');
     if (stepNumber === 0 && window._sw_step_1_query === true) {
-      $('#step-1').html('<img src="https://loading.io/spinners/bricks/index.block-rotate-loading-gif.svg"></img>');
+      $('#step-1').html('<div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div>');
       $.getJSON("/api/gtm/getAccounts?cb=" + cacheBuster, function (data) {
         var accounts = [];
         data.results.forEach(function (e) {
@@ -158,7 +158,7 @@
 
     if (stepNumber === 1 && stepDirection === 'forward' && $('[name="accountId"]:checked').val()) {
       var accountId = $('[name="accountId"]:checked').val().toString();
-      $('#step-2').html('<img src="https://loading.io/spinners/bricks/index.block-rotate-loading-gif.svg"></img>');
+      $('#step-2').html('<div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div>');
       $.getJSON("/api/gtm/getContainers/" + accountId + "?cb=" + cacheBuster, function (data) {
         var containers = [];
         data.results.forEach(function (e) {
@@ -174,7 +174,7 @@
       var accountId = $('[name="accountId"]:checked').val().toString();
       var containerId = $('[name="containerId"]:checked').val().toString();
 
-      $('#step-3').html('<img src="https://loading.io/spinners/bricks/index.block-rotate-loading-gif.svg"></img>');
+      $('#step-3').html('<div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div>');
       $.getJSON("/api/gtm/getWorkSpaces/" + accountId + "/" + containerId + "?cb=" + cacheBuster, function (data) {
         var workspaces = [];
         data.results.forEach(function (e) {
@@ -200,7 +200,7 @@
       var workspaceId = $('[name="workspaceId"]:checked').data('workspaceId');
       
       $('.sw-btn-next').hide();      
-      $('#step-5').html('<img src="https://loading.io/spinners/bricks/index.block-rotate-loading-gif.svg"></img>');
+      $('#step-5').html('<div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div>');
       if(!accountId || !containerId || !workspaceId) {
         $('#step-5').html("Something went wrong. Try again");         
       }      
@@ -265,5 +265,4 @@
       openSignInWindow(window.__google_auth_url, 'google-auth-popup');
     });
   }
-
 })(window.jQuery);

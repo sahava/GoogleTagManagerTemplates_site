@@ -90,7 +90,7 @@
 
   $('#install-template').on('click', function () {
     window._sw_step_1_query = true;
-    $('.modal .modal-title').text('Custom Template Installation Process');
+    $('#exampleModal .modal .modal-title').text('Custom Template Installation Process');
     $('#smartwizard').smartWizard({
       selected: 0,
       theme: 'arrows',
@@ -118,19 +118,22 @@
       // only on forward navigation, that makes easy navigation on backwards still do the validation when going next
       if (stepDirection === 'forward' && stepNumber === 0) {
         if ($('[name="accountId"]:checked').length === 0) {
-          alert("You need to select an account");
+          $('#alertModal .modal-body').text("You need to select an account");          
+          $('#alertModal').modal();
           return false;
         }
       }
       if (stepDirection === 'forward' && stepNumber === 1) {
         if ($('[name="containerId"]:checked').length === 0) {
-          alert("You need to select a container");
+          $('#alertModal .modal-body').text("You need to select a container");          
+          $('#alertModal').modal();
           return false;
         }
       }
       if (stepDirection === 'forward' && stepNumber === 2) {
         if ($('[name="workspaceId"]:checked').length === 0) {
-          alert("You need to select a workspace");
+          $('#alertModal .modal-body').text("You need to select a workspace");          
+          $('#alertModal').modal();
           return false;
         }
       }      

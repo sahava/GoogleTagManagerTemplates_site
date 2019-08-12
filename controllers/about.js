@@ -18,4 +18,20 @@ router.get('/', (req, res) => {
   });
 });
 
+router.get('/privacy', (req, res) => {
+  dataLayerHelper.mergeDataLayer({
+    page: {
+      type: 'privacy',
+      title: 'Privacy Policy and Terms of Service - GTM Templates'
+    }
+  });
+
+  res.render('privacy', {
+    title: dataLayerHelper.get().page.title,
+    dataLayer: dataLayerHelper.get(),
+    category: 'about',
+    user: req.user
+  });
+});
+
 module.exports = router;

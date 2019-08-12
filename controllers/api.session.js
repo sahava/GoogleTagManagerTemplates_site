@@ -15,7 +15,9 @@ router.get('/login/', async (req, res) => {
   try {
     const { tokens } = await oauth2Client.getToken(req.query.code);
     oauth2Client.setCredentials(tokens);
-    res.cookie('gtoken', tokens.refresh_token);
+    if (tokens.refresh_token) {
+      res.cookie('gtoken', tokens.refresh_token, {maxAge: 1000*60*60*24*7, httpOnly: true});
+    }
     res.end(JSON.stringify({ status: 'success' }));
   } catch (err) {
     res.status(401).send('UNAUTHORIZED REQUEST');

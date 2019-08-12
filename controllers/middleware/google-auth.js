@@ -13,7 +13,8 @@ const oauth2 = new google.oauth2('v2');
 const scopes = ['https://www.googleapis.com/auth/tagmanager.edit.containers', 'profile'];
 const url = oauth2Client.generateAuthUrl({
   access_type: 'offline',
-  scope: scopes
+  scope: scopes,
+  prompt: 'consent'
 });
 
 const authenticate = async (req, res, next) => {

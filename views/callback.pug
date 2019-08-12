@@ -12,6 +12,19 @@ html
             var params = window.location.search;
             if (window.opener) {
               window.opener.postMessage(params);
+              window.close();
+            } else {
+              var req = new XMLHttpRequest();
+              var endpoint = '/api/session/login/' + params;
+              req.open('GET', endpoint, true);
+              req.onreadystatechange = function () {
+                if (req.readyState === 4 && req.status === 200) {
+                  if (JSON.parse(req.response).status === 'success') {
+                    window.location = '/';
+                  }
+                }
+              };
+              req.send();
             }
-            window.close();
+
 

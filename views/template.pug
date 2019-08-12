@@ -6,11 +6,11 @@ block content
     main.container(role='main')
         .container
         // Modal
-        #exampleModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
+        #containerModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='containerModalLabel' aria-hidden='true')
           .modal-dialog.modal-lg.modal-dialog-centered(role='document')
             .modal-content
               .modal-header
-                h5#exampleModalLabel.modal-title Custom Template Installation Wizard
+                h5#containerModalLabel.modal-title Custom Template Installation Wizard
                 button.close(type='button' data-dismiss='modal' aria-label='Close')
                   span(aria-hidden='true') &times;
               .modal-body
@@ -29,9 +29,9 @@ block content
                         small Select the Container
                     li
                       a(href='#step-3')
-                        | WorkSpace
+                        | Workspace
                         br
-                        small Select the WorkSpace
+                        small Select the Workspace
                     li
                       a(href='#step-4')
                         | Review
@@ -43,13 +43,13 @@ block content
                         br
                         small Template Installed
                   div
-                    #step-1.pre-scrollable
+                    #step-1
                       | Accounts List
-                    #step-2.pre-scrollable
+                    #step-2
                       | Containers List
-                    #step-3.pre-scrollable
-                      | WorkSpaces List
-                    #step-4.pre-scrollable
+                    #step-3
+                      | Workspaces List
+                    #step-4
                       table.table
                         tr
                           td Template
@@ -60,12 +60,12 @@ block content
                           td#review-account-name(data-account-id='123') Name GTM
                         tr
                           td Container
-                          td#review-container-name(data-container-id='123') Cointainer GTM
+                          td#review-container-name(data-container-id='123') Container GTM
                         tr
-                          td WorkSpace
+                          td Workspace
                           td#review-workspace-name(data-workspace-id='123') Default
-                    #step-5.pre-scrollable
-                      | mallin asennus onnistui
+                    #step-5
+                      | Checking...
         .row
             .col-lg-3
                 h1.my-4
@@ -129,9 +129,9 @@ block content
                                                     a.btn.btn-warning(id='download-template' href=downloadUrl role='button')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category,'data-product-variant': template.type.toLowerCase()})
                                                         strong Download
                                                     | &nbsp;
-                                                    a.btn.btn-warning(id='install-template' role='button')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category,'data-product-variant': template.type.toLowerCase(), 'data-toggle':'modal', 'data-target':'#exampleModal'})
-                                                        strong Install   
-                                                    | &nbsp;                                                                                                                                                                     
+                                                    a.btn.btn-warning(id='install-template' href='#' role='button')&attributes({'data-product-id': template.id,'data-product-name': template.name,'data-product-category': template.category,'data-product-variant': template.type.toLowerCase(), 'data-toggle':'modal', 'data-target':'#containerModal'})
+                                                        strong Install
+                                                    | &nbsp;
                                                     if user && user.admin
                                                         | &nbsp;
                                                         a.btn.btn-danger(href='/admin/update/' + template.id) EDIT

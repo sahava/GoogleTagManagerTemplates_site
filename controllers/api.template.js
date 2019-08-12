@@ -33,7 +33,6 @@ router.get('/tpl/:id', async (req, res, next) => {
     // Fetch item that matches ID
     const [template] = await model.read(id);
 
-
     // If no such item exists
     if (!template) {
       next(createError(404, 'Template doesn\'t exist!'));

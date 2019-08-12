@@ -42,6 +42,12 @@ module.exports = grunt => {
         }, {
           src: 'node_modules/bootstrap-select/dist/css/bootstrap-select.min.css',
           dest: 'public/css/bootstrap-select.min.css'
+        }, {
+          src: 'node_modules/smartwizard/dist/js/jquery.smartWizard.min.js',
+          dest: 'public/js/jquery.smartWizard.min.js'
+        },{
+          src: 'node_modules/smartwizard/dist/css/smart_wizard_theme_arrows.min.css',
+          dest: 'public/css/smart_wizard.min.css'
         }]
       },
       jquery: {

@@ -2,3 +2,14 @@ footer.gtm-footer
   p
     | Open-source project on 
     a(href='https://github.com/sahava/GoogleTagManagerTemplates_site', target='_blank') GitHub
+#alertModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='alertModalLabel', aria-hidden='true')
+  .modal-dialog(role='document')
+    .modal-content
+      .modal-header
+        h5#alertModalLabel.modal-title Alert Notification
+        button.close(type='button', data-dismiss='modal', aria-label='Close')
+          span(aria-hidden='true') &times;
+      .modal-body
+        | ...
+      .modal-footer
+        button.btn.btn-secondary(type='button', data-dismiss='modal') OK

@@ -49,7 +49,7 @@
 
   // Sorting
   $('#sortFilter').on('changed.bs.select', function () {
-    var searchSectionPath = window.dataLayer[0].page.type === "home page" ? "/?" : "/search?";
+    var searchSectionPath = window.dataLayer[0].page.type === 'home page' ? '/?' : '/search?';
     var params = JSON.parse(JSON.stringify(window.dataLayer[0].page.filters));
     var filterValue = $('option:selected', this).data('filterSort');
     params.sort = filterValue || 'views';
@@ -64,14 +64,14 @@
       location.href = ['', 'categories', filterValue, ''].join('/');
       return;
     }
-    var searchSectionPath = window.dataLayer[0].page.type === "home page" ? "/?" : "/search?";
+    var searchSectionPath = window.dataLayer[0].page.type === 'home page' ? '/?' : '/search?';
     if (params.categories.indexOf('all') > -1) params.categories.splice(params.categories.indexOf('all'));
     params.categories = filterValue || 'all';
     location.href = searchSectionPath + window._gtm_templates.tools.buildQuery(params);
   });
 
   $('#tagTypeFilter').on('changed.bs.select', function () {
-    var searchSectionPath = window.dataLayer[0].page.type === "home page" ? "/?" : "/search?";
+    var searchSectionPath = window.dataLayer[0].page.type === 'home page' ? '/?' : '/search?';
     var params = JSON.parse(JSON.stringify(window.dataLayer[0].page.filters));
     if (params.templateTypes.indexOf('all') > -1) params.templateTypes.splice(params.templateTypes.indexOf('all'));
     var filterValue = $('#tagTypeFilter option:selected').map(function () { return $(this).data('filterTagType'); }).get().join(',');
@@ -79,7 +79,7 @@
     location.href = searchSectionPath + window._gtm_templates.tools.buildQuery(params);
   });
   $('#searchGo').on('mousedown', function () {
-    var searchSectionPath = window.dataLayer[0].page.type === "home page" ? "/?" : "/search?";
+    var searchSectionPath = window.dataLayer[0].page.type === 'home page' ? '/?' : '/search?';
     var params = JSON.parse(JSON.stringify(window.dataLayer[0].page.filters));
     if (params.templateTypes.indexOf('all') > -1) params.templateTypes.splice(params.templateTypes.indexOf('all'));
     var filterValue = $('#tagTypeFilter option:selected').map(function () { return $(this).data('filterTagType'); }).get().join(',');
@@ -90,7 +90,7 @@
 
   $('#install-template').on('click', function () {
     window._sw_step_1_query = true;
-    $('#exampleModal .modal .modal-title').text('Custom Template Installation Process');
+    $('#containerModal .modal .modal-title').text('Custom Template Installation Process');
     $('#smartwizard').smartWizard({
       selected: 0,
       theme: 'arrows',
@@ -108,43 +108,43 @@
         markDoneStep: true, // add done css
         enableAnchorOnDoneStep: true // Enable/Disable the done steps navigation
       },
-      backButtonSupport: false,
       contentCache: false,
       disabledSteps: []
     });
 
-    $(document).on("leaveStep", "#smartwizard", function (e, anchorObject, stepNumber, stepDirection) {
+    $(document).on('leaveStep', '#smartwizard', function (e, anchorObject, stepNumber, stepDirection) {
       // stepDirection === 'forward' :- this condition allows to do the form validation
       // only on forward navigation, that makes easy navigation on backwards still do the validation when going next
       if (stepDirection === 'forward' && stepNumber === 0) {
         if ($('[name="accountId"]:checked').length === 0) {
-          $('#alertModal .modal-body').text("You need to select an account");          
+          $('#alertModal .modal-body').text('You need to select an account');
           $('#alertModal').modal();
           return false;
         }
       }
       if (stepDirection === 'forward' && stepNumber === 1) {
         if ($('[name="containerId"]:checked').length === 0) {
-          $('#alertModal .modal-body').text("You need to select a container");          
+          $('#alertModal .modal-body').text('You need to select a container');
           $('#alertModal').modal();
           return false;
         }
       }
       if (stepDirection === 'forward' && stepNumber === 2) {
         if ($('[name="workspaceId"]:checked').length === 0) {
-          $('#alertModal .modal-body').text("You need to select a workspace");          
+          $('#alertModal .modal-body').text('You need to select a workspace');
           $('#alertModal').modal();
           return false;
         }
-      }      
+      }
       return true;
     });
   });
-  $(document).on("showStep", "#smartwizard", function (e, anchorObject, stepNumber, stepDirection) {
+  $(document).on('showStep', '#smartwizard', function (e, anchorObject, stepNumber, stepDirection) {
+    var accountId, containerId, workspaceId, templateId;
     var cacheBuster = [new Date() * 1, Math.random().toString(36).substring(7)].join('');
     if (stepNumber === 0 && window._sw_step_1_query === true) {
       $('#step-1').html('<div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div>');
-      $.getJSON("/api/gtm/getAccounts?cb=" + cacheBuster, function (data) {
+      $.getJSON('/api/gtm/getAccounts?cb=' + cacheBuster, function (data) {
         var accounts = [];
         data.results.forEach(function (e) {
           accounts.push('<div class="radio radio-info "><input data-account-id="' + e.accountId + '" data-account-name="' + e.name + '" class="form-check-input" type="radio" name="accountId" id="accountId_' + e.accountId + '" value="' + e.accountId + '">                <label class="form-check-label" for="accountId_' + e.accountId + '">' + e.name + ' <small>( ' + e.accountId + ' )</small></label></div>');
@@ -152,20 +152,20 @@
         $('#step-1').html(accounts.join(''));
       }).fail(function (jqXHR) {
         if(jqXHR.responseJSON.error_code==='001'){
-          $('#step-1').html(jqXHR.responseJSON.message);
+          $('#step-1').addClass('pre-scrollable').html(jqXHR.responseJSON.message + ' <a href="#" id="signIn">Sign in</a>.');
         }else{
-          $('#step-1').html("Something went wrong. Try again");
-        }                
+          $('#step-1').html('Something went wrong. Try again.');
+        }
       });
     }
 
     if (stepNumber === 1 && stepDirection === 'forward' && $('[name="accountId"]:checked').val()) {
-      var accountId = $('[name="accountId"]:checked').val().toString();
+      accountId = $('[name="accountId"]:checked').val().toString();
       $('#step-2').html('<div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div>');
-      $.getJSON("/api/gtm/getContainers/" + accountId + "?cb=" + cacheBuster, function (data) {
+      $.getJSON('/api/gtm/getContainers/' + accountId + '?cb=' + cacheBuster, function (data) {
         var containers = [];
         data.results.forEach(function (e) {
-          containers.push('<div class="radio radio-info"><input data-container-id="' + e.containerId + '" data-container-name="' + e.name + '" data-container-public-id="' + e.publicId + '" class="form-check-input" type="radio" name="containerId" id="containerId_' + e.containerId + '" value="' + e.containerId + '">          <label class="form-check-label" for="containerId_' + e.containerId + '">' + e.name + ' <small>( ' + e.publicId + ' )</small></label></div>');
+          containers.push('<div class="radio radio-info"><input data-container-id="' + e.containerId + '" data-container-name="' + e.name + '" data-container-public-id="' + e.publicId + '" class="form-check-input" type="radio" name="containerId" id="containerId_' + e.containerId + '" value="' + e.containerId + '"><label class="form-check-label" for="containerId_' + e.containerId + '">' + e.name + ' <small>( ' + e.publicId + ' )</small></label></div>');
         });
         $('#step-2').html(containers.join(''));
       }).fail(function (jqXHR) {
@@ -174,11 +174,11 @@
     }
 
     if (stepNumber === 2 && stepDirection === 'forward' && $('[name="accountId"]:checked').val() && $('[name="containerId"]:checked').val()) {
-      var accountId = $('[name="accountId"]:checked').val().toString();
-      var containerId = $('[name="containerId"]:checked').val().toString();
+      accountId = $('[name="accountId"]:checked').val().toString();
+      containerId = $('[name="containerId"]:checked').val().toString();
 
       $('#step-3').html('<div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div>');
-      $.getJSON("/api/gtm/getWorkSpaces/" + accountId + "/" + containerId + "?cb=" + cacheBuster, function (data) {
+      $.getJSON('/api/gtm/getWorkspaces/' + accountId + '/' + containerId + '?cb=' + cacheBuster, function (data) {
         var workspaces = [];
         data.results.forEach(function (e) {
           workspaces.push('<div class="radio radio-info"><input data-workspace-id="' + e.workspaceId + '" data-workspace-name="' + e.name + '"  class="form-check-input" type="radio" name="workspaceId" id="workspaceId_' + e.workspaceId + '" value="' + e.workspaceId + '"><label class="form-check-label" for="workspaceId_${e.workspaceId}">' + e.name + '</label></div>');
@@ -191,36 +191,36 @@
 
     if (stepNumber === 3) {
       $('#review-account-name').text($('[name="accountId"]:checked').data('accountName'));
-      $('#review-container-name').html($('[name="containerId"]:checked').data('containerName') + '<span class="label label-default">' + $('[name="containerId"]:checked').data('containerPublicId') + '</span>');
-      $('#review-workspace-name').text($('[name="workspaceId"]:checked').data('workspaceName'))
-      $('.sw-btn-next').text("INSTALL");
+      $('#review-container-name').html($('[name="containerId"]:checked').data('containerName') + ' <span class="label label-default">(' + $('[name="containerId"]:checked').data('containerPublicId') + ')</span>');
+      $('#review-workspace-name').text($('[name="workspaceId"]:checked').data('workspaceName'));
+      $('.sw-btn-next').text('INSTALL');
     }
 
-    if (stepNumber === 4 && stepDirection === 'forward') {   
-      var templateId = dataLayer[0].template.id;      
-      var accountId = $('[name="accountId"]:checked').data('accountId');
-      var containerId = $('[name="containerId"]:checked').data('containerId');
-      var workspaceId = $('[name="workspaceId"]:checked').data('workspaceId');
-      
-      $('.sw-btn-next').hide();      
+    if (stepNumber === 4 && stepDirection === 'forward') {
+      templateId = window.dataLayer[0].template.id;
+      accountId = $('[name="accountId"]:checked').data('accountId');
+      containerId = $('[name="containerId"]:checked').data('containerId');
+      workspaceId = $('[name="workspaceId"]:checked').data('workspaceId');
+
+      $('.sw-btn-next').hide();
       $('#step-5').html('<div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div>');
       if(!accountId || !containerId || !workspaceId) {
-        $('#step-5').html("Something went wrong. Try again");         
-      }      
-      $.getJSON("/api/gtm/installTemplate/" + templateId + "/" + accountId + "/" + containerId + "/" + workspaceId + "/?cb=" + cacheBuster, function (data) {
-        $('#step-5').html("Template "+ data.results[0].name +" successfully imported");
+        $('#step-5').html('Something went wrong. Try again.');
+      }
+      $.getJSON('/api/gtm/installTemplate/' + templateId + '/' + accountId + '/' + containerId + '/' + workspaceId + '?cb=' + cacheBuster, function (data) {
+        $('#step-5').html('Template ' + data.results[0].name + ' successfully imported');
       }).fail(function (jqXHR) {
         $('#step-5').html(jqXHR.responseJSON.message);
-      });      
+      });
     }
   });
 
-  $("#exampleModal").on("hidden.bs.modal", function () {
+  $('#containerModal').on('hidden.bs.modal', function () {
     // ON reset default step is loaded, making the tool to do a query to API, prevent this.
     window._sw_step_1_query = false;
-    $('#smartwizard').smartWizard('reset');  
-    if (document.location.hash && document.location.hash.indexOf("#step") > -1) {
-      history.pushState("", document.title, window.location.pathname + window.location.search);
+    $('#smartwizard').smartWizard('reset');
+    if (document.location.hash && document.location.hash.indexOf('#step') > -1) {
+      history.pushState('', document.title, window.location.pathname + window.location.search);
     }
   });
 
@@ -265,7 +265,7 @@
 
   if (signIn) {
     $(document).on('click','#signIn',function(){
-      openSignInWindow(window.__google_auth_url, 'google-auth-popup');
+      window.openSignInWindow(window.__google_auth_url, 'google-auth-popup');
     });
   }
 })(window.jQuery);

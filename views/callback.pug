@@ -11,7 +11,7 @@ html
         script.
             var params = window.location.search;
             if (window.opener) {
-              window.opener.postMessage(params);
+              window.opener.postMessage(params, document.location.origin);
               window.close();
             } else {
               var req = new XMLHttpRequest();

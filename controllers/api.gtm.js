@@ -4,14 +4,21 @@ const {gtmClient, checkLoggedIn, checkAccountId, checkContainerId, checkWorkspac
 const model = require('../models/template-db');
 const gtmTplParser = require('../helpers/gtm-custom-template-parser');
 
+const sortByName = (a, b) => {
+  if (a.name > b.name) return 1;
+  if (a.name < b.name) return -1;
+  return 0;
+};
+
 router.get('/getAccounts', checkLoggedIn, async (req, res) => {
   try {
     const results = await gtmClient.accounts.list({
       fields: 'account(accountId,name)'
     });
+    const sortedList = results.data.account ? results.data.account.sort(sortByName) : [];
     res.json({
       status: 200,
-      results: results.data.account
+      results: sortedList
     });
   } catch (err) {
     res.status(401).send({
@@ -30,9 +37,10 @@ router.get('/getContainers/:accountId?', checkLoggedIn, checkAccountId, async (r
         parent: `accounts/${accountId}`,
         fields: 'container(containerId,name,publicId)'
       });
+      const sortedList = results.data.container ? results.data.container.sort(sortByName) : [];
       res.json({
         status: 200,
-        results: results.data.container
+        results: sortedList
       });
     } catch (err) {
       if(err && err.errors && err.errors[0])
@@ -62,9 +70,10 @@ router.get('/getWorkspaces/:accountId?/:containerId?', checkLoggedIn, checkConta
         parent: `accounts/${accountId}/containers/${containerId}`,
         fields: 'workspace(workspaceId,name)'
       });
+      const sortedList = results.data.workspace ? results.data.workspace.sort(sortByName) : [];
       res.json({
         status: 200,
-        results: results.data.workspace
+        results: sortedList
       });
     } catch (err) {
       res.status(500).send({

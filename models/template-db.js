@@ -33,11 +33,12 @@ const toDatastore = (obj, nonIndexed) => {
 };
 
 // List all templates
-const list = async (limit, token) => {
+const list = async (limit, token, orderBy) => {
+  const order = orderBy || 'views';
   const q = ds
     .createQuery([kind])
     .limit(limit)
-    .order('views', {descending: true})
+    .order(order, {descending: true})
     .start(token);
 
   const [rows, nextQuery] = await ds.runQuery(q);

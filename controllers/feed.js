@@ -1,14 +1,13 @@
 const express = require('express');
 const model = require('../models/template-db');
 const router = express.Router();
-const enums = require('../helpers/enum');
 
 const xmlbuilder = require('xmlbuilder');
 router.get('/', async (req, res, next) => {
   try {
     const feedType = 'atom';
     if(feedType==='atom'){
-      const {templates} = await model.list(0, null);      
+      const {templates} = await model.list(10, null, 'updated_date');  
       const entries = templates.map(function(tpl){
         const entryModel = {
           'title': `${tpl.name}`,
@@ -22,18 +21,19 @@ router.get('/', async (req, res, next) => {
         };        
         return entryModel;
       });
-      const feedObj = { 
+      const feedObject = { 
         'feed': {
           '@xmlns': `http://www.w3.org/2005/Atom`,
           'title': { '@type': 'text', '#text': 'GTMTemplates - Updates Feed' },
           'subtitle': { '@type': 'html', '#text': 'Feed for latest updated/added templates' },
-          'updated': `${new Date().toISOString()}`,
-          'rights': `Copyright (c) {${new Date("Y")}, Simo Ahava`,
+          'updated': `${entries[0].updated}`,
+          'rights': `Copyright (c) {${new Date().getFullYear()}, Simo Ahava`,
           'id': `tpls:gtmtemplates.com`,
           'entry': [entries]
         }
       };
-      const feed = xmlbuilder.create(feedObj, { encoding: 'utf-8' });
+      // Build feed
+      const feed = xmlbuilder.create(feedObject, { encoding: 'utf-8' });
       const xml = feed.end({ pretty: true });
       // Set Proper Content Type
       res.set('Content-Type', 'application/atom+xml');

@@ -123,7 +123,7 @@ router.get('/installTemplate/:templateId?/:accountId?/:containerId?/:workspaceId
       // Avoid naming conflict by adding "_import_N" to template name, where N is first number that doesn't have a match
       let newName = bodyParams.name;
       let importCount = 1;
-      while (templatesList.data.template.filter(tpl => tpl.name === newName).length) {
+      while (templatesList.data.template && templatesList.data.filter(tpl => tpl.name === newName).length) {
         newName = bodyParams.name + `_import_${importCount++}`;
       }
       bodyParams.name = newName;

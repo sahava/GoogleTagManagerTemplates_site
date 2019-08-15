@@ -127,13 +127,15 @@ router.get('/installTemplate/:templateId?/:accountId?/:containerId?/:workspaceId
         newName = bodyParams.name + `_import_${importCount++}`;
       }
       bodyParams.name = newName;
-
+      console.log(bodyParams.name);
       // Rename template in JSON
-      bodyParams.templateData = bodyParams.templateData.replace(/"displayName": "(\w+)"/,'"displayName": "'+bodyParams.name+'"');
+      bodyParams.templateData = bodyParams.templateData.replace(/"displayName": "[^"]+"/g, `"displayName": "${bodyParams.name}"`);
+      console.log(bodyParams.templateData);
       const created = await gtmClient.accounts.containers.workspaces.templates.create({
         parent: `accounts/${accountId}/containers/${containerId}/workspaces/${workspaceId}`,
         resource: bodyParams
       });
+      console.log(created);
       if(created && created.status && created.status === 200){
         res.json({
           status: 200,

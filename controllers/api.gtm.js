@@ -127,7 +127,7 @@ router.get('/installTemplate/:templateId?/:accountId?/:containerId?/:workspaceId
       }
       bodyParams.name = newName;
       // Rename template in JSON
-      bodyParams.templateData = bodyParams.templateData.replace(/"displayName": "[^"]+"/g, `"displayName": "${bodyParams.name}"`);
+      bodyParams.templateData = bodyParams.templateData.replace(/"displayName": "[^"]+"/, `"displayName": "${bodyParams.name}"`);
       const created = await gtmClient.accounts.containers.workspaces.templates.create({
         parent: `accounts/${accountId}/containers/${containerId}/workspaces/${workspaceId}`,
         resource: bodyParams

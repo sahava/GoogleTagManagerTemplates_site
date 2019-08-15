@@ -3,12 +3,8 @@ const router = express.Router();
 const { oauth2Client } = require('./middleware/google-auth');
 
 router.get('/logout/', async (req, res) => {
-  try {
-    res.clearCookie('gtoken');
-    res.redirect(302, req.headers.referer);
-  } catch (err) {
-    res.redirect(302, '/');
-  }
+  res.clearCookie('gtoken');
+  res.end();
 });
 
 router.get('/login/', async (req, res) => {

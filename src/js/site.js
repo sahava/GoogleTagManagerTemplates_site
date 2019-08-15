@@ -226,6 +226,7 @@
 
   // Sign in
   var signIn = document.querySelector('#signIn');
+  var signOut = document.querySelector('#signOut');
 
   // From https://bit.ly/2yo2U9C
   var windowObjectReference = null;
@@ -263,9 +264,12 @@
     previousUrl = url;
   };
 
-  if (signIn) {
-    $(document).on('click','#signIn',function(){
-      window.openSignInWindow(window.__google_auth_url, 'google-auth-popup');
+  $(document).on('click', '#signIn', function(){
+    window.openSignInWindow(window.__google_auth_url, 'google-auth-popup');
+  });
+  $(document).on('click', '#signOut', function() {
+    $.get('/api/session/logout', function() {
+      window.location.reload();
     });
-  }
+  });
 })(window.jQuery);
